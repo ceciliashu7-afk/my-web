@@ -1,0 +1,6 @@
+# 大体积原始素材：只存在本地，不进仓库
+assets/video/hero-original.mp4
+assets/video/hero-540.mp4
+
+# 系统文件
+.DS_Store
