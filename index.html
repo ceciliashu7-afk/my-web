@@ -176,13 +176,11 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
     linear-gradient(to top,#fff 0%,rgba(255,255,255,.75) 18%,rgba(255,255,255,0) 40%);
 }
 /* 视频缺失时的占位（视频一旦开始播放就隐藏） */
+/* 视频加载不出时的兜底：一片安静的浅色，不显示任何说明文字 */
 .hero__ph{
   position:absolute;inset:0;z-index:-1;
-  background:#EFEFEA;
-  display:flex;align-items:center;justify-content:center;text-align:center;
-  padding:24px;
+  background:linear-gradient(to bottom,#FFFFFF 0%,#F4F5F2 55%,#FFFFFF 100%);
 }
-.hero__ph span{max-width:520px;font-size:14px;line-height:1.9;color:var(--muted)}
 @media (max-width:768px){ .hero__media{inset:240px 0 0 0} }
 
 .hero__body{
@@ -389,9 +387,13 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   font-size:clamp(26px,3.6vw,36px);line-height:1.4;letter-spacing:-0.01em;
 }
 .reader__body p{margin:0 0 1.5em;font-size:17px;line-height:1.9}
-.reader__todo{
-  border:1px dashed var(--line);border-radius:12px;padding:20px 22px;
-  font-size:14px;color:var(--muted);line-height:1.85;margin:0 0 1.8em;
+/* 导读页：一段写作缘由 + 一句摘录，正文在公众号 */
+.reader__lead{margin:0 0 1.8em;font-size:17px;line-height:1.9;color:var(--muted)}
+.reader__pull{
+  margin:0;padding:26px 0 0;border-top:1px solid var(--line);
+  font-family:var(--serif-cn);font-weight:400;
+  font-size:clamp(20px,2.6vw,26px);line-height:1.65;letter-spacing:-0.01em;
+  color:var(--ink);
 }
 .reader__end{border-top:1px solid var(--line);margin-top:48px;padding-top:26px;font-size:14px;color:var(--muted)}
 .reader__end .pill{margin-top:16px}
@@ -424,11 +426,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 <!-- ===================== ① 首屏 ===================== -->
 <header class="hero" id="top">
   <div class="hero__media">
-    <div class="hero__ph" id="videoPh">
-      <span>【视频位】首屏背景视频 · assets/video/hero-720.mp4<br>
-      建议 1920×1080、14 秒、无声、H.264，压到 3MB 以内<br>
-      当前看到这块底色，说明视频文件不在旁边或浏览器未能播放</span>
-    </div>
+    <div class="hero__ph" id="videoPh"></div>
     <video id="heroVideo" muted playsinline preload="none"
            poster="assets/video/hero-poster.jpg">
       <source src="assets/video/hero-720.mp4" type="video/mp4">
@@ -829,10 +827,8 @@ function matchKey(q){
     document.getElementById("rTitle").textContent = a.title;
     document.getElementById("rLink").href         = a.url;
     document.getElementById("rBody").innerHTML =
-      '<div class="reader__todo">【正文待填】把这篇文章的正文粘到 index.html 的 ARTICLES 数组里对应的位置就行。'+
-      '正文样式已经调好：17px、行高 1.9、段间距 1.5em，栏宽 680px。</div>'+
-      '<p>'+a.quote+'</p>'+
-      '<p>'+a.why+'</p>';
+      '<p class="reader__lead">'+a.why+'</p>'+
+      '<blockquote class="reader__pull">'+a.quote+'</blockquote>';
     lastFocus = document.activeElement;
     reader.classList.add("open");
     document.body.classList.add("is-locked");
