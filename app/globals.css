@@ -194,3 +194,15 @@ button { color:inherit; font:inherit; }
   .project-visual { height:280px; }
   .project-visual.is-poster { height:auto; }
 }
+
+/* Vertical section introductions */
+.section-heading { display:block; max-width:960px; margin-bottom:72px; }
+.section-heading>div { padding-top:0; margin-bottom:25px; }
+.section-heading h2 { max-width:920px; }
+.section-heading>p { max-width:640px; padding-top:0; margin-top:22px; }
+
+@media (max-width:760px) {
+  .section-heading { margin-bottom:50px; }
+  .section-heading>div { margin-bottom:20px; }
+  .section-heading>p { margin-top:18px; }
+}
