@@ -90,3 +90,5 @@ button { color:inherit; font:inherit; }
 .experience h3,.project-meta h3,.writing-index h3,.connect-card strong { font-weight:400; letter-spacing:-.025em; }
 .experience>p,.section-heading>p,.thinking-copy>p:not(.eyebrow),.connect-bottom>p { color:rgba(255,255,255,.66); }
 .connect-inner h2 { font-family:var(--display); font-weight:300; line-height:.95; }
+.project-visual.is-poster { height:auto; aspect-ratio:4/5; border-radius:18px; background:#e9e7e2; }
+.project-visual.is-poster>img { object-fit:cover; }

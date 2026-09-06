@@ -11,8 +11,8 @@ const navItems = [
 const projects = [
   { number:'01', name:'AI百选', type:'AI MODEL INDEX', copy:'一份持续更新的AI产品地图，帮助产品经理快速认识工具版图，完成产品与模型选型。', href:'/demos/ai-baixuan.html', preview:'/demos/ai-baixuan.html', image:null, action:'进入AI百选', tone:'cyan' },
   { number:'02', name:'成单笔记', type:'SALES REVIEW COPILOT', copy:'把客户跟进、成交复盘和下一步行动装进一套移动端工作流，让销售经验真正沉淀。', href:'/demos/deal-notes.html', preview:'/demos/deal-notes.html', image:null, action:'体验产品原型', tone:'green' },
-  { number:'03', name:'wencopy', type:'MULTI-CHANNEL COPY', copy:'输入一次产品描述，生成适配小红书、抖音和朋友圈的三组差异化文案。', href:'https://copygen-chi.vercel.app/', preview:null, image:'/projects/wencopy-poster.png', action:'打开在线体验', tone:'blue' },
-  { number:'04', name:'AirDoodle 指尖画梦', type:'GESTURE INTERACTION', copy:'把手举到镜头前，让空气成为画布。用视觉识别完成绘画、擦除和颜色选择。', href:'https://airdoodle-delta.vercel.app/', preview:null, image:'/projects/airdoodle-poster.png', action:'开始指尖画梦', tone:'violet' },
+  { number:'03', name:'wencopy', type:'MULTI-CHANNEL COPY', copy:'输入一次产品描述，生成适配小红书、抖音和朋友圈的三组差异化文案。', href:'https://copygen-chi.vercel.app/', preview:null, image:'/projects/wencopy-poster-v2.png', action:'打开在线体验', tone:'blue' },
+  { number:'04', name:'AirDoodle 指尖画梦', type:'GESTURE INTERACTION', copy:'把手举到镜头前，让空气成为画布。用视觉识别完成绘画、擦除和颜色选择。', href:'https://airdoodle-delta.vercel.app/', preview:null, image:'/projects/airdoodle-poster-v2.png', action:'开始指尖画梦', tone:'violet' },
 ] as const;
 
 function GridField({ quiet=false }:{quiet?:boolean}) {
@@ -34,7 +34,7 @@ function ProjectCard({project}:{project:typeof projects[number]}){
   return <article className={`project-card reveal tone-${project.tone}`}>
     <div className="project-meta"><span>{project.number}</span><div><p>{project.type}</p><h3>{project.name}</h3></div></div>
     <p className="project-copy">{project.copy}</p>
-    <a className="project-visual" href={project.href} target="_blank" rel="noreferrer" aria-label={`${project.action}：${project.name}`}>
+    <a className={`project-visual ${project.image ? 'is-poster' : ''}`} href={project.href} target="_blank" rel="noreferrer" aria-label={`${project.action}：${project.name}`}>
       {project.image ? <img src={project.image} alt={`${project.name} 项目海报`} /> : <iframe src={project.preview!} title={`${project.name}界面预览`} loading="lazy" tabIndex={-1} aria-hidden="true" />}
       <span className="project-screen"/><span className="project-open">{project.action}<ArrowUpRight/></span>
     </a>
