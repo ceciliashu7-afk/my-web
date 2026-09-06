@@ -209,10 +209,10 @@ button { color:inherit; font:inherit; }
 
 /* Light typography and restrained flowing accents */
 :root { --display:"PingFang SC", "Helvetica Neue", "Noto Sans SC",sans-serif; --text:"PingFang SC", "Helvetica Neue", "Noto Sans SC",sans-serif; }
-.hero-title { top:22%; transition:transform .7s cubic-bezier(.2,.7,.2,1); }
-.hero-title h1 { font-family:Manrope,"Helvetica Neue",sans-serif; font-size:clamp(28px,2.75vw,43px); font-weight:300; letter-spacing:.018em; line-height:1.25; max-width:520px; }
-.hero-title h1 span { display:block; font-size:.64em; margin-top:9px; letter-spacing:.11em; color:rgba(230,241,250,.78); }
-.hero-title p { font-size:12px; letter-spacing:.08em; margin-bottom:20px; }
+.hero-title { top:17%; transition:transform .7s cubic-bezier(.2,.7,.2,1); }
+.hero-title h1 { font-family:Manrope,"Helvetica Neue",sans-serif; font-size:clamp(40px,4.25vw,66px); font-weight:300; letter-spacing:-.05em; line-height:1.06; max-width:760px; }
+.hero-title h1 span { display:block; font-size:.9em; margin-top:7px; letter-spacing:-.045em; color:rgba(255,255,255,.96); }
+.hero-title p { margin:24px 0 0; font-size:12px; letter-spacing:.08em; }
 .experience h3,.thinking-copy h3,.writing-index h3 { font-weight:300; letter-spacing:.015em; }
 .experience>p,.section-heading>p,.thinking-copy>p:not(.eyebrow) { font-weight:300; line-height:1.95; }
 .ambient-field { position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:1; }
@@ -223,8 +223,8 @@ button { color:inherit; font:inherit; }
 .thinking-section .ambient-field span:first-child { top:2%; right:-24vw; opacity:.38; }
 .writing-section .ambient-field span:first-child { top:58%; }
 @media (max-width:760px) {
-  .hero-title { top:145px; }
-  .hero-title h1 { font-size:34px; }
+  .hero-title { top:128px; }
+  .hero-title h1 { font-size:clamp(36px,10vw,48px); }
   .section-heading h2 { font-size:28px; text-wrap:balance; }
   .connect-bottom { grid-template-columns:1fr; }
 }
