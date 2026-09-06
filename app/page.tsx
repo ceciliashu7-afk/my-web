@@ -4,15 +4,15 @@ import { ArrowDownRight, ArrowUpRight, Download, Menu, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 const navItems = [
-  ['01', 'HOME', '#home'], ['02', 'ABOUT', '#about'], ['03', 'PROJECTS', '#projects'],
-  ['04', 'THINKING', '#thinking'], ['05', 'WRITING', '#writing'], ['06', 'CONNECT', '#connect'],
+  ['01', 'Home 首页', '#home'], ['02', 'About 关于', '#about'], ['03', 'Projects 项目', '#projects'],
+  ['04', 'Thinking 思考', '#thinking'], ['05', 'Writing 文章', '#writing'], ['06', 'Connect 联系', '#connect'],
 ] as const;
 
 const projects = [
-  { number:'01', name:'AI百选', type:'AI MODEL INDEX', copy:'一份持续更新的AI产品地图，帮助产品经理快速认识工具版图，完成产品与模型选型。', href:'/demos/ai-baixuan.html', preview:'/demos/ai-baixuan.html', action:'进入AI百选', tone:'cyan' },
-  { number:'02', name:'成单笔记', type:'SALES REVIEW COPILOT', copy:'把客户跟进、成交复盘和下一步行动装进一套移动端工作流，让销售经验真正沉淀。', href:'/demos/deal-notes.html', preview:'/demos/deal-notes.html', action:'体验产品原型', tone:'green' },
-  { number:'03', name:'wencopy', type:'MULTI-CHANNEL COPY', copy:'输入一次产品描述，生成适配小红书、抖音和朋友圈的三组差异化文案。', href:'https://copygen-chi.vercel.app/', preview:'https://copygen-chi.vercel.app/', action:'打开在线体验', tone:'blue' },
-  { number:'04', name:'AirDoodle', type:'GESTURE INTERACTION', copy:'把手举到镜头前，让空气成为画布。用视觉识别完成绘画、擦除和颜色选择。', href:'https://airdoodle-delta.vercel.app/', preview:'https://airdoodle-delta.vercel.app/', action:'开始指尖画梦', tone:'violet' },
+  { number:'01', name:'AI百选', type:'AI MODEL INDEX', copy:'一份持续更新的AI产品地图，帮助产品经理快速认识工具版图，完成产品与模型选型。', href:'/demos/ai-baixuan.html', preview:'/demos/ai-baixuan.html', image:null, action:'进入AI百选', tone:'cyan' },
+  { number:'02', name:'成单笔记', type:'SALES REVIEW COPILOT', copy:'把客户跟进、成交复盘和下一步行动装进一套移动端工作流，让销售经验真正沉淀。', href:'/demos/deal-notes.html', preview:'/demos/deal-notes.html', image:null, action:'体验产品原型', tone:'green' },
+  { number:'03', name:'wencopy', type:'MULTI-CHANNEL COPY', copy:'输入一次产品描述，生成适配小红书、抖音和朋友圈的三组差异化文案。', href:'https://copygen-chi.vercel.app/', preview:null, image:'/projects/wencopy-poster.png', action:'打开在线体验', tone:'blue' },
+  { number:'04', name:'AirDoodle 指尖画梦', type:'GESTURE INTERACTION', copy:'把手举到镜头前，让空气成为画布。用视觉识别完成绘画、擦除和颜色选择。', href:'https://airdoodle-delta.vercel.app/', preview:null, image:'/projects/airdoodle-poster.png', action:'开始指尖画梦', tone:'violet' },
 ] as const;
 
 function GridField({ quiet=false }:{quiet?:boolean}) {
@@ -23,14 +23,6 @@ function GridField({ quiet=false }:{quiet?:boolean}) {
     {horizontal.flatMap((top,hi)=>vertical.map((left,vi)=><span key={`${top}-${left}`} className="grid-plus" style={{top,left,animationDelay:`${1000+(hi*4+vi)*80}ms`}} />))}
   </div>;
 }
-
-function NodeSystem(){return <div className="node-system" aria-hidden="true">
-  <svg className="node-lines" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M38 14 H52 L60 27"/><path d="M32 58 L20 74 H6"/><path d="M78 53 H63 L50 63"/></svg>
-  <div className="node-square node-square-a"/><div className="node-square node-square-b"/><div className="node-square node-square-c"/>
-  <div className="node-label node-label-a"><b>[ PRODUCT_JUDGEMENT ]</b><span>Finding the signal inside emerging AI capabilities.</span></div>
-  <div className="node-label node-label-b"><b>[ RAPID_VALIDATION ]</b><span>Turning hypotheses into testable product experiences.</span></div>
-  <div className="node-label node-label-c"><b>[ REAL_WORLD_IMPACT ]</b><span>Moving from model potential to measurable product value.</span></div>
-  </div>}
 
 function SectionTitle({index,kicker,title,copy}:{index:string;kicker:string;title:string;copy:string}){
   return <header className="section-heading reveal">
@@ -43,7 +35,7 @@ function ProjectCard({project}:{project:typeof projects[number]}){
     <div className="project-meta"><span>{project.number}</span><div><p>{project.type}</p><h3>{project.name}</h3></div></div>
     <p className="project-copy">{project.copy}</p>
     <a className="project-visual" href={project.href} target="_blank" rel="noreferrer" aria-label={`${project.action}：${project.name}`}>
-      <iframe src={project.preview} title={`${project.name}界面预览`} loading="lazy" tabIndex={-1} aria-hidden="true" />
+      {project.image ? <img src={project.image} alt={`${project.name} 项目海报`} /> : <iframe src={project.preview!} title={`${project.name}界面预览`} loading="lazy" tabIndex={-1} aria-hidden="true" />}
       <span className="project-screen"/><span className="project-open">{project.action}<ArrowUpRight/></span>
     </a>
   </article>
@@ -63,9 +55,8 @@ export default function Home(){
 
   return <main className="site-shell">
     <nav className="top-nav" aria-label="主要导航">
-      <a href="#home" className="wordmark">CECILIA // SHU</a>
+      <a href="#home" className="wordmark"><b>Cecilia Shu</b><span>个人网站</span></a>
       <div className="desktop-nav">{navItems.map(([n,label,href],i)=><a key={label} href={href} style={{animationDelay:`${350+i*100}ms`}}><span>{n}.</span>{label}</a>)}</div>
-      <div className="status-strip"><span>[ AVAILABLE ]</span><i>STATUS:</i><b>AI_PRODUCT_PM</b></div>
       <button className="menu-trigger" onClick={()=>setMenuOpen(true)} aria-label="打开菜单"><Menu/></button>
     </nav>
 
@@ -77,11 +68,12 @@ export default function Home(){
 
     <section id="home" className="hero-section">
       <video className="hero-video" src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260813_115057_94c3699b-0fd1-4124-bcf3-3626bb8c1f77.mp4" autoPlay muted loop playsInline />
-      <GridField/><NodeSystem/>
-      <div className="hero-title"><p>[ 4 YEARS IN AI PRODUCT ]</p><h1>把AI机会做成<br/>可体验产品</h1></div>
+      <GridField/>
+      <div className="hero-orbit" aria-hidden="true" />
+      <div className="hero-title"><p>[ CECILIA SHU · AI PRODUCT MANAGER ]</p><h1>CECILIA SHU&apos;S<br/>PERSONAL WEBSITE</h1></div>
       <div className="hero-bottom">
-        <a className="primary-cta" href="#projects"><span>✦</span> EXPLORE MY WORK</a>
-        <div className="hero-note"><strong>PRODUCT THINKING, MADE TANGIBLE</strong><div><p>从产品拆解、模型选型到原型验证，让AI想法真正跑起来。</p><a href="#about">VIEW_PROFILE →</a></div></div>
+        <a className="primary-cta" href="#projects"><span>✦</span> Projects 查看项目</a>
+        <div className="hero-note"><strong>TURNING AI OPPORTUNITIES INTO EXPERIENCES</strong><div><h2>把AI机会做成可体验产品</h2><p>从产品拆解、模型选型到原型验证，让AI想法真正跑起来。</p><a href="#about">About me 关于我 →</a></div></div>
       </div>
     </section>
 
