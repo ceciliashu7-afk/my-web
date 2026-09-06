@@ -93,7 +93,7 @@ export default function Home(){
       <video className="hero-video" src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260813_115057_94c3699b-0fd1-4124-bcf3-3626bb8c1f77.mp4" autoPlay muted loop playsInline />
       <GridField/>
       <div className="hero-orbit" aria-hidden="true" />
-      <div className="hero-title" ref={titleRef}><h1>CECILIA SHU&apos;S<span>PERSONAL WEBSITE</span></h1><p>[ 把AI机会做成可体验产品 ]</p></div>
+      <div className="hero-title" ref={titleRef}><p>[ 把AI机会做成可体验产品 ]</p><h1>CECILIA SHU&apos;S<span>PERSONAL WEBSITE</span></h1></div>
       <div className="hero-bottom">
         <a className="primary-cta" href="#projects"><span>✦</span> Projects 查看项目</a>
         <div className="hero-note"><strong>[ 4 YEARS IN AI PRODUCT ]</strong><div><h2>AI PRODUCT MANAGER<br/><span>四年AI产品实践</span></h2><p>从产品拆解、模型选型到原型验证，让AI想法真正跑起来。</p><a href="#about">About me 关于我 →</a></div></div>
