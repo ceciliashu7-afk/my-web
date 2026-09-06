@@ -1,7 +1,7 @@
 'use client';
 
 import { ArrowDownRight, ArrowUpRight, Menu, X } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const navItems = [
   ['01', 'Home 首页', '#home'], ['02', 'About 关于', '#about'], ['03', 'Projects 项目', '#projects'],
@@ -9,8 +9,8 @@ const navItems = [
 ] as const;
 
 const projects = [
-  { number:'01', name:'AI百选', type:'AI MODEL INDEX', copy:'一份持续更新的AI产品地图，帮助产品经理快速认识工具版图，完成产品与模型选型。', href:'/demos/ai-baixuan.html', preview:'/demos/ai-baixuan.html', image:null, action:'进入AI百选', tone:'cyan' },
-  { number:'02', name:'成单笔记', type:'SALES REVIEW COPILOT', copy:'把客户跟进、成交复盘和下一步行动装进一套移动端工作流，让销售经验真正沉淀。', href:'/demos/deal-notes.html', preview:'/demos/deal-notes.html', image:null, action:'体验产品原型', tone:'green' },
+  { number:'01', name:'AI百选', type:'AI MODEL INDEX', copy:'一份持续更新的AI产品地图，帮助产品经理快速认识工具版图，完成产品与模型选型。', href:'/demos/ai-baixuan.html', preview:'/demos/ai-baixuan.html', image:'/projects/ai-baixuan-poster-v1.png', action:'进入AI百选', tone:'cyan' },
+  { number:'02', name:'成单笔记', type:'SALES REVIEW COPILOT', copy:'把客户跟进、成交复盘和下一步行动装进一套移动端工作流，让销售经验真正沉淀。', href:'/demos/deal-notes.html', preview:'/demos/deal-notes.html', image:'/projects/deal-notes-poster-v1.png', action:'体验产品原型', tone:'green' },
   { number:'03', name:'wencopy', type:'MULTI-CHANNEL COPY', copy:'输入一次产品描述，生成适配小红书、抖音和朋友圈的三组差异化文案。', href:'https://copygen-chi.vercel.app/', preview:null, image:'/projects/wencopy-poster-v2.png', action:'打开在线体验', tone:'blue' },
   { number:'04', name:'AirDoodle 指尖画梦', type:'GESTURE INTERACTION', copy:'把手举到镜头前，让空气成为画布。用视觉识别完成绘画、擦除和颜色选择。', href:'https://airdoodle-delta.vercel.app/', preview:null, image:'/projects/airdoodle-poster-v2.png', action:'开始指尖画梦', tone:'violet' },
 ] as const;
@@ -30,6 +30,10 @@ function SectionTitle({index,kicker,title,copy}:{index:string;kicker:string;titl
   </header>;
 }
 
+function AmbientField(){
+  return <div className="ambient-field" aria-hidden="true"><span/><span/></div>;
+}
+
 function ProjectCard({project}:{project:typeof projects[number]}){
   return <article className={`project-card reveal tone-${project.tone}`}>
     <div className="project-meta"><span>{project.number}</span><div><p>{project.type}</p><h3>{project.name}</h3></div></div>
@@ -43,6 +47,25 @@ function ProjectCard({project}:{project:typeof projects[number]}){
 
 export default function Home(){
   const [menuOpen,setMenuOpen]=useState(false);
+  const heroRef=useRef<HTMLElement>(null);
+  const titleRef=useRef<HTMLDivElement>(null);
+  useEffect(()=>{
+    const hero=heroRef.current; const title=titleRef.current;
+    if(!hero || !title) return;
+    const motion=window.matchMedia('(prefers-reduced-motion: reduce)');
+    let frame=0;
+    const reset=()=>{cancelAnimationFrame(frame); title.style.transform='translate3d(0,0,0)';};
+    const move=(event:PointerEvent)=>{
+      if(motion.matches || event.pointerType!=='mouse') return;
+      const rect=hero.getBoundingClientRect();
+      const x=((event.clientX-rect.left)/rect.width-.5)*12;
+      const y=((event.clientY-rect.top)/rect.height-.5)*8;
+      cancelAnimationFrame(frame);
+      frame=requestAnimationFrame(()=>{title.style.transform=`translate3d(${x}px,${y}px,0)`;});
+    };
+    hero.addEventListener('pointermove',move); hero.addEventListener('pointerleave',reset); motion.addEventListener('change',reset);
+    return()=>{cancelAnimationFrame(frame); hero.removeEventListener('pointermove',move); hero.removeEventListener('pointerleave',reset); motion.removeEventListener('change',reset);};
+  },[]);
   useEffect(()=>{
     const reveals=[...document.querySelectorAll('.reveal')];
     const revealObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add('is-visible')}),{threshold:.12});
@@ -66,11 +89,11 @@ export default function Home(){
       <p>[ AVAILABLE FOR AI PRODUCT OPPORTUNITIES ]</p>
     </div>
 
-    <section id="home" className="hero-section">
+    <section id="home" className="hero-section" ref={heroRef}>
       <video className="hero-video" src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260813_115057_94c3699b-0fd1-4124-bcf3-3626bb8c1f77.mp4" autoPlay muted loop playsInline />
       <GridField/>
       <div className="hero-orbit" aria-hidden="true" />
-      <div className="hero-title"><p>[ 把AI机会做成可体验产品 ]</p><h1>CECILIA SHU&apos;S<br/>PERSONAL WEBSITE</h1></div>
+      <div className="hero-title" ref={titleRef}><p>[ 把AI机会做成可体验产品 ]</p><h1>CECILIA SHU&apos;S<span>PERSONAL WEBSITE</span></h1></div>
       <div className="hero-bottom">
         <a className="primary-cta" href="#projects"><span>✦</span> Projects 查看项目</a>
         <div className="hero-note"><strong>[ 4 YEARS IN AI PRODUCT ]</strong><div><h2>AI PRODUCT MANAGER<br/><span>四年AI产品实践</span></h2><p>从产品拆解、模型选型到原型验证，让AI想法真正跑起来。</p><a href="#about">About me 关于我 →</a></div></div>
@@ -78,6 +101,7 @@ export default function Home(){
     </section>
 
     <section id="about" className="content-section about-section">
+      <AmbientField/>
       <GridField quiet/>
       <div className="content-wrap">
         <SectionTitle index="02" kicker="ABOUT / EXPERIENCE" title="把模型能力，变成真实业务中的产品能力" copy="四年AI产品实践，持续处理同一个问题：怎样让新能力进入用户流程，并产生可以验证的结果。"/>
@@ -92,12 +116,14 @@ export default function Home(){
     </section>
 
     <section id="projects" className="content-section projects-section">
+      <AmbientField/>
       <div className="content-wrap"><SectionTitle index="03" kicker="PROJECTS / AI NATIVE" title="可以亲手体验的AI产品探索" copy="这些项目覆盖模型选型、业务工作流、内容生成和视觉交互。每一个判断，都以可运行的产品形态接受检验。"/>
         <div className="projects-grid">{projects.map(project=><ProjectCard key={project.name} project={project}/>)}</div>
       </div>
     </section>
 
     <section id="thinking" className="content-section thinking-section">
+      <AmbientField/>
       <GridField quiet/><div className="content-wrap"><SectionTitle index="04" kicker="THINKING / PRODUCT TEARDOWN" title="把感性的产品魅力，拆成可验证的设计条件" copy="LOVOT产品拆解，从情绪表达、陪伴机制、关系建立与商业模式四个角度，分析AI陪伴产品如何形成长期价值。"/>
         <article className="thinking-feature reveal">
           <a className="deck-cover" href="/thinking/lovot-product-teardown.pdf" target="_blank" rel="noreferrer"><img src="/thinking/lovot-poster-v1.png" alt="LOVOT 产品拆解横版海报"/><span>在线阅读 <ArrowUpRight/></span></a>
@@ -109,13 +135,13 @@ export default function Home(){
       </div>
     </section>
 
-    <section id="writing" className="content-section writing-section"><div className="content-wrap">
+    <section id="writing" className="content-section writing-section"><AmbientField/><div className="content-wrap">
       <SectionTitle index="05" kicker="WRITING / 哈密瓜的随想录" title="持续写下AI产品的判断依据" copy="文章链接补充之前，先保留清晰的内容坐标。每篇文章都会回答一个具体问题，而不是复述行业新闻。"/>
       <div className="writing-index reveal"><article><span>01</span><p>AI TREND</p><h3>趋势观察</h3><small>判断新能力会改变什么，以及不会改变什么</small></article><article><span>02</span><p>PRODUCT ANALYSIS</p><h3>产品拆解</h3><small>从用户行为和产品机制中寻找可复用的方法</small></article><article><span>03</span><p>BUILD NOTES</p><h3>实践复盘</h3><small>记录一个想法如何被做成、测试并继续迭代</small></article></div>
       <p className="writing-status reveal">[ ARTICLES WILL BE CONNECTED TO WECHAT IN THE NEXT ITERATION ]</p>
     </div></section>
 
-    <section id="connect" className="connect-section"><GridField quiet/><div className="connect-inner reveal">
+    <section id="connect" className="connect-section"><AmbientField/><GridField quiet/><div className="connect-inner reveal">
       <p>[ OPEN TO CONVERSATIONS ]</p><h2>LET&apos;S TURN AI IDEAS<br/>INTO REAL PRODUCTS.</h2><div className="connect-bottom"><p>如果你正在寻找AI产品经理，或者希望一起验证一个AI产品机会，欢迎通过公众号找到我。</p><div className="connect-card"><span>WECHAT OFFICIAL ACCOUNT</span><strong>哈密瓜的随想录</strong><small>工作邮箱与微信将在下一版补充</small></div></div>
     </div><footer><span>CECILIA // SHU</span><span>AI PRODUCT MANAGER · 2026</span><a href="#home">BACK TO TOP ↑</a></footer></section>
   </main>

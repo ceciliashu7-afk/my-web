@@ -196,9 +196,9 @@ button { color:inherit; font:inherit; }
 }
 
 /* Vertical section introductions */
-.section-heading { display:block; max-width:960px; margin-bottom:72px; }
+.section-heading { display:block; max-width:none; margin-bottom:72px; }
 .section-heading>div { padding-top:0; margin-bottom:25px; }
-.section-heading h2 { max-width:920px; }
+.section-heading h2 { max-width:none; font-size:clamp(28px,2.65vw,42px); line-height:1.4; letter-spacing:.005em; font-weight:300; text-wrap:pretty; }
 .section-heading>p { max-width:640px; padding-top:0; margin-top:22px; }
 
 @media (max-width:760px) {
@@ -206,3 +206,26 @@ button { color:inherit; font:inherit; }
   .section-heading>div { margin-bottom:20px; }
   .section-heading>p { margin-top:18px; }
 }
+
+/* Light typography and restrained flowing accents */
+:root { --display:"PingFang SC", "Helvetica Neue", "Noto Sans SC",sans-serif; --text:"PingFang SC", "Helvetica Neue", "Noto Sans SC",sans-serif; }
+.hero-title { top:22%; transition:transform .7s cubic-bezier(.2,.7,.2,1); }
+.hero-title h1 { font-family:Manrope,"Helvetica Neue",sans-serif; font-size:clamp(28px,2.75vw,43px); font-weight:300; letter-spacing:.018em; line-height:1.25; max-width:520px; }
+.hero-title h1 span { display:block; font-size:.64em; margin-top:9px; letter-spacing:.11em; color:rgba(230,241,250,.78); }
+.hero-title p { font-size:12px; letter-spacing:.08em; margin-bottom:20px; }
+.experience h3,.thinking-copy h3,.writing-index h3 { font-weight:300; letter-spacing:.015em; }
+.experience>p,.section-heading>p,.thinking-copy>p:not(.eyebrow) { font-weight:300; line-height:1.95; }
+.ambient-field { position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:1; }
+.ambient-field span { position:absolute; display:block; width:42vw; height:42vw; border-radius:50%; filter:blur(42px); opacity:.55; background:radial-gradient(circle,rgba(119,191,245,.1),rgba(56,111,176,.025) 38%,transparent 70%); }
+.ambient-field span:first-child { right:-18vw; top:8%; }
+.ambient-field span:last-child { left:-22vw; bottom:-21vw; width:54vw; height:54vw; opacity:.3; background:radial-gradient(circle,rgba(89,166,224,.08),transparent 68%); }
+.projects-section .ambient-field span:first-child { top:48%; right:-20vw; }
+.thinking-section .ambient-field span:first-child { top:2%; right:-24vw; opacity:.38; }
+.writing-section .ambient-field span:first-child { top:58%; }
+@media (max-width:760px) {
+  .hero-title { top:145px; }
+  .hero-title h1 { font-size:34px; }
+  .section-heading h2 { font-size:28px; text-wrap:balance; }
+  .connect-bottom { grid-template-columns:1fr; }
+}
+@media (prefers-reduced-motion:reduce) { .flow-lines-drift { animation:none!important; } .hero-title { transform:none!important; transition:none; } }
