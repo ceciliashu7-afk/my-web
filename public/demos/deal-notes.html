@@ -1,0 +1,1128 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>销售复盘助手原型</title>
+<style>
+:root{
+  --page:#E9EDEB; --frame:#0E1613;
+  --bg:#F4F6F5; --surface:#FFFFFF; --surface-2:#EEF2F0; --sunk:#E4E9E6;
+  --ink:#16211E; --muted:#657570; --faint:#94A39D; --rule:#DCE3E0; --rule-strong:#C4CFCB;
+  --accent:#0E6E63; --accent-ink:#FFFFFF; --accent-soft:#E1F0EC;
+  --info:#414BA8; --info-soft:#E7E8F6;
+  --warn:#A2481F; --warn-soft:#F7E7DE;
+  --danger:#B3261E; --danger-soft:#FBE4E1;
+  --good:#1B7A4A; --good-soft:#E2F3E8;
+  --sans:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --shadow: 0 1px 2px rgba(20,30,26,.06), 0 8px 24px rgba(20,30,26,.08);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --page:#0A0F0D; --frame:#000000;
+    --bg:#111815; --surface:#182420; --surface-2:#1E2B27; --sunk:#0E1613;
+    --ink:#E7EEEB; --muted:#9AACA5; --faint:#657570; --rule:#26332E; --rule-strong:#324039;
+    --accent:#3FBBA8; --accent-ink:#06231D; --accent-soft:#12332C;
+    --info:#9FA8F0; --info-soft:#1E2144;
+    --warn:#E8A46F; --warn-soft:#3A2416;
+    --danger:#F09088; --danger-soft:#3A1512;
+    --good:#7BD3A0; --good-soft:#12331F;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  --page:#0A0F0D; --frame:#000000;
+  --bg:#111815; --surface:#182420; --surface-2:#1E2B27; --sunk:#0E1613;
+  --ink:#E7EEEB; --muted:#9AACA5; --faint:#657570; --rule:#26332E; --rule-strong:#324039;
+  --accent:#3FBBA8; --accent-ink:#06231D; --accent-soft:#12332C;
+  --info:#9FA8F0; --info-soft:#1E2144;
+  --warn:#E8A46F; --warn-soft:#3A2416;
+  --danger:#F09088; --danger-soft:#3A1512;
+  --good:#7BD3A0; --good-soft:#12331F;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.4);
+}
+
+*{box-sizing:border-box;}
+body{ margin:0; background:var(--page); color:var(--ink); font-family:var(--sans); }
+
+.stage{
+  min-height:100vh; display:flex; flex-direction:column; align-items:center;
+  gap:22px; padding:40px 16px 64px;
+}
+.stage-head{ max-width:640px; text-align:center; }
+.stage-head .eyebrow{
+  font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--muted); margin:0 0 10px;
+}
+.stage-head h1{ font-size:22px; font-weight:700; margin:0 0 8px; letter-spacing:.01em; }
+.stage-head p{ font-size:13.5px; color:var(--muted); line-height:1.7; margin:0; }
+
+.rail{
+  display:flex; gap:8px; flex-wrap:wrap; justify-content:center; max-width:720px;
+}
+.rail button{
+  font-family:var(--sans); font-size:12.5px; font-weight:500; color:var(--muted);
+  background:var(--surface); border:1px solid var(--rule); border-radius:20px;
+  padding:7px 14px; cursor:pointer; transition:all .15s;
+}
+.rail button:hover{ border-color:var(--rule-strong); color:var(--ink); }
+.rail button.on{ background:var(--accent); color:var(--accent-ink); border-color:var(--accent); }
+
+/* ---- phone frame ---- */
+.phone{
+  width:390px; height:844px; background:var(--frame); border-radius:52px;
+  padding:14px; box-shadow:var(--shadow); position:relative; flex-shrink:0;
+}
+.phone::before{
+  content:""; position:absolute; top:14px; left:50%; transform:translateX(-50%);
+  width:120px; height:28px; background:var(--frame); border-radius:16px; z-index:30;
+}
+.screen-clip{
+  width:100%; height:100%; background:var(--bg); border-radius:38px; overflow:hidden;
+  position:relative; display:flex; flex-direction:column;
+}
+.statusbar{
+  height:47px; flex:none; display:flex; align-items:center; justify-content:space-between;
+  padding:0 26px; font-family:var(--mono); font-size:13px; font-weight:600; color:var(--ink); z-index:20;
+}
+.statusbar .icons{ display:flex; gap:5px; align-items:center; }
+.statusbar svg{ display:block; }
+
+.navbar{
+  flex:none; display:flex; align-items:center; gap:8px; padding:2px 12px 10px;
+  min-height:40px; position:relative;
+}
+.navbar .back{
+  width:32px; height:32px; border-radius:16px; border:none; background:transparent;
+  color:var(--accent); display:flex; align-items:center; justify-content:center; cursor:pointer; flex:none;
+}
+.navbar .back:hover{ background:var(--surface-2); }
+.navbar .navtitle{ font-size:16.5px; font-weight:700; letter-spacing:.01em; flex:1; text-align:center; margin-right:32px; }
+.navbar.left .navtitle{ text-align:left; margin-right:0; font-size:26px; padding-left:4px; }
+.navbar .navaction{
+  font-size:13.5px; color:var(--accent); font-weight:600; background:none; border:none; cursor:pointer; flex:none;
+  padding:6px 4px;
+}
+
+.content{ flex:1; overflow-y:auto; padding:2px 16px 20px; -webkit-overflow-scrolling:touch; }
+.content::-webkit-scrollbar{ width:0; }
+
+.tabbar{
+  flex:none; display:flex; padding:6px 4px 22px; border-top:1px solid var(--rule); background:var(--surface);
+}
+.tabitem{
+  flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; padding:6px 0;
+  color:var(--faint); background:none; border:none; cursor:pointer; font-family:var(--sans);
+}
+.tabitem svg{ width:23px; height:23px; }
+.tabitem span{ font-size:10px; font-weight:500; }
+.tabitem.active{ color:var(--accent); }
+.tabitem.fab span{ color:var(--accent); font-weight:700; }
+.tabitem.fab svg{ width:26px; height:26px; }
+
+/* ---- generic components ---- */
+.section-label{
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--faint); margin:18px 2px 8px; font-weight:600;
+}
+.section-label:first-child{ margin-top:6px; }
+.card{
+  background:var(--surface); border:1px solid var(--rule); border-radius:14px; padding:14px;
+  margin-bottom:10px;
+}
+.card.tap{ cursor:pointer; transition:transform .1s; }
+.card.tap:active{ transform:scale(.98); }
+.row{ display:flex; align-items:center; gap:10px; }
+.row.between{ justify-content:space-between; }
+.title-sm{ font-size:14.5px; font-weight:600; }
+.title-lg{ font-size:19px; font-weight:700; letter-spacing:.01em; }
+.muted{ color:var(--muted); font-size:12.5px; }
+.faint{ color:var(--faint); font-size:11.5px; }
+.mono{ font-family:var(--mono); font-variant-numeric:tabular-nums; }
+
+.tag{
+  display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:600;
+  padding:3px 9px; border-radius:999px; white-space:nowrap;
+}
+.tag.accent{ background:var(--accent-soft); color:var(--accent); }
+.tag.info{ background:var(--info-soft); color:var(--info); }
+.tag.warn{ background:var(--warn-soft); color:var(--warn); }
+.tag.danger{ background:var(--danger-soft); color:var(--danger); }
+.tag.good{ background:var(--good-soft); color:var(--good); }
+.tag.neutral{ background:var(--sunk); color:var(--muted); }
+.tag.outline{ background:transparent; border:1px solid var(--rule-strong); color:var(--muted); }
+
+.avatar{
+  width:40px; height:40px; border-radius:12px; flex:none; display:flex; align-items:center; justify-content:center;
+  font-size:14px; font-weight:700; color:var(--accent-ink); background:var(--accent);
+}
+.avatar.sm{ width:30px; height:30px; border-radius:9px; font-size:11px; }
+.avatar.alt{ background:var(--info); }
+
+.btn{
+  display:flex; align-items:center; justify-content:center; gap:6px; width:100%;
+  font-family:var(--sans); font-size:14.5px; font-weight:600; border-radius:12px; padding:13px;
+  border:none; cursor:pointer; transition:opacity .15s;
+}
+.btn:active{ opacity:.8; }
+.btn.primary{ background:var(--accent); color:var(--accent-ink); }
+.btn.secondary{ background:var(--surface-2); color:var(--ink); }
+.btn.outline{ background:transparent; border:1.5px solid var(--rule-strong); color:var(--ink); }
+.btn.sm{ padding:8px 14px; font-size:12.5px; width:auto; border-radius:9px; }
+.btn-row{ display:flex; gap:8px; }
+.btn-row .btn{ flex:1; }
+
+.divider{ height:1px; background:var(--rule); margin:12px 0; border:none; }
+.list-row{
+  display:flex; align-items:center; gap:12px; padding:12px 0; border-bottom:1px solid var(--rule);
+}
+.list-row:last-child{ border-bottom:none; }
+.chev{ color:var(--faint); flex:none; }
+
+.field{ display:flex; justify-content:space-between; align-items:baseline; padding:9px 0; border-bottom:1px solid var(--rule); gap:12px; }
+.field:last-child{ border-bottom:none; }
+.field .k{ font-size:12.5px; color:var(--muted); flex:none; width:96px; }
+.field .v{ font-size:13.5px; color:var(--ink); text-align:right; flex:1; }
+.field .v.empty{ color:var(--faint); font-style:normal; }
+
+.progress-track{ height:6px; border-radius:3px; background:var(--sunk); overflow:hidden; }
+.progress-fill{ height:100%; border-radius:3px; background:var(--accent); }
+
+.score-ring{ position:relative; width:74px; height:74px; flex:none; }
+.score-ring svg{ transform:rotate(-90deg); }
+.score-ring .num{
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  font-size:20px; font-weight:800; font-family:var(--mono);
+}
+
+.quote{
+  background:var(--sunk); border-left:3px solid var(--accent); border-radius:0 8px 8px 0;
+  padding:8px 12px; font-size:12.5px; color:var(--ink); line-height:1.6; margin:6px 0;
+}
+.quote.gap{ border-left-color:var(--danger); }
+
+.empty-state{ text-align:center; padding:40px 16px; color:var(--faint); }
+.empty-state svg{ margin-bottom:10px; opacity:.5; }
+.empty-state p{ font-size:13px; margin:0; }
+
+.callout{
+  border-radius:12px; padding:12px 14px; font-size:12.5px; line-height:1.6; margin-bottom:10px;
+}
+.callout.warn{ background:var(--warn-soft); color:var(--warn); }
+.callout.info{ background:var(--info-soft); color:var(--info); }
+.callout.accent{ background:var(--accent-soft); color:var(--accent); }
+
+.check-row{ display:flex; align-items:flex-start; gap:10px; padding:10px 0; border-bottom:1px solid var(--rule); }
+.check-row:last-child{ border-bottom:none; }
+.checkbox{
+  width:20px; height:20px; border-radius:6px; border:1.5px solid var(--rule-strong); flex:none; margin-top:1px;
+  display:flex; align-items:center; justify-content:center;
+}
+.checkbox.on{ background:var(--accent); border-color:var(--accent); color:var(--accent-ink); }
+.stepbar{ display:flex; gap:4px; margin-bottom:14px; }
+.stepbar i{ flex:1; height:4px; border-radius:2px; background:var(--rule); }
+.stepbar i.on{ background:var(--accent); }
+
+.segmented{
+  display:flex; background:var(--sunk); border-radius:10px; padding:3px; gap:2px;
+}
+.segmented button{
+  flex:1; border:none; background:transparent; padding:7px 4px; font-size:12.5px; font-weight:600;
+  color:var(--muted); border-radius:8px; cursor:pointer; font-family:var(--sans);
+}
+.segmented button.on{ background:var(--surface); color:var(--ink); box-shadow:0 1px 2px rgba(0,0,0,.08); }
+
+.search{
+  display:flex; align-items:center; gap:8px; background:var(--surface-2); border-radius:11px;
+  padding:9px 12px; margin-bottom:12px; color:var(--faint);
+}
+.search input{
+  border:none; background:none; outline:none; font-size:14px; color:var(--ink); flex:1; font-family:var(--sans);
+}
+.chipbar{ display:flex; gap:6px; overflow-x:auto; padding-bottom:2px; margin-bottom:10px; }
+.chipbar::-webkit-scrollbar{ display:none; }
+.chip{
+  flex:none; font-size:12px; font-weight:500; padding:6px 12px; border-radius:999px;
+  border:1px solid var(--rule-strong); color:var(--muted); background:var(--surface); cursor:pointer;
+}
+.chip.on{ background:var(--ink); color:var(--bg); border-color:var(--ink); }
+
+.accordion{ border:1px solid var(--rule); border-radius:12px; margin-bottom:8px; overflow:hidden; }
+.accordion summary{
+  list-style:none; display:flex; align-items:center; justify-content:space-between; gap:8px;
+  padding:12px 14px; cursor:pointer; font-size:13.5px; font-weight:600; background:var(--surface);
+}
+.accordion summary::-webkit-details-marker{ display:none; }
+.accordion .body{ padding:0 14px 14px; font-size:12.5px; color:var(--muted); line-height:1.7; }
+.accordion .idx{
+  width:22px; height:22px; border-radius:7px; background:var(--accent-soft); color:var(--accent);
+  display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; flex:none;
+}
+
+.formgroup{ margin-bottom:16px; }
+.formgroup label{ display:block; font-size:12.5px; font-weight:600; color:var(--muted); margin-bottom:7px; }
+.formgroup input, .formgroup textarea{
+  width:100%; border:1px solid var(--rule-strong); background:var(--surface); border-radius:10px;
+  padding:11px 12px; font-size:14px; color:var(--ink); font-family:var(--sans); outline:none;
+}
+.formgroup textarea{ resize:none; height:64px; }
+.formgroup input:focus, .formgroup textarea:focus{ border-color:var(--accent); }
+.formgroup .hint{ font-size:11px; color:var(--faint); margin-top:5px; }
+
+.mic-wave{ display:flex; align-items:center; justify-content:center; gap:3px; height:56px; }
+.mic-wave i{ width:3px; border-radius:2px; background:var(--accent); animation:wave 1.1s ease-in-out infinite; }
+@keyframes wave{ 0%,100%{ height:10px; opacity:.5; } 50%{ height:38px; opacity:1; } }
+@media (prefers-reduced-motion: reduce){ .mic-wave i{ animation:none; height:24px; } }
+
+.toggle-swatch{ display:flex; gap:6px; }
+.toggle-swatch button{
+  border:1.5px solid var(--rule-strong); background:var(--surface); border-radius:9px; padding:8px 4px;
+  font-size:12px; color:var(--muted); flex:1; cursor:pointer; font-family:var(--sans); font-weight:500;
+}
+.toggle-swatch button.on{ background:var(--ink); color:var(--bg); border-color:var(--ink); }
+
+.diff-row{ display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid var(--rule); }
+.diff-row:last-child{ border-bottom:none; }
+.diff-row .k{ width:70px; font-size:12px; color:var(--muted); flex:none; }
+.diff-row .vals{ flex:1; display:flex; flex-direction:column; gap:2px; }
+.diff-row .old{ font-size:11.5px; color:var(--faint); text-decoration:line-through; }
+.diff-row .new{ font-size:13px; color:var(--ink); font-weight:600; }
+.diff-row .adopt{
+  width:26px; height:26px; border-radius:8px; border:1.5px solid var(--rule-strong); flex:none;
+  display:flex; align-items:center; justify-content:center; color:var(--accent);
+}
+.diff-row .adopt.on{ background:var(--accent-soft); border-color:var(--accent); }
+
+.screen{ display:none; flex-direction:column; height:100%; }
+.screen.active{ display:flex; }
+
+.pagelabel{
+  position:absolute; top:-26px; left:0; font-family:var(--mono); font-size:11px; color:var(--muted);
+  display:flex; align-items:center; gap:6px;
+}
+.pagelabel b{ color:var(--ink); font-weight:600; }
+.frame-wrap{ position:relative; margin-top:26px; }
+
+.footnote-block{
+  max-width:640px; margin-top:8px; background:var(--surface); border:1px solid var(--rule); border-radius:12px;
+  padding:16px 18px; font-size:13px; line-height:1.75; color:var(--muted);
+}
+.footnote-block h3{ font-size:13px; margin:0 0 8px; color:var(--ink); font-weight:700; }
+.footnote-block code{ font-family:var(--mono); font-size:11.5px; background:var(--sunk); padding:1px 5px; border-radius:4px; color:var(--ink); }
+</style><style>
+.sheet-backdrop{
+  position:absolute; inset:0; background:rgba(10,16,14,.45); z-index:40; opacity:0; pointer-events:none;
+  transition:opacity .2s; display:flex; align-items:flex-end;
+}
+.sheet-backdrop.open{ opacity:1; pointer-events:auto; }
+.sheet{
+  width:100%; background:var(--surface); border-radius:22px 22px 0 0; padding:10px 18px 28px;
+  transform:translateY(100%); transition:transform .25s cubic-bezier(.32,.72,0,1);
+}
+.sheet-backdrop.open .sheet{ transform:translateY(0); }
+.sheet-handle{ width:36px; height:4px; background:var(--rule-strong); border-radius:2px; margin:6px auto 14px; }
+.sheet-title{ font-size:12px; font-weight:600; color:var(--faint); text-transform:uppercase; letter-spacing:.08em; margin:0 4px 10px; }
+.sheet-item{
+  width:100%; display:flex; align-items:center; gap:12px; padding:13px 4px; background:none; border:none;
+  font-family:var(--sans); font-size:14.5px; font-weight:500; color:var(--ink); cursor:pointer; border-bottom:1px solid var(--rule);
+  text-align:left;
+}
+.sheet-item:last-of-type{ border-bottom:none; }
+.sheet-cancel{
+  width:100%; margin-top:8px; padding:13px; background:var(--surface-2); border:none; border-radius:12px;
+  font-family:var(--sans); font-size:14.5px; font-weight:600; color:var(--muted); cursor:pointer;
+}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="stage-head">
+    <p class="eyebrow">AI 销售复盘助手 V1.0 · 可点击原型</p>
+    <h1>17 个页面 · 完整走一遍拜访前 → 拜访后 → 回写闭环</h1>
+    <p>按底部 Tab 或卡片点进去，右上角返回。示例客户「李文强 · 某机械制造有限公司」贯穿全程，数据随流程往前走而变化，对应上一版页面流程图里的每一个节点与功能编号。</p>
+  </div>
+
+  <div class="rail" id="rail"></div>
+
+  <div class="frame-wrap">
+    <div class="pagelabel" id="pagelabel">当前页 · <b id="pagelabel-name">待办列表</b></div>
+    <div class="phone">
+      <div class="screen-clip">
+
+        <!-- ============ STATUS BAR (shared, injected per screen) ============ -->
+
+        <!-- ========================================================= -->
+        <!-- SCREEN: todo (Tab root) #28 #29 -->
+        <!-- ========================================================= -->
+        <div class="screen active" id="scr-todo" data-title="待办列表" data-tab="todo">
+          <div class="statusbar">
+            <span>9:41</span>
+            <span class="icons">
+              <svg width="17" height="11" viewBox="0 0 17 11" fill="none"><rect x=".5" y=".5" width="14" height="10" rx="2.5" stroke="currentColor"/><rect x="2" y="2" width="9" height="7" rx="1" fill="currentColor"/><rect x="15.3" y="3" width="1.4" height="4" rx=".7" fill="currentColor"/></svg>
+            </span>
+          </div>
+          <div class="navbar left"><div class="navtitle">待办</div></div>
+          <div class="content">
+            <div class="segmented">
+              <button class="on">进行中 · 6</button>
+              <button>已完成</button>
+            </div>
+            <div class="section-label">今天</div>
+            <div class="card tap" onclick="push('customer-detail')">
+              <div class="row between">
+                <span class="tag danger">今天 18:00</span>
+                <span class="tag neutral">字段缺口</span>
+              </div>
+              <p class="title-sm" style="margin:8px 0 4px">补全李文强的预算区间</p>
+              <div class="row muted"><div class="avatar sm">李</div><span>李文强 · 某机械制造有限公司</span></div>
+            </div>
+            <div class="card tap" onclick="push('schedule-confirm-detail')">
+              <div class="row between">
+                <span class="tag warn">今天 · 待确认</span>
+                <span class="tag neutral">建议日程</span>
+              </div>
+              <p class="title-sm" style="margin:8px 0 4px">确认与李文强的下次拜访时间</p>
+              <div class="row muted"><div class="avatar sm">李</div><span>入口件① 抽取自邀约录音 · 建议：周三 10:00</span></div>
+            </div>
+            <div class="section-label">本周</div>
+            <div class="card tap">
+              <div class="row between">
+                <span class="tag info">周五截止</span>
+                <span class="tag neutral">承诺事项</span>
+              </div>
+              <p class="title-sm" style="margin:8px 0 4px">给李文强发送 XR-500 型号报价方案</p>
+              <div class="row muted"><div class="avatar sm">李</div><span>抽取自复盘报告 · 下次接触重点</span></div>
+            </div>
+            <div class="card tap">
+              <div class="row between">
+                <span class="tag neutral">下周一截止</span>
+                <span class="tag neutral">字段缺口</span>
+              </div>
+              <p class="title-sm" style="margin:8px 0 4px">摸清王芳的决策关系人</p>
+              <div class="row muted"><div class="avatar sm alt">王</div><span>王芳 · XX集团</span></div>
+            </div>
+            <div class="section-label">下周</div>
+            <div class="card tap">
+              <div class="row between">
+                <span class="tag neutral">下周三</span>
+                <span class="tag neutral">建议日程</span>
+              </div>
+              <p class="title-sm" style="margin:8px 0 4px">安排与王芳的首次拜访</p>
+              <div class="row muted"><div class="avatar sm alt">王</div><span>王芳 · XX集团</span></div>
+            </div>
+            <div class="card tap">
+              <div class="row between">
+                <span class="tag neutral">下周五</span>
+                <span class="tag neutral">回写待办</span>
+              </div>
+              <p class="title-sm" style="margin:8px 0 4px">带 XR-500 参数表拜访李文强</p>
+              <div class="row muted"><div class="avatar sm">李</div><span>#26 复盘结果自动回写</span></div>
+            </div>
+          </div>
+          <div class="tabbar">
+            <button class="tabitem active" onclick="tab('todo')"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4 10-10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/></svg><span>待办</span></button>
+            <button class="tabitem" onclick="tab('customers')"><svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3.4" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 20c.8-3.8 3-5.6 5.5-5.6s4.7 1.8 5.5 5.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="17" cy="9" r="2.6" stroke="currentColor" stroke-width="1.5"/><path d="M15.5 14.4c2.4.2 3.9 1.8 4.5 4.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>客户</span></button>
+            <button class="tabitem fab" onclick="openSheet()"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.7"/><path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>新建</span></button>
+            <button class="tabitem" onclick="tab('schedule')"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="4.5" width="17" height="16" rx="3" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 9.5h17M8 3v3M16 3v3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><span>日程</span></button>
+            <button class="tabitem" onclick="tab('mine')"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.6" stroke="currentColor" stroke-width="1.7"/><path d="M4.5 20c1-4.4 3.6-6.6 7.5-6.6s6.5 2.2 7.5 6.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><span>我的</span></button>
+          </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- SCREEN: schedule (Tab root) #9 #30 -->
+        <!-- ========================================================= -->
+        <div class="screen" id="scr-schedule" data-title="日程" data-tab="schedule">
+          <div class="statusbar"><span>9:41</span><span class="icons"><svg width="17" height="11" viewBox="0 0 17 11" fill="none"><rect x=".5" y=".5" width="14" height="10" rx="2.5" stroke="currentColor"/><rect x="2" y="2" width="9" height="7" rx="1" fill="currentColor"/><rect x="15.3" y="3" width="1.4" height="4" rx=".7" fill="currentColor"/></svg></span></div>
+          <div class="navbar left"><div class="navtitle">日程</div></div>
+          <div class="content">
+            <div class="callout warn">建议日程需人工确认时间后，才会触发会前 60 分钟推送（#11）。</div>
+            <div class="section-label">建议日程 · 待确认</div>
+            <div class="card">
+              <div class="row between">
+                <div class="row"><div class="avatar sm">李</div><div><p class="title-sm">李文强</p><p class="faint">入口件① 抽取自邀约录音</p></div></div>
+                <span class="tag warn">周三 10:00</span>
+              </div>
+              <div class="btn-row" style="margin-top:10px">
+                <button class="btn outline sm" style="flex:1">改时间</button>
+                <button class="btn primary sm" style="flex:1" onclick="push('customer-detail')">确认</button>
+              </div>
+            </div>
+            <div class="card">
+              <div class="row between">
+                <div class="row"><div class="avatar sm alt">王</div><div><p class="title-sm">王芳</p><p class="faint">入口件① 抽取自客户建档，未提及时间</p></div></div>
+                <span class="tag neutral">占位 · 下周三 09:00</span>
+              </div>
+              <div class="btn-row" style="margin-top:10px">
+                <button class="btn outline sm" style="flex:1">改时间</button>
+                <button class="btn primary sm" style="flex:1">确认</button>
+              </div>
+            </div>
+            <div class="section-label">已确认</div>
+            <div class="card tap" onclick="push('battlepack')">
+              <div class="row between">
+                <div class="row"><div class="avatar sm">李</div><div><p class="title-sm">李文强</p><p class="faint">明天 · 10:00 · 公司展厅</p></div></div>
+                <span class="tag accent">S2 · 会前推送已排</span>
+              </div>
+            </div>
+            <div class="card tap">
+              <div class="row between">
+                <div class="row"><div class="avatar sm" style="background:var(--warn)">周</div><div><p class="title-sm">周宏斌</p><p class="faint">上周四 · 已完成拜访</p></div></div>
+                <span class="tag neutral">已复盘</span>
+              </div>
+            </div>
+          </div>
+          <div class="tabbar">
+            <button class="tabitem" onclick="tab('todo')"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4 10-10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/></svg><span>待办</span></button>
+            <button class="tabitem" onclick="tab('customers')"><svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3.4" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 20c.8-3.8 3-5.6 5.5-5.6s4.7 1.8 5.5 5.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="17" cy="9" r="2.6" stroke="currentColor" stroke-width="1.5"/><path d="M15.5 14.4c2.4.2 3.9 1.8 4.5 4.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>客户</span></button>
+            <button class="tabitem fab" onclick="openSheet()"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.7"/><path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>新建</span></button>
+            <button class="tabitem active" onclick="tab('schedule')"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="4.5" width="17" height="16" rx="3" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 9.5h17M8 3v3M16 3v3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><span>日程</span></button>
+            <button class="tabitem" onclick="tab('mine')"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.6" stroke="currentColor" stroke-width="1.7"/><path d="M4.5 20c1-4.4 3.6-6.6 7.5-6.6s6.5 2.2 7.5 6.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><span>我的</span></button>
+          </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- SCREEN: customers (Tab root) #31 -->
+        <!-- ========================================================= -->
+        <div class="screen" id="scr-customers" data-title="客户库" data-tab="customers">
+          <div class="statusbar"><span>9:41</span><span class="icons"><svg width="17" height="11" viewBox="0 0 17 11" fill="none"><rect x=".5" y=".5" width="14" height="10" rx="2.5" stroke="currentColor"/><rect x="2" y="2" width="9" height="7" rx="1" fill="currentColor"/><rect x="15.3" y="3" width="1.4" height="4" rx=".7" fill="currentColor"/></svg></span></div>
+          <div class="navbar left"><div class="navtitle">客户库</div></div>
+          <div class="content">
+            <div class="search">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              <input placeholder="搜索客户姓名 / 公司">
+            </div>
+            <div class="chipbar">
+              <button class="chip on">全部 18</button>
+              <button class="chip">S1 首次 5</button>
+              <button class="chip">S2 二次 9</button>
+              <button class="chip">S3 多次 4</button>
+              <button class="chip">B 有意向</button>
+            </div>
+            <div class="card tap" onclick="push('customer-detail')">
+              <div class="row between">
+                <div class="row">
+                  <div class="avatar">李</div>
+                  <div>
+                    <p class="title-sm">李文强</p>
+                    <p class="faint">某机械制造有限公司 · 采购总监</p>
+                  </div>
+                </div>
+                <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="row" style="margin-top:10px;gap:6px">
+                <span class="tag info">S2 二次跟进</span>
+                <span class="tag accent">B 有意向</span>
+                <span class="faint">上次拜访 3 天前</span>
+              </div>
+            </div>
+            <div class="card tap">
+              <div class="row between">
+                <div class="row">
+                  <div class="avatar alt">王</div>
+                  <div>
+                    <p class="title-sm">王芳</p>
+                    <p class="faint">XX集团有限公司 · 使用者</p>
+                  </div>
+                </div>
+                <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="row" style="margin-top:10px;gap:6px">
+                <span class="tag neutral">S1 首次接触</span>
+                <span class="tag neutral">D 无意向</span>
+                <span class="faint">建档 2 天前</span>
+              </div>
+            </div>
+            <div class="card tap">
+              <div class="row between">
+                <div class="row">
+                  <div class="avatar" style="background:var(--warn)">周</div>
+                  <div>
+                    <p class="title-sm">周宏斌</p>
+                    <p class="faint">恒达重工 · 拍板人</p>
+                  </div>
+                </div>
+                <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="row" style="margin-top:10px;gap:6px">
+                <span class="tag info">S3 多次跟进</span>
+                <span class="tag good">A 已成单</span>
+                <span class="faint">上次拜访 8 天前</span>
+              </div>
+            </div>
+          </div>
+          <div class="tabbar">
+            <button class="tabitem" onclick="tab('todo')"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4 10-10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/></svg><span>待办</span></button>
+            <button class="tabitem active" onclick="tab('customers')"><svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3.4" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 20c.8-3.8 3-5.6 5.5-5.6s4.7 1.8 5.5 5.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="17" cy="9" r="2.6" stroke="currentColor" stroke-width="1.5"/><path d="M15.5 14.4c2.4.2 3.9 1.8 4.5 4.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>客户</span></button>
+            <button class="tabitem fab" onclick="openSheet()"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.7"/><path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>新建</span></button>
+            <button class="tabitem" onclick="tab('schedule')"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="4.5" width="17" height="16" rx="3" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 9.5h17M8 3v3M16 3v3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><span>日程</span></button>
+            <button class="tabitem" onclick="tab('mine')"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.6" stroke="currentColor" stroke-width="1.7"/><path d="M4.5 20c1-4.4 3.6-6.6 7.5-6.6s6.5 2.2 7.5 6.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><span>我的</span></button>
+          </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- SCREEN: mine (Tab root) #27 #32 #33 -->
+        <!-- ========================================================= -->
+        <div class="screen" id="scr-mine" data-title="我的" data-tab="mine">
+          <div class="statusbar"><span>9:41</span><span class="icons"><svg width="17" height="11" viewBox="0 0 17 11" fill="none"><rect x=".5" y=".5" width="14" height="10" rx="2.5" stroke="currentColor"/><rect x="2" y="2" width="9" height="7" rx="1" fill="currentColor"/><rect x="15.3" y="3" width="1.4" height="4" rx=".7" fill="currentColor"/></svg></span></div>
+          <div class="navbar left"><div class="navtitle">我的</div></div>
+          <div class="content">
+            <div class="card row" style="gap:14px">
+              <div class="avatar" style="width:52px;height:52px;border-radius:16px;font-size:18px">销</div>
+              <div><p class="title-sm">销冠·小陈</p><p class="faint">恒达重工渠道组 · 已用 46 天</p></div>
+            </div>
+            <div class="section-label">数据资产</div>
+            <div class="card tap" onclick="push('product-library')">
+              <div class="list-row" style="padding:0;border:none">
+                <div class="avatar sm" style="background:var(--info)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M4 7l8-4 8 4-8 4-8-4Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/><path d="M4 7v10l8 4 8-4V7" stroke="white" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+                <div style="flex:1"><p class="title-sm">产品库</p><p class="faint">12 个产品 · 打分标尺来源 #1 #33</p></div>
+                <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+            </div>
+            <div class="card tap">
+              <div class="list-row" style="padding:0;border:none">
+                <div class="avatar sm" style="background:var(--warn)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+                <div style="flex:1"><p class="title-sm">话术库（个人）</p><p class="faint">37 条 · 来自复盘沉淀</p></div>
+                <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+            </div>
+            <div class="card tap">
+              <div class="list-row" style="padding:0;border:none">
+                <div class="avatar sm" style="background:var(--good)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 3l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.2-5.4 3.2 1.3-6-4.6-4.1 6.1-.6L12 3Z" stroke="white" stroke-width="1.4" stroke-linejoin="round"/></svg></div>
+                <div style="flex:1"><p class="title-sm">优秀话术案例集</p><p class="faint">团队共性提取 · #27</p></div>
+                <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+            </div>
+            <div class="section-label">设置</div>
+            <div class="card"><div class="list-row" style="padding:0;border:none"><p class="title-sm" style="flex:1">录音与数据授权</p><svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+          </div>
+          <div class="tabbar">
+            <button class="tabitem" onclick="tab('todo')"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4 10-10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/></svg><span>待办</span></button>
+            <button class="tabitem" onclick="tab('customers')"><svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3.4" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 20c.8-3.8 3-5.6 5.5-5.6s4.7 1.8 5.5 5.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="17" cy="9" r="2.6" stroke="currentColor" stroke-width="1.5"/><path d="M15.5 14.4c2.4.2 3.9 1.8 4.5 4.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>客户</span></button>
+            <button class="tabitem fab" onclick="openSheet()"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.7"/><path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>新建</span></button>
+            <button class="tabitem" onclick="tab('schedule')"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="4.5" width="17" height="16" rx="3" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 9.5h17M8 3v3M16 3v3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><span>日程</span></button>
+            <button class="tabitem active" onclick="tab('mine')"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.6" stroke="currentColor" stroke-width="1.7"/><path d="M4.5 20c1-4.4 3.6-6.6 7.5-6.6s6.5 2.2 7.5 6.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><span>我的</span></button>
+          </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- SCREEN: customer-detail #2 #3 #4 #5 -->
+        <!-- ========================================================= -->
+        <div class="screen" id="scr-customer-detail" data-title="客户详情">
+          <div class="statusbar"><span>9:41</span><span class="icons"><svg width="17" height="11" viewBox="0 0 17 11" fill="none"><rect x=".5" y=".5" width="14" height="10" rx="2.5" stroke="currentColor"/><rect x="2" y="2" width="9" height="7" rx="1" fill="currentColor"/><rect x="15.3" y="3" width="1.4" height="4" rx=".7" fill="currentColor"/></svg></span></div>
+          <div class="navbar"><button class="back" onclick="back()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="navtitle">李文强</div><button class="navaction">编辑</button></div>
+          <div class="content">
+            <div class="card">
+              <div class="row" style="gap:14px">
+                <div class="avatar" style="width:52px;height:52px;border-radius:16px;font-size:18px">李</div>
+                <div>
+                  <p class="title-lg">李文强</p>
+                  <p class="muted">某机械制造有限公司 · 采购总监</p>
+                </div>
+              </div>
+              <div class="row" style="margin-top:12px;gap:6px;flex-wrap:wrap">
+                <span class="tag info">S2 二次跟进</span>
+                <span class="tag accent">B 有意向</span>
+                <span class="tag outline">L2 指向性需求 ×2</span>
+              </div>
+            </div>
+            <div class="segmented" style="margin-top:4px">
+              <button class="on" onclick="cdTab(this,'ov')">概览</button>
+              <button onclick="cdTab(this,'fields')">档案 13 项</button>
+              <button onclick="cdTab(this,'history')">历史复盘</button>
+            </div>
+
+            <div id="cd-ov">
+              <div class="section-label">需求识别</div>
+              <div class="card">
+                <div class="row" style="gap:6px;margin-bottom:6px"><span class="tag good">L1 显性</span><span class="faint">客户原话</span></div>
+                <p class="quote">"XR-500 的价格能不能再谈谈，我们年底预算卡得紧。"</p>
+                <div class="row" style="gap:6px;margin:10px 0 6px"><span class="tag info">L2 指向</span><span class="faint">由原话推断</span></div>
+                <p class="quote">价格敏感背后是"年底预算已批完"，真正诉求是分期或延后付款方案，而非降价。</p>
+              </div>
+              <div class="section-label">风险提示</div>
+              <div class="callout warn">过往不愉快经历：上一家供应商交付延期两周，对交期极其敏感。</div>
+            </div>
+
+            <div id="cd-fields" style="display:none">
+              <div class="row between" style="margin-bottom:6px">
+                <span class="muted">已完善 8 / 13 项</span>
+                <span class="mono muted" style="font-size:11px">62%</span>
+              </div>
+              <div class="progress-track" style="margin-bottom:14px"><div class="progress-fill" style="width:62%"></div></div>
+              <div class="card">
+                <div class="field"><div class="k">称呼与身份</div><div class="v">李总 · 采购总监</div></div>
+                <div class="field"><div class="k">联系方式</div><div class="v">138****2201 · 偏好微信</div></div>
+                <div class="field"><div class="k">采购角色</div><div class="v">拍板人</div></div>
+                <div class="field"><div class="k">决策关系人</div><div class="v">技术评估方需会签</div></div>
+                <div class="field"><div class="k">预算区间</div><div class="v empty">待补全</div></div>
+                <div class="field"><div class="k">采购时间点</div><div class="v">Q1 末交付</div></div>
+                <div class="field"><div class="k">在用方案</div><div class="v">竞品 B 型号，接触中</div></div>
+                <div class="field"><div class="k">启动动因</div><div class="v">产线扩建</div></div>
+                <div class="field"><div class="k">采购流程卡点</div><div class="v empty">待补全</div></div>
+                <div class="field"><div class="k">关注优先级</div><div class="v">质量 &gt; 交期 &gt; 价格</div></div>
+                <div class="field"><div class="k">沟通偏好</div><div class="v">周三上午，忌讳催单</div></div>
+                <div class="field"><div class="k">风险敏感点</div><div class="v">交付延期</div></div>
+                <div class="field"><div class="k">过往不愉快</div><div class="v">上家延期两周</div></div>
+              </div>
+            </div>
+
+            <div id="cd-history" style="display:none">
+              <div class="card tap" onclick="push('review-report')">
+                <div class="row between"><p class="title-sm">第 2 次拜访复盘</p><span class="tag accent">82 分</span></div>
+                <p class="faint" style="margin-top:4px">3 天前 · 公司展厅 · D3 价值传递需加强</p>
+              </div>
+              <div class="card tap">
+                <div class="row between"><p class="title-sm">第 1 次拜访复盘</p><span class="tag neutral">68 分</span></div>
+                <p class="faint" style="margin-top:4px">2 周前 · 邀约电话 · 开场信任建立不足</p>
+              </div>
+            </div>
+
+            <div style="height:8px"></div>
+            <div class="btn-row">
+              <button class="btn outline" onclick="push('new-schedule-form')">建日程</button>
+              <button class="btn primary" onclick="push('battlepack')">进作战包</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- SCREEN: schedule-confirm-detail (shortcut alias to customer-detail) -->
+        <!-- ========================================================= -->
+        <div class="screen" id="scr-schedule-confirm-detail" data-title="确认日程">
+          <div class="statusbar"><span>9:41</span><span class="icons"><svg width="17" height="11" viewBox="0 0 17 11" fill="none"><rect x=".5" y=".5" width="14" height="10" rx="2.5" stroke="currentColor"/><rect x="2" y="2" width="9" height="7" rx="1" fill="currentColor"/><rect x="15.3" y="3" width="1.4" height="4" rx=".7" fill="currentColor"/></svg></span></div>
+          <div class="navbar"><button class="back" onclick="back()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="navtitle">确认拜访时间</div><span style="width:32px"></span></div>
+          <div class="content">
+            <div class="callout accent">入口件① 从邀约录音里抽到了这段话："那咱们就约周三上午十点，我在公司等你。"</div>
+            <div class="card">
+              <p class="faint" style="margin-bottom:8px">建议时间</p>
+              <p class="title-lg">周三 · 10:00</p>
+              <p class="muted" style="margin-top:4px">李文强 · 某机械制造有限公司展厅</p>
+            </div>
+            <div class="section-label">不对？改一下</div>
+            <div class="formgroup"><label>拜访时间</label><input value="周三 10:00"></div>
+            <div class="formgroup"><label>地点</label><input value="公司展厅"></div>
+            <div style="height:6px"></div>
+            <button class="btn primary" onclick="push('customer-detail')">确认，生成会前推送</button>
+            <p class="faint" style="text-align:center;margin-top:10px">确认后才会触发 #11 会前 60 分钟推送</p>
+          </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- SCREEN: new-customer-form #8 -->
+        <!-- ========================================================= -->
+        <div class="screen" id="scr-new-customer-form" data-title="新建客户档案">
+          <div class="statusbar"><span>9:41</span><span class="icons"><svg width="17" height="11" viewBox="0 0 17 11" fill="none"><rect x=".5" y=".5" width="14" height="10" rx="2.5" stroke="currentColor"/><rect x="2" y="2" width="9" height="7" rx="1" fill="currentColor"/><rect x="15.3" y="3" width="1.4" height="4" rx=".7" fill="currentColor"/></svg></span></div>
+          <div class="navbar"><button class="back" onclick="back()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="navtitle">新建客户档案</div><button class="navaction" onclick="push('customer-detail')">保存</button></div>
+          <div class="content">
+            <div class="formgroup"><label>称呼与身份</label><input placeholder="如：王芳 · 采购经理"></div>
+            <div class="formgroup"><label>公司名称</label><input placeholder="请输入公司全称"></div>
+            <div class="formgroup"><label>联系方式</label><input placeholder="手机号"></div>
+            <div class="formgroup">
+              <label>在采购中的角色</label>
+              <div class="toggle-swatch"><button>使用者</button><button class="on">影响者</button><button>拍板人</button></div>
+            </div>
+            <div class="formgroup"><label>启动动因</label><textarea placeholder="为什么是现在采购？"></textarea></div>
+            <div class="callout info">其余 8 项字段（预算 / 时间点 / 竞品 / 卡点等）可先留空，系统会按缺口优先级排进作战包的「必拿回信息」。</div>
+          </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- SCREEN: new-schedule-form #9 -->
+        <!-- ========================================================= -->
+        <div class="screen" id="scr-new-schedule-form" data-title="新建拜访日程">
+          <div class="statusbar"><span>9:41</span><span class="icons"><svg width="17" height="11" viewBox="0 0 17 11" fill="none"><rect x=".5" y=".5" width="14" height="10" rx="2.5" stroke="currentColor"/><rect x="2" y="2" width="9" height="7" rx="1" fill="currentColor"/><rect x="15.3" y="3" width="1.4" height="4" rx=".7" fill="currentColor"/></svg></span></div>
+          <div class="navbar"><button class="back" onclick="back()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="navtitle">新建拜访日程</div><button class="navaction" onclick="back()">保存</button></div>
+          <div class="content">
+            <div class="formgroup"><label>绑定客户</label><input value="李文强 · 某机械制造有限公司"></div>
+            <div class="formgroup"><label>拜访时间</label><input placeholder="选择日期与时间"></div>
+            <div class="formgroup"><label>地点</label><input placeholder="如：客户公司 / 线上会议"></div>
+            <div class="formgroup"><label>本次目标（选填）</label><textarea placeholder="不填也会按档案缺口自动生成"></textarea></div>
+            <div class="callout accent">保存后自动生成对应作战包，状态标记为「已确认」，直接进入 #11 推送队列。</div>
+          </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- SCREEN: call-upload #10 入口 -->
+        <!-- ========================================================= -->
+        <div class="screen" id="scr-call-upload" data-title="邀约/通话录音">
+          <div class="statusbar"><span>9:41</span><span class="icons"><svg width="17" height="11" viewBox="0 0 17 11" fill="none"><rect x=".5" y=".5" width="14" height="10" rx="2.5" stroke="currentColor"/><rect x="2" y="2" width="9" height="7" rx="1" fill="currentColor"/><rect x="15.3" y="3" width="1.4" height="4" rx=".7" fill="currentColor"/></svg></span></div>
+          <div class="navbar"><button class="back" onclick="back()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="navtitle">邀约 / 通话录音</div><span style="width:32px"></span></div>
+          <div class="content">
+            <p class="muted" style="margin-bottom:16px">外部信息进来的入口之一：不管这通电话有没有建过客户档案，抽取结果都会经入口件① 统一处理。</p>
+            <div class="card" style="text-align:center;padding:32px 16px">
+              <div class="mic-wave"><i style="animation-delay:0s"></i><i style="animation-delay:.1s"></i><i style="animation-delay:.2s"></i><i style="animation-delay:.3s"></i><i style="animation-delay:.15s"></i><i style="animation-delay:.25s"></i></div>
+              <p class="title-sm" style="margin-top:14px">正在录音 · 03:42</p>
+              <p class="faint">或直接上传已有录音文件</p>
+            </div>
+            <button class="btn primary" onclick="push('gate-confirm')">结束并交给入口件① 抽取</button>
+            <button class="btn outline" style="margin-top:8px">从文件选择</button>
+          </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- SCREEN: gate-confirm 入口件①抽取确认 #10 -->
+        <!-- ========================================================= -->
+        <div class="screen" id="scr-gate-confirm" data-title="抽取结果确认">
+          <div class="statusbar"><span>9:41</span><span class="icons"><svg width="17" height="11" viewBox="0 0 17 11" fill="none"><rect x=".5" y=".5" width="14" height="10" rx="2.5" stroke="currentColor"/><rect x="2" y="2" width="9" height="7" rx="1" fill="currentColor"/><rect x="15.3" y="3" width="1.4" height="4" rx=".7" fill="currentColor"/></svg></span></div>
+          <div class="navbar"><button class="back" onclick="back()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="navtitle">入口件① 确认</div><span style="width:32px"></span></div>
+          <div class="content">
+            <div class="callout accent">识别到客户：<b>李文强</b>（置信度 94%），已匹配到现有档案，将合并更新。</div>
+            <div class="section-label">抽取到的档案字段</div>
+            <div class="card">
+              <div class="check-row"><div class="checkbox on"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4 10-10" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><p class="title-sm" style="font-size:13px">采购时间点：Q1 末交付</p><p class="faint">"我们这批设备最晚一季度末必须到位。"</p></div></div>
+              <div class="check-row"><div class="checkbox on"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4 10-10" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><p class="title-sm" style="font-size:13px">在用方案：竞品 B 型号</p><p class="faint">"现在跟 B 家在谈，还没定。"</p></div></div>
+              <div class="check-row"><div class="checkbox"></div><div><p class="title-sm" style="font-size:13px">预算区间：约 80–100 万（置信度较低）</p><p class="faint">未直接说出，建议人工核实</p></div></div>
+            </div>
+            <div class="section-label">抽取到的日程</div>
+            <div class="card row between"><span>周三 10:00 · 公司展厅</span><span class="tag warn">建议 · 待确认</span></div>
+            <div class="section-label">抽取到的待办</div>
+            <div class="card row between"><span>周五前发送 XR-500 报价</span><span class="tag neutral">承诺事项</span></div>
+            <div style="height:6px"></div>
+            <button class="btn primary" onclick="push('battlepack')">确认，生成客户 / 待办 / 日程 / 作战包</button>
+          </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- SCREEN: battlepack #12-16 -->
+        <!-- ========================================================= -->
+        <div class="screen" id="scr-battlepack" data-title="作战包">
+          <div class="statusbar"><span>9:41</span><span class="icons"><svg width="17" height="11" viewBox="0 0 17 11" fill="none"><rect x=".5" y=".5" width="14" height="10" rx="2.5" stroke="currentColor"/><rect x="2" y="2" width="9" height="7" rx="1" fill="currentColor"/><rect x="15.3" y="3" width="1.4" height="4" rx=".7" fill="currentColor"/></svg></span></div>
+          <div class="navbar"><button class="back" onclick="back()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="navtitle">作战包</div><span style="width:32px"></span></div>
+          <div class="content">
+            <div class="card" style="background:var(--accent-soft);border-color:transparent">
+              <div class="row between"><p class="title-sm" style="color:var(--accent)">明天 10:00 · 李文强</p><span class="tag accent">S2 · 第 2 次拜访</span></div>
+              <p class="faint" style="margin-top:4px;color:var(--accent)">距会前推送还有 22 小时</p>
+            </div>
+
+            <div class="section-label">S2 增量 · 上次没接住的</div>
+            <div class="card" style="border-color:var(--warn);background:var(--warn-soft)">
+              <p class="faint" style="color:var(--warn);margin-bottom:6px">上次复盘摘要</p>
+              <p class="quote gap" style="background:transparent;border-left-color:var(--warn);color:var(--warn)">价格敏感是表象，未问出预算已批完这件事的真实原因。</p>
+              <div class="divider" style="border-color:rgba(162,72,31,.2)"></div>
+              <p class="faint" style="color:var(--warn);margin-bottom:6px">这次必讲卖点</p>
+              <p style="font-size:13px;color:var(--warn);font-weight:600">XR-500 的分期付款方案 + 交付周期承诺（应讲未讲检出）</p>
+            </div>
+
+            <div class="section-label">① 客户信息 · 风险提示</div>
+            <div class="card">
+              <p style="font-size:13px;line-height:1.7">采购总监，拍板人，年底预算已批完，对交期极敏感（上家延期两周留下阴影）。</p>
+              <div class="callout danger" style="margin-top:8px;margin-bottom:0">忌讳：催单、模糊交期承诺</div>
+            </div>
+
+            <div class="section-label">② 本次目标 · 必拿回 3 件信息</div>
+            <div class="card">
+              <div class="check-row"><div class="checkbox"></div><span style="font-size:13px">预算区间的具体数字</span></div>
+              <div class="check-row"><div class="checkbox"></div><span style="font-size:13px">采购流程还有哪些卡点</span></div>
+              <div class="check-row"><div class="checkbox"></div><span style="font-size:13px">技术评估方的会签周期</span></div>
+            </div>
+
+            <div class="section-label">③ 谈判五段式框架</div>
+            <details class="accordion" open>
+              <summary><div class="row" style="gap:8px"><span class="idx">1</span>开场破冰</div><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></summary>
+              <div class="body">提上次聊到的产线扩建进度，而非直接进价格话题——他对交期的敏感度高于对开场寒暄的耐心。</div>
+            </details>
+            <details class="accordion"><summary><div class="row" style="gap:8px"><span class="idx">2</span>需求确认</div><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></summary><div class="body">复述上次听到的"预算卡得紧"，反问出具体数字区间。</div></details>
+            <details class="accordion"><summary><div class="row" style="gap:8px"><span class="idx">3</span>方案呈现</div><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></summary><div class="body">主推分期方案，附带交付节点承诺书模板。</div></details>
+            <details class="accordion"><summary><div class="row" style="gap:8px"><span class="idx">4</span>异议处理</div><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></summary><div class="body">若再提竞品 B 更便宜，对比交付周期而非价格。</div></details>
+            <details class="accordion"><summary><div class="row" style="gap:8px"><span class="idx">5</span>下一步锁定</div><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></summary><div class="body">约定技术评估方参会的具体日期，而非"再联系"。</div></details>
+
+            <div class="section-label">④ 相关产品推荐</div>
+            <div class="card">
+              <div class="row between"><p class="title-sm">XR-500 标准型</p><span class="tag accent">主推</span></div>
+              <p class="faint" style="margin-top:4px">卖点：模块化交付，可分批到货，直接对应交期焦虑</p>
+            </div>
+            <div class="card">
+              <div class="row between"><p class="title-sm">XR-500 Pro</p><span class="tag neutral">备选</span></div>
+              <p class="faint" style="margin-top:4px">卖点：预留产能扩展接口</p>
+            </div>
+            <div class="card">
+              <div class="row between"><p class="title-sm">延保服务包</p><span class="tag neutral">加购</span></div>
+              <p class="faint" style="margin-top:4px">卖点：降低交付后的风险敏感度</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- SCREEN: upload-entry 素材上传 #17 (Tab, +) -->
+        <!-- ========================================================= -->
+        <div class="screen" id="scr-upload-entry" data-title="素材上传" data-tab="upload">
+          <div class="statusbar"><span>9:41</span><span class="icons"><svg width="17" height="11" viewBox="0 0 17 11" fill="none"><rect x=".5" y=".5" width="14" height="10" rx="2.5" stroke="currentColor"/><rect x="2" y="2" width="9" height="7" rx="1" fill="currentColor"/><rect x="15.3" y="3" width="1.4" height="4" rx=".7" fill="currentColor"/></svg></span></div>
+          <div class="navbar"><button class="back" onclick="back()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="navtitle">新建</div><span style="width:32px"></span></div>
+          <div class="content">
+            <div class="section-label">拜访前</div>
+            <div class="card tap" onclick="push('new-customer-form')">
+              <div class="list-row" style="padding:0;border:none"><div class="avatar sm"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div><div style="flex:1"><p class="title-sm">主动建客户档案</p><p class="faint">手动录入 · #8</p></div><svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            </div>
+            <div class="card tap" onclick="push('new-schedule-form')">
+              <div class="list-row" style="padding:0;border:none"><div class="avatar sm" style="background:var(--info)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="15" rx="2" stroke="white" stroke-width="1.7"/></svg></div><div style="flex:1"><p class="title-sm">主动建拜访日程</p><p class="faint">绑定客户 · #9</p></div><svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            </div>
+            <div class="card tap" onclick="push('call-upload')">
+              <div class="list-row" style="padding:0;border:none"><div class="avatar sm" style="background:var(--warn)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="9" y="3" width="6" height="11" rx="3" stroke="white" stroke-width="1.6"/><path d="M6 11a6 6 0 0 0 12 0M12 17v3" stroke="white" stroke-width="1.6" stroke-linecap="round"/></svg></div><div style="flex:1"><p class="title-sm">邀约 / 通话录音上传</p><p class="faint">外部信息进来 · #10</p></div><svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            </div>
+            <div class="section-label">拜访后</div>
+            <div class="card tap" onclick="push('supplement-form')">
+              <div class="list-row" style="padding:0;border:none"><div class="avatar sm" style="background:var(--good)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 3v13m0 0l-4-4m4 4l4-4M5 21h14" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div style="flex:1"><p class="title-sm">拜访录音 / 文字记录</p><p class="faint">进入复盘流程 · #17</p></div><svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- SCREEN: supplement-form #18 -->
+        <!-- ========================================================= -->
+        <div class="screen" id="scr-supplement-form" data-title="补充信息">
+          <div class="statusbar"><span>9:41</span><span class="icons"><svg width="17" height="11" viewBox="0 0 17 11" fill="none"><rect x=".5" y=".5" width="14" height="10" rx="2.5" stroke="currentColor"/><rect x="2" y="2" width="9" height="7" rx="1" fill="currentColor"/><rect x="15.3" y="3" width="1.4" height="4" rx=".7" fill="currentColor"/></svg></span></div>
+          <div class="navbar"><button class="back" onclick="back()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="navtitle">补充信息</div><span style="width:32px"></span></div>
+          <div class="content">
+            <div class="stepbar"><i class="on"></i><i class="on"></i><i></i><i></i></div>
+            <div class="formgroup"><label>客户</label><input value="李文强 · 某机械制造有限公司"></div>
+            <div class="formgroup">
+              <label>场景标签</label>
+              <div class="toggle-swatch"><button class="on">拜访</button><button>峰会</button><button>饭局</button></div>
+            </div>
+            <div class="formgroup">
+              <label>录音来源</label>
+              <div class="toggle-swatch"><button class="on">当面录</button><button>会议系统</button></div>
+            </div>
+            <div class="formgroup"><label>行业</label><input value="机械制造"></div>
+            <button class="btn primary" onclick="push('transcribing')">下一步，开始转写</button>
+          </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- SCREEN: transcribing #20 -->
+        <!-- ========================================================= -->
+        <div class="screen" id="scr-transcribing" data-title="转写中">
+          <div class="statusbar"><span>9:41</span><span class="icons"><svg width="17" height="11" viewBox="0 0 17 11" fill="none"><rect x=".5" y=".5" width="14" height="10" rx="2.5" stroke="currentColor"/><rect x="2" y="2" width="9" height="7" rx="1" fill="currentColor"/><rect x="15.3" y="3" width="1.4" height="4" rx=".7" fill="currentColor"/></svg></span></div>
+          <div class="navbar"><span style="width:32px"></span><div class="navtitle">处理中</div><span style="width:32px"></span></div>
+          <div class="content" style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:22px;text-align:center">
+            <div class="mic-wave" style="height:70px"><i style="animation-delay:0s"></i><i style="animation-delay:.12s"></i><i style="animation-delay:.24s"></i><i style="animation-delay:.36s"></i><i style="animation-delay:.18s"></i><i style="animation-delay:.06s"></i><i style="animation-delay:.3s"></i></div>
+            <div>
+              <p class="title-sm">语音转写 + 说话人分离</p>
+              <p class="faint" style="margin-top:6px">正在区分「李文强」与「你」的发言…</p>
+            </div>
+            <div class="progress-track" style="width:200px"><div class="progress-fill" style="width:68%"></div></div>
+            <button class="btn primary" style="width:200px" onclick="push('review-report')">查看复盘报告（模拟完成）</button>
+          </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- SCREEN: review-report #19 #21-24 -->
+        <!-- ========================================================= -->
+        <div class="screen" id="scr-review-report" data-title="复盘报告">
+          <div class="statusbar"><span>9:41</span><span class="icons"><svg width="17" height="11" viewBox="0 0 17 11" fill="none"><rect x=".5" y=".5" width="14" height="10" rx="2.5" stroke="currentColor"/><rect x="2" y="2" width="9" height="7" rx="1" fill="currentColor"/><rect x="15.3" y="3" width="1.4" height="4" rx=".7" fill="currentColor"/></svg></span></div>
+          <div class="navbar"><button class="back" onclick="back()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="navtitle">复盘报告</div><span style="width:32px"></span></div>
+          <div class="content">
+            <div class="card row" style="gap:16px">
+              <div class="score-ring">
+                <svg width="74" height="74"><circle cx="37" cy="37" r="31" fill="none" stroke="var(--sunk)" stroke-width="7"/><circle cx="37" cy="37" r="31" fill="none" stroke="var(--accent)" stroke-width="7" stroke-linecap="round" stroke-dasharray="194.8" stroke-dashoffset="35"/></svg>
+                <div class="num">82</div>
+              </div>
+              <div>
+                <p class="title-sm">总体：推进顺利</p>
+                <p class="faint" style="margin-top:4px">李文强 · 第 2 次拜访 · 明天已排下次</p>
+                <span class="tag accent" style="margin-top:6px;display:inline-flex">承诺清单 2 项</span>
+              </div>
+            </div>
+
+            <div class="section-label">四维评分</div>
+            <div class="card">
+              <div style="margin-bottom:12px">
+                <div class="row between" style="margin-bottom:5px"><span style="font-size:12.5px;font-weight:600">D1 开场与信任建立</span><span class="mono" style="font-size:12px">88</span></div>
+                <div class="progress-track"><div class="progress-fill" style="width:88%"></div></div>
+              </div>
+              <div style="margin-bottom:12px">
+                <div class="row between" style="margin-bottom:5px"><span style="font-size:12.5px;font-weight:600">D2 需求挖掘</span><span class="mono" style="font-size:12px">79</span></div>
+                <div class="progress-track"><div class="progress-fill" style="width:79%"></div></div>
+              </div>
+              <div style="margin-bottom:12px">
+                <div class="row between" style="margin-bottom:5px"><span style="font-size:12.5px;font-weight:600;color:var(--warn)">D3 价值传递</span><span class="mono" style="font-size:12px;color:var(--warn)">61</span></div>
+                <div class="progress-track"><div class="progress-fill" style="width:61%;background:var(--warn)"></div></div>
+              </div>
+              <div>
+                <div class="row between" style="margin-bottom:5px"><span style="font-size:12.5px;font-weight:600">D4 异议处理与推进</span><span class="mono" style="font-size:12px">85</span></div>
+                <div class="progress-track"><div class="progress-fill" style="width:85%"></div></div>
+              </div>
+            </div>
+
+            <div class="section-label">原话依据 · D2 需求挖掘</div>
+            <div class="card"><p class="quote">"预算这块，年底确实批得差不多了。" —— 04:12</p></div>
+
+            <div class="section-label">本次亮点 &amp; 最该改的地方</div>
+            <div class="card">
+              <div class="row" style="gap:8px;margin-bottom:6px"><span class="tag good">亮点</span></div>
+              <p style="font-size:13px;margin-bottom:12px">主动确认了技术评估方需要会签，提前排雷。</p>
+              <div class="row" style="gap:8px;margin-bottom:6px"><span class="tag warn">最该改</span></div>
+              <p style="font-size:13px">客户提到预算已批完时，没有追问具体数字区间就转移了话题。</p>
+            </div>
+
+            <div class="section-label">【应讲未讲】检测 · #23</div>
+            <div class="card" style="border-color:var(--danger)">
+              <p class="faint" style="margin-bottom:6px">客户提到 XR-500，产品库对应卖点：</p>
+              <div class="check-row"><div class="checkbox on"></div><span style="font-size:13px">模块化交付</span></div>
+              <div class="check-row"><div class="checkbox on"></div><span style="font-size:13px">质保 3 年</span></div>
+              <div class="check-row"><div class="checkbox"></div><span style="font-size:13px;color:var(--danger);font-weight:600">分期付款方案（逐字稿中未出现）</span></div>
+              <div class="divider"></div>
+              <p class="quote gap">可举证扣分：不是主观评价，是逐字稿与产品库比对后的差集。</p>
+            </div>
+
+            <div class="section-label">下次接触重点 · #24</div>
+            <div class="card">
+              <p class="faint" style="margin-bottom:6px">可直接发送的微信话术</p>
+              <p class="quote" style="margin-bottom:12px">"李总，今天聊得很受启发。我整理了一份分期付款的方案，稍后发您过目，方便的话周三当面细聊？"</p>
+              <p class="faint" style="margin-bottom:6px">下次优先做的三件事</p>
+              <div class="check-row"><div class="checkbox"></div><span style="font-size:13px">追问预算具体数字</span></div>
+              <div class="check-row"><div class="checkbox"></div><span style="font-size:13px">讲清分期付款方案</span></div>
+              <div class="check-row"><div class="checkbox"></div><span style="font-size:13px">确认技术评估方会签时间</span></div>
+            </div>
+
+            <button class="btn primary" onclick="push('archive-confirm')">确认，回写客户档案</button>
+          </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- SCREEN: archive-confirm #25 -->
+        <!-- ========================================================= -->
+        <div class="screen" id="scr-archive-confirm" data-title="档案回写确认">
+          <div class="statusbar"><span>9:41</span><span class="icons"><svg width="17" height="11" viewBox="0 0 17 11" fill="none"><rect x=".5" y=".5" width="14" height="10" rx="2.5" stroke="currentColor"/><rect x="2" y="2" width="9" height="7" rx="1" fill="currentColor"/><rect x="15.3" y="3" width="1.4" height="4" rx=".7" fill="currentColor"/></svg></span></div>
+          <div class="navbar"><button class="back" onclick="back()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="navtitle">档案更新确认</div><span style="width:32px"></span></div>
+          <div class="content">
+            <p class="muted" style="margin-bottom:12px">本次复盘识别到以下字段变化，逐项确认是否采纳：</p>
+            <div class="card">
+              <div class="diff-row">
+                <div class="k">采购角色</div>
+                <div class="vals"><span class="old">影响者</span><span class="new">拍板人</span></div>
+                <div class="adopt on"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4 10-10" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              </div>
+              <div class="diff-row">
+                <div class="k">采购时间点</div>
+                <div class="vals"><span class="old">未知</span><span class="new">Q1 末交付</span></div>
+                <div class="adopt on"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4 10-10" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              </div>
+              <div class="diff-row">
+                <div class="k">在用方案</div>
+                <div class="vals"><span class="old">未知</span><span class="new">竞品 B 型号</span></div>
+                <div class="adopt"></div>
+              </div>
+              <div class="diff-row">
+                <div class="k">意向分级</div>
+                <div class="vals"><span class="old">C 有顾虑</span><span class="new">B 有意向</span></div>
+                <div class="adopt on"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4 10-10" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              </div>
+            </div>
+            <div class="callout accent">采纳后将同步触发 #26：优先三件事 + 必讲卖点 + 待办 + 建议日程，自动写入李文强的下一次作战包。</div>
+            <button class="btn primary" onclick="tab('todo')">确认回写</button>
+          </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- SCREEN: product-library #1 #33 -->
+        <!-- ========================================================= -->
+        <div class="screen" id="scr-product-library" data-title="产品库">
+          <div class="statusbar"><span>9:41</span><span class="icons"><svg width="17" height="11" viewBox="0 0 17 11" fill="none"><rect x=".5" y=".5" width="14" height="10" rx="2.5" stroke="currentColor"/><rect x="2" y="2" width="9" height="7" rx="1" fill="currentColor"/><rect x="15.3" y="3" width="1.4" height="4" rx=".7" fill="currentColor"/></svg></span></div>
+          <div class="navbar"><button class="back" onclick="back()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="navtitle">产品库</div><button class="navaction">+ 新增</button></div>
+          <div class="content">
+            <div class="callout info">这里的卖点是 #23「应讲未讲」检测的比对基准——逐字稿里没出现的卖点会被判定为漏讲。</div>
+            <div class="card">
+              <div class="row between"><p class="title-sm">XR-500 标准型</p><span class="tag accent">主推</span></div>
+              <div class="row" style="gap:6px;margin-top:8px;flex-wrap:wrap">
+                <span class="tag outline">模块化交付</span>
+                <span class="tag outline">质保 3 年</span>
+                <span class="tag outline">分期付款方案</span>
+              </div>
+              <div class="divider"></div>
+              <p class="faint">常见异议：价格偏高 → 对比交付确定性</p>
+            </div>
+            <div class="card">
+              <div class="row between"><p class="title-sm">XR-500 Pro</p><span class="tag neutral">进阶</span></div>
+              <div class="row" style="gap:6px;margin-top:8px;flex-wrap:wrap">
+                <span class="tag outline">产能扩展接口</span>
+                <span class="tag outline">远程诊断</span>
+              </div>
+            </div>
+            <div class="card">
+              <div class="row between"><p class="title-sm">延保服务包</p><span class="tag neutral">加购</span></div>
+              <div class="row" style="gap:6px;margin-top:8px;flex-wrap:wrap">
+                <span class="tag outline">7×24 响应</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ modal action sheet (shared) ============ -->
+        <div class="sheet-backdrop" id="sheet-backdrop" onclick="closeSheet(event)">
+          <div class="sheet" onclick="event.stopPropagation()">
+            <div class="sheet-handle"></div>
+            <p class="sheet-title">新建</p>
+            <button class="sheet-item" onclick="closeSheet();push('new-customer-form')"><span class="avatar sm"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></span>主动建客户档案</button>
+            <button class="sheet-item" onclick="closeSheet();push('new-schedule-form')"><span class="avatar sm" style="background:var(--info)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="15" rx="2" stroke="white" stroke-width="1.7"/></svg></span>主动建拜访日程</button>
+            <button class="sheet-item" onclick="closeSheet();push('call-upload')"><span class="avatar sm" style="background:var(--warn)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="9" y="3" width="6" height="11" rx="3" stroke="white" stroke-width="1.6"/><path d="M6 11a6 6 0 0 0 12 0M12 17v3" stroke="white" stroke-width="1.6" stroke-linecap="round"/></svg></span>邀约 / 通话录音上传</button>
+            <button class="sheet-item" onclick="closeSheet();push('supplement-form')"><span class="avatar sm" style="background:var(--good)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 3v13m0 0l-4-4m4 4l4-4M5 21h14" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>拜访录音 / 文字记录</button>
+            <button class="sheet-cancel" onclick="closeSheet()">取消</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="footnote-block">
+    <h3>关于这版原型</h3>
+    <p>17 个页面对应<code>页面流程图</code>里的全部节点：客户库 / 待办 / 日程三个 Tab 根屏，作战包与复盘报告是信息密度最高的两页，已按功能清单 33 项逐条落地内容而非占位文字。示例数据只服务于「李文强」这一条完整链路（S1→S2、B 意向、应讲未讲检出分期方案），用于验证闭环是否讲得通，不代表最终视觉规范——按钮圆角、字号、间距等仍是可调的低保真决策。</p>
+  </div>
+</div>
+<script>
+const TITLES = {
+  'todo':'待办列表','schedule':'日程','customers':'客户库','mine':'我的',
+  'customer-detail':'客户详情卡','schedule-confirm-detail':'确认日程','new-customer-form':'新建客户档案',
+  'new-schedule-form':'新建拜访日程','call-upload':'邀约/通话录音上传','gate-confirm':'入口件① 抽取确认',
+  'battlepack':'作战包详情','upload-entry':'素材上传','supplement-form':'补充信息表单',
+  'transcribing':'转写处理中','review-report':'复盘报告','archive-confirm':'档案确认回写',
+  'product-library':'产品库'
+};
+let stack = ['todo'];
+function render(){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  const id = stack[stack.length-1];
+  document.getElementById('scr-'+id).classList.add('active');
+  document.querySelectorAll('.tabitem').forEach(b=>b.classList.remove('active'));
+  const rootTab = document.getElementById('scr-'+id).dataset.tab;
+  if(rootTab){ document.querySelectorAll('.tabitem').forEach(b=>{ if(b.getAttribute('onclick')===`tab('${rootTab}')`) b.classList.add('active'); }); }
+  const label = document.getElementById('pagelabel-name');
+  if(label) label.textContent = TITLES[id] || id;
+}
+function push(id){ stack.push(id); render(); }
+function back(){ if(stack.length>1){ stack.pop(); render(); } }
+function tab(id){ stack=[id]; render(); }
+function cdTab(btn, which){
+  btn.parentElement.querySelectorAll('button').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  ['ov','fields','history'].forEach(k=>{ const el=document.getElementById('cd-'+k); if(el) el.style.display = (k===which)?'block':'none'; });
+}
+function openSheet(){ document.getElementById('sheet-backdrop').classList.add('open'); }
+function closeSheet(e){ document.getElementById('sheet-backdrop').classList.remove('open'); }
+
+const RAIL = [
+  ['todo','待办列表'], ['customers','客户库'], ['customer-detail','客户详情卡'],
+  ['schedule','日程'], ['schedule-confirm-detail','确认日程'],
+  ['upload-entry','＋ 新建入口'], ['new-customer-form','新建客户档案'], ['new-schedule-form','新建拜访日程'],
+  ['call-upload','录音上传'], ['gate-confirm','入口件①确认'], ['battlepack','作战包详情'],
+  ['supplement-form','补充信息表单'], ['transcribing','转写处理中'], ['review-report','复盘报告'],
+  ['archive-confirm','档案回写'], ['mine','我的'], ['product-library','产品库']
+];
+const rail = document.getElementById('rail');
+RAIL.forEach(([id,label])=>{
+  const b=document.createElement('button');
+  b.textContent=label;
+  b.onclick=()=>{ const rootTab=document.getElementById('scr-'+id).dataset.tab; stack = rootTab? [id] : ['todo', id]; render(); highlightRail(id); };
+  b.dataset.id=id;
+  rail.appendChild(b);
+});
+function highlightRail(id){ rail.querySelectorAll('button').forEach(b=>b.classList.toggle('on', b.dataset.id===id)); }
+render();
+highlightRail('todo');
+const origRender = render;
+render = function(){ origRender(); highlightRail(stack[stack.length-1]); };
+</script>
+</body>
+</html>

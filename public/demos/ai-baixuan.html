@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2026 全球热门 100 款 AI 产品 · 精选导览</title>
+<meta name="description" content="精选 2026 年市场上最热门的 100 款 AI 产品，按对话、编程、图像、视频、音频、搜索、写作、办公、设计、智能体、陪伴与垂直行业 12 大分类组织，含定位、能力标签、定价与官网链接。" />
+<meta name="theme-color" content="#FAFAF8" />
+<meta property="og:title" content="2026 全球热门 100 款 AI 产品" />
+<meta property="og:description" content="12 大分类 · 100 款产品 · 持续更新" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+/* ============ 设计系统 · 方案A 东方雅致（无 color-mix，兼容性优先）============ */
+:root{
+  --bg:#FAFAF8; --bg-2:#F3F2EC; --surface:#FFFFFF;
+  --ink:#1A1A1A; --ink-2:#3A3A36; --muted:#73736C; --faint:#9A9A92;
+  --line:rgba(26,26,26,.08); --line-2:rgba(26,26,26,.045);
+  --primary:#2E6E6A; --primary-d:#235653; --primary-soft:#E7F0EE;
+  --accent:#C0392B; --accent-soft:#F7E9E6;
+  --radius:16px; --radius-sm:11px;
+  --shadow-sm:0 1px 2px rgba(26,26,26,.04), 0 2px 6px rgba(26,26,26,.04);
+  --shadow-md:0 8px 28px rgba(26,26,26,.08);
+  --shadow-lg:0 22px 60px rgba(26,26,26,.16);
+  --maxw:1220px; --nav-h:68px; --ease:cubic-bezier(.22,.61,.36,1);
+  --font-cn:"PingFang SC","HarmonyOS Sans SC","Source Han Sans SC","Noto Sans SC","Microsoft YaHei",sans-serif;
+  --font:"Inter",var(--font-cn);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;font-family:var(--font);background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden}
+h1,h2,h3,h4{margin:0;font-weight:700;line-height:1.25;letter-spacing:-.01em}
+p{margin:0}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+::selection{background:var(--primary-soft);color:var(--primary-d)}
+:focus-visible{outline:2px solid var(--primary);outline-offset:3px;border-radius:4px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+#progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:120;
+  background:linear-gradient(90deg,var(--primary),var(--accent));transition:width .08s linear}
+
+/* ============ 导航 ============ */
+header.nav{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--nav-h);display:flex;align-items:center;
+  transition:height .35s var(--ease),background .35s,box-shadow .35s,border-color .35s;border-bottom:1px solid transparent}
+header.nav.solid{height:58px;background:rgba(250,250,248,.82);backdrop-filter:saturate(180%) blur(16px);
+  -webkit-backdrop-filter:saturate(180%) blur(16px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:18px;width:100%}
+.brand{display:flex;align-items:center;gap:11px;flex-shrink:0;font-weight:800}
+.brand .mark{width:30px;height:30px;border-radius:9px;flex-shrink:0;
+  background:linear-gradient(135deg,var(--primary),var(--primary-d));position:relative;box-shadow:var(--shadow-sm)}
+.brand .mark::before,.brand .mark::after{content:"";position:absolute;border-radius:50%}
+.brand .mark::before{width:9px;height:9px;background:#fff;top:7px;left:7px;opacity:.95}
+.brand .mark::after{width:5px;height:5px;background:var(--accent);bottom:7px;right:7px}
+.brand b{font-size:15.5px;letter-spacing:-.02em;white-space:nowrap}
+.brand b span{color:var(--primary)}
+.nav-links{display:flex;align-items:center;gap:2px;overflow-x:auto;scrollbar-width:none;flex:1;
+  -webkit-overflow-scrolling:touch;mask-image:linear-gradient(90deg,transparent,#000 18px,#000 calc(100% - 18px),transparent)}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{padding:7px 11px;border-radius:9px;font-size:13.5px;color:var(--ink-2);white-space:nowrap;
+  transition:background .2s,color .2s;font-weight:500}
+.nav-links a:hover{background:var(--primary-soft);color:var(--primary-d)}
+.nav-search{display:flex;align-items:center;gap:7px;flex-shrink:0;background:var(--surface);
+  border:1px solid var(--line);border-radius:999px;padding:7px 13px;transition:border-color .25s,box-shadow .25s,width .25s;width:180px}
+.nav-search:focus-within{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-soft);width:210px}
+.nav-search svg{flex-shrink:0;color:var(--faint)}
+.nav-search input{border:none;outline:none;background:none;font-size:13.5px;width:100%;color:var(--ink);font-family:var(--font)}
+.nav-toggle{display:none;width:40px;height:40px;border-radius:10px;align-items:center;justify-content:center;flex-shrink:0}
+.nav-toggle:hover{background:var(--primary-soft)}
+.lang-btn{flex-shrink:0;min-width:42px;height:34px;padding:0 11px;border-radius:9px;border:1px solid var(--line);
+  background:var(--surface);font-size:12.5px;font-weight:700;color:var(--ink-2);letter-spacing:.02em;transition:all .2s var(--ease)}
+.lang-btn:hover{border-color:var(--primary);color:var(--primary-d);background:var(--primary-soft)}
+
+.drawer-mask{position:fixed;inset:0;background:rgba(26,26,26,.32);z-index:108;opacity:0;visibility:hidden;
+  transition:opacity .3s,visibility .3s;backdrop-filter:blur(2px)}
+.drawer-mask.open{opacity:1;visibility:visible}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(82vw,320px);background:var(--bg);z-index:109;
+  transform:translateX(100%);transition:transform .38s var(--ease);box-shadow:var(--shadow-lg);
+  display:flex;flex-direction:column;padding:22px 20px;overflow-y:auto}
+.drawer.open{transform:translateX(0)}
+.drawer h4{font-size:13px;color:var(--faint);text-transform:uppercase;letter-spacing:.08em;margin:6px 4px 10px;font-weight:600}
+.drawer a{padding:12px 14px;border-radius:11px;font-size:15px;color:var(--ink-2);display:flex;align-items:center;gap:11px}
+.drawer a:hover,.drawer a:active{background:var(--primary-soft);color:var(--primary-d)}
+.drawer a .dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.drawer-close{align-self:flex-end;width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:6px}
+.drawer-close:hover{background:var(--bg-2)}
+
+/* ============ Hero ============ */
+.hero{position:relative;padding:calc(var(--nav-h) + 74px) 0 86px;overflow:hidden;
+  background:radial-gradient(120% 90% at 50% -10%,#fff 0%,var(--bg) 46%,var(--bg-2) 100%)}
+.hero-stars{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.star-tile{position:absolute;border-radius:12px;overflow:hidden;border:1px solid transparent;
+  background-color:var(--cc);background-image:linear-gradient(140deg,rgba(255,255,255,.18),rgba(0,0,0,.18));
+  box-shadow:0 8px 22px rgba(26,26,26,.12);opacity:0;will-change:transform;animation:floatY linear infinite}
+.star-tile.has-logo{background:#fff;border-color:var(--line)}
+.star-tile .logo{padding:18%}
+@keyframes floatY{0%{transform:translateY(8px)}50%{transform:translateY(-12px)}100%{transform:translateY(8px)}}
+.hero-core{position:absolute;top:8%;left:50%;width:560px;height:560px;transform:translateX(-50%);z-index:0;pointer-events:none;
+  background:radial-gradient(circle at 50% 50%,rgba(46,110,106,.16),rgba(46,110,106,.05) 40%,transparent 66%);filter:blur(6px)}
+.hero-core::after{content:"";position:absolute;inset:32% 32%;border-radius:50%;
+  background:radial-gradient(circle,rgba(192,57,43,.10),transparent 70%)}
+.hero-inner{position:relative;z-index:2;text-align:center;max-width:880px;margin:0 auto}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;padding:7px 16px;border-radius:999px;
+  background:rgba(255,255,255,.7);border:1px solid var(--line);font-size:13px;color:var(--primary-d);
+  font-weight:600;backdrop-filter:blur(8px);box-shadow:var(--shadow-sm);margin-bottom:26px}
+.eyebrow .pulse{width:7px;height:7px;border-radius:50%;background:var(--accent);position:relative}
+.eyebrow .pulse::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:1px solid var(--accent);
+  animation:ping 2.4s var(--ease) infinite;opacity:0}
+@keyframes ping{0%{transform:scale(.7);opacity:.7}100%{transform:scale(2.2);opacity:0}}
+.hero h1{font-size:clamp(34px,6.2vw,68px);letter-spacing:-.03em;line-height:1.08;font-weight:800}
+.hero h1 .grad{background:linear-gradient(115deg,var(--primary) 0%,var(--primary-d) 40%,var(--accent) 105%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .sub{font-size:clamp(15px,2.2vw,19px);color:var(--muted);margin:24px auto 0;max-width:620px;line-height:1.7}
+.hero-badges{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:30px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:9px 17px;border-radius:999px;
+  background:var(--surface);border:1px solid var(--line);font-size:13.5px;font-weight:600;color:var(--ink-2);box-shadow:var(--shadow-sm)}
+.hero-badge b{color:var(--primary);font-weight:800}
+.hero-cta{display:flex;gap:14px;justify-content:center;margin-top:34px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:9px;padding:13px 24px;border-radius:999px;font-weight:600;
+  font-size:14.5px;transition:transform .22s var(--ease),box-shadow .22s,background .22s;border:1px solid transparent}
+.btn:active{transform:translateY(1px) scale(.99)}
+.btn-primary{background:var(--primary);color:#fff;box-shadow:0 8px 22px rgba(46,110,106,.28)}
+.btn-primary:hover{background:var(--primary-d);transform:translateY(-2px);box-shadow:0 14px 30px rgba(46,110,106,.34)}
+.btn-ghost{background:var(--surface);color:var(--ink);border-color:var(--line);box-shadow:var(--shadow-sm)}
+.btn-ghost:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);border-color:var(--primary)}
+
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.hero .stagger{opacity:0;transform:translateY(18px);animation:rise .85s var(--ease) forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+
+/* ============ 概览 ============ */
+.stats{position:relative;z-index:2;margin-top:-34px}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;background:var(--surface);
+  border:1px solid var(--line);border-radius:var(--radius);padding:28px 24px;box-shadow:var(--shadow-md)}
+.stat{text-align:center;position:relative}
+.stat:not(:last-child)::after{content:"";position:absolute;right:-8px;top:14%;height:72%;width:1px;background:var(--line)}
+.stat .num{font-size:clamp(30px,4.4vw,44px);font-weight:800;letter-spacing:-.03em;color:var(--ink);
+  font-feature-settings:"tnum";line-height:1}
+.stat .num .u{font-size:.5em;color:var(--primary);margin-left:3px;font-weight:700}
+.stat .lbl{font-size:13px;color:var(--muted);margin-top:9px;font-weight:500}
+
+/* ============ 6 大赛道快捷入口 ============ */
+.track-wrap{margin-top:54px}
+.track-head{text-align:center;margin-bottom:22px}
+.track-head h2{font-size:clamp(20px,2.6vw,26px);letter-spacing:-.02em}
+.track-head p{color:var(--muted);font-size:14px;margin-top:6px}
+.track-nav{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.track-card{display:flex;align-items:center;gap:13px;text-align:left;background:var(--surface);
+  border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;cursor:pointer;
+  transition:transform .25s var(--ease),box-shadow .25s,border-color .25s}
+.track-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:transparent}
+.track-card .tc-ico{width:42px;height:42px;border-radius:11px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:var(--cc)}
+.track-card .tc-ico svg{width:22px;height:22px}
+.track-card .tc-body{flex:1;min-width:0;display:flex;flex-direction:column}
+.track-card .tc-body b{font-size:14.5px;letter-spacing:-.01em}
+.track-card .tc-sub{font-size:12px;color:var(--faint);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.track-card .tc-n{font-size:14px;font-weight:800;color:var(--cc);flex-shrink:0;font-feature-settings:"tnum"}
+@media(max-width:880px){.track-nav{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.track-nav{grid-template-columns:1fr}}
+
+/* 赛道视图内的细分小标题 */
+.subhead{display:flex;align-items:center;gap:9px;margin:28px 0 14px}
+.subhead h3{font-size:16px;letter-spacing:-.01em}
+.subhead .sh-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.subhead .sh-n{font-size:12px;font-weight:700;color:var(--muted);background:var(--bg-2);padding:2px 9px;border-radius:999px}
+.banner + .subhead{margin-top:6px}
+
+/* ============ 工具条 ============ */
+.toolbar{position:sticky;top:58px;z-index:60;margin-top:64px;padding:14px 0;
+  background:rgba(250,250,248,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2)}
+.toolbar .wrap{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.tb-label{font-size:12.5px;color:var(--faint);font-weight:600;letter-spacing:.04em}
+.chips{display:flex;gap:7px;flex-wrap:wrap}
+.chip{padding:7px 14px;border-radius:999px;font-size:13px;font-weight:600;color:var(--ink-2);
+  background:var(--surface);border:1px solid var(--line);transition:all .2s var(--ease);white-space:nowrap}
+.chip:hover{border-color:var(--primary);color:var(--primary-d)}
+.chip.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.chip.active.acc{background:var(--accent);border-color:var(--accent)}
+.chips.seg{background:var(--bg-2);border-radius:999px;padding:3px;gap:3px}
+.chips.seg .chip{border:none;background:transparent;padding:6px 14px}
+.chips.seg .chip.active{background:var(--surface);color:var(--primary-d);box-shadow:var(--shadow-sm)}
+.tb-spacer{flex:1;min-width:0}
+.tb-count{font-size:13px;color:var(--muted);font-weight:500;white-space:nowrap}
+.tb-count b{color:var(--ink);font-weight:700}
+
+/* ============ 分类板块 ============ */
+main{padding-bottom:40px}
+.section{padding:62px 0 8px;scroll-margin-top:120px}
+.banner{position:relative;border-radius:var(--radius);overflow:hidden;padding:34px 34px;margin-bottom:34px;
+  border:1px solid var(--line);box-shadow:var(--shadow-sm);min-height:128px;display:flex;align-items:center;gap:22px;isolation:isolate}
+.banner-art{position:absolute;inset:0;z-index:-1;overflow:hidden}
+.banner-art .glow{position:absolute;border-radius:50%;filter:blur(10px);opacity:.9}
+.banner-ico{width:60px;height:60px;border-radius:15px;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;background:rgba(255,255,255,.7);backdrop-filter:blur(6px);box-shadow:var(--shadow-sm);border:1px solid rgba(255,255,255,.7)}
+.banner-ico svg{width:30px;height:30px}
+.banner-txt h2{font-size:clamp(21px,3vw,27px);letter-spacing:-.02em}
+.banner-txt .desc{color:var(--ink-2);font-size:14.5px;margin-top:7px;max-width:640px;line-height:1.6}
+.banner-txt .meta{display:inline-flex;align-items:center;gap:8px;margin-top:12px;font-size:12.5px;
+  font-weight:600;color:#fff;padding:5px 12px;border-radius:999px}
+
+/* ============ 卡片 ============ */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(264px,1fr));gap:18px}
+.card{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:20px;display:flex;flex-direction:column;gap:13px;cursor:pointer;
+  transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s;will-change:transform}
+.card::after{content:"";position:absolute;inset:0;border-radius:var(--radius);pointer-events:none;
+  box-shadow:0 0 0 0 var(--cc,var(--primary));opacity:0;transition:opacity .3s}
+.card:hover{transform:translateY(-5px);box-shadow:var(--shadow-md);border-color:transparent}
+.card:hover::after{opacity:.16;box-shadow:0 10px 40px -6px var(--cc,var(--primary))}
+.card-head{display:flex;align-items:center;gap:13px}
+/* —— 图标徽标：字母作底层兜底，真实 logo 加载成功后覆盖 —— */
+.badge{width:48px;height:48px;border-radius:13px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;border:1px solid transparent;
+  background-color:var(--cc);background-image:linear-gradient(140deg,rgba(255,255,255,.20),rgba(0,0,0,.16));
+  box-shadow:0 5px 14px -3px var(--cc);transition:transform .3s var(--ease)}
+.badge.has-logo{background:#fff;border-color:var(--line);box-shadow:0 4px 12px -4px rgba(26,26,26,.16)}
+.abbr{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-weight:800;color:#fff;letter-spacing:.01em}
+.badge .abbr{font-size:17px}
+.logo{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#fff;opacity:0;transition:opacity .25s ease}
+.has-logo .logo{opacity:1}
+.badge .logo{padding:7px}
+.card:hover .badge{transform:scale(1.06) rotate(-3deg)}
+.card-title{min-width:0}
+.card-title h3{font-size:16.5px;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card-title .co{font-size:12.5px;color:var(--faint);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card-tagline{font-size:13.5px;color:var(--ink-2);line-height:1.55;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:42px}
+.card-tags{display:flex;flex-wrap:wrap;gap:6px}
+.tg{font-size:11.5px;color:var(--muted);background:var(--bg-2);padding:3px 9px;border-radius:7px;font-weight:500}
+.card-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:auto;padding-top:13px;border-top:1px solid var(--line-2)}
+.pricing{font-size:11.5px;font-weight:700;padding:4px 10px;border-radius:7px;background:var(--primary-soft);color:var(--primary-d);white-space:nowrap}
+.pricing.free{background:#E9F1EA;color:#3B6B45}
+.pricing.open{background:#EEF0E3;color:#6B6A2E}
+.pricing.ent{background:#EAEEF3;color:#3E5C76}
+.card-cat{font-size:11.5px;color:var(--faint);font-weight:500;display:inline-flex;align-items:center;gap:5px}
+.card-cat .d{width:7px;height:7px;border-radius:50%}
+
+.empty{text-align:center;padding:80px 20px;color:var(--muted);display:none}
+.empty.show{display:block}
+.empty .em-ic{font-size:34px;margin-bottom:14px;opacity:.5}
+.empty b{color:var(--ink);font-weight:700}
+
+/* ============ 弹窗 ============ */
+.modal-mask{position:fixed;inset:0;z-index:130;display:flex;align-items:flex-end;justify-content:center;
+  background:rgba(26,26,26,.4);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  opacity:0;visibility:hidden;transition:opacity .32s var(--ease),visibility .32s;padding:0}
+.modal-mask.open{opacity:1;visibility:visible}
+@media(min-width:760px){.modal-mask{align-items:center;padding:24px}}
+.modal{background:var(--surface);width:100%;max-width:580px;max-height:92vh;overflow-y:auto;
+  border-radius:22px 22px 0 0;box-shadow:var(--shadow-lg);transform:translateY(40px);
+  transition:transform .4s var(--ease);position:relative}
+@media(min-width:760px){.modal{border-radius:22px;transform:translateY(20px) scale(.98)}}
+.modal-mask.open .modal{transform:none}
+.modal-hero{padding:30px 30px 24px;position:relative;overflow:hidden;border-radius:22px 22px 0 0}
+.modal-hero-bg{position:absolute;inset:0;z-index:0;opacity:.14}
+.modal-x{position:absolute;top:16px;right:16px;width:38px;height:38px;border-radius:50%;z-index:3;
+  background:rgba(255,255,255,.8);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px);
+  box-shadow:var(--shadow-sm);transition:transform .2s,background .2s}
+.modal-x:hover{transform:rotate(90deg) scale(1.05);background:#fff}
+.modal-head{position:relative;z-index:2;display:flex;align-items:center;gap:16px}
+.modal-badge{width:66px;height:66px;border-radius:18px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;border:1px solid transparent;
+  background-color:var(--cc);background-image:linear-gradient(140deg,rgba(255,255,255,.20),rgba(0,0,0,.18));box-shadow:0 10px 26px -6px var(--cc)}
+.modal-badge.has-logo{background:#fff;border-color:var(--line);box-shadow:0 8px 22px -6px rgba(26,26,26,.22)}
+.modal-badge .logo{padding:11px}
+.modal-badge .abbr{font-size:24px}
+.modal-head h3{font-size:25px;letter-spacing:-.02em}
+.modal-head .mco{font-size:13.5px;color:var(--muted);margin-top:3px}
+.modal-cat{display:inline-flex;align-items:center;gap:7px;margin-top:11px;font-size:12.5px;font-weight:600;
+  padding:5px 12px;border-radius:999px;background:rgba(255,255,255,.7);color:var(--ink-2);position:relative;z-index:2}
+.modal-cat .d{width:8px;height:8px;border-radius:50%}
+.modal-body{padding:24px 30px 30px}
+.modal-tagline{font-size:16px;font-weight:600;color:var(--ink);line-height:1.6;margin-bottom:16px}
+.modal-intro{font-size:14.5px;color:var(--ink-2);line-height:1.85;margin-bottom:20px}
+.modal-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.modal-tags .tg{font-size:12.5px;padding:6px 13px;background:var(--primary-soft);color:var(--primary-d);border-radius:9px;font-weight:600}
+/* 版本里程碑时间线 */
+.modal-tl{margin:2px 0 22px}
+.tl-head{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:13px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.tl-head span{font-size:11px;font-weight:500;color:var(--faint)}
+ul.tl{list-style:none;margin:0;padding:0 0 0 3px;position:relative}
+ul.tl::before{content:"";position:absolute;left:3px;top:5px;bottom:6px;width:2px;background:var(--line)}
+ul.tl li{position:relative;padding:0 0 13px 010px;padding-left:20px;display:flex;gap:10px;align-items:baseline}
+ul.tl li:last-child{padding-bottom:0}
+ul.tl li::before{content:"";position:absolute;left:0;top:6px;width:8px;height:8px;border-radius:50%;background:var(--primary);box-shadow:0 0 0 3px var(--primary-soft)}
+.tl-t{font-size:12.5px;font-weight:800;color:var(--primary-d);flex-shrink:0;min-width:54px;font-feature-settings:"tnum"}
+.tl-v{font-size:13.5px;color:var(--ink-2);line-height:1.5}
+/* 本周资讯 */
+.modal-news{margin:2px 0 22px}
+.news-links{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.news-link{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--primary-d);
+  background:var(--primary-soft);padding:6px 12px;border-radius:999px;transition:background .2s,transform .2s}
+.news-link:hover{background:#dceae7;transform:translateY(-1px)}
+.news-link svg{opacity:.65}
+.news-list{display:flex;flex-direction:column;gap:1px}
+.news-item{display:flex;gap:10px;align-items:baseline;padding:8px 10px;border-radius:9px;transition:background .2s}
+.news-item:hover{background:var(--bg-2)}
+.news-item .ni-d{font-size:11.5px;font-weight:700;color:var(--faint);flex-shrink:0;min-width:78px;font-feature-settings:"tnum"}
+.news-item .ni-t{font-size:13.5px;color:var(--ink-2);line-height:1.5}
+.news-empty{font-size:12.5px;color:var(--faint);padding:6px 2px;line-height:1.65}
+.modal-info{display:flex;gap:10px;margin-bottom:22px;flex-wrap:wrap}
+.modal-info .ii{flex:1;min-width:120px;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:13px 15px}
+.modal-info .ii .k{font-size:11.5px;color:var(--faint);font-weight:600;margin-bottom:4px}
+.modal-info .ii .v{font-size:14px;font-weight:700;color:var(--ink)}
+.modal-actions{display:flex;gap:11px}
+.modal-actions .btn{flex:1;justify-content:center}
+
+#toTop{position:fixed;right:22px;bottom:22px;width:48px;height:48px;border-radius:14px;z-index:90;
+  background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow-md);
+  display:flex;align-items:center;justify-content:center;color:var(--primary-d);
+  opacity:0;visibility:hidden;transform:translateY(14px) scale(.9);transition:all .3s var(--ease)}
+#toTop.show{opacity:1;visibility:visible;transform:none}
+#toTop:hover{background:var(--primary);color:#fff;border-color:var(--primary);transform:translateY(-3px)}
+
+footer{background:var(--bg-2);border-top:1px solid var(--line);margin-top:60px;padding:54px 0 38px}
+.foot-grid{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap;margin-bottom:32px}
+.foot-brand{max-width:380px}
+.foot-brand .brand{margin-bottom:14px}
+.foot-brand p{color:var(--muted);font-size:13.5px;line-height:1.75}
+.foot-cols{display:flex;gap:54px;flex-wrap:wrap}
+.foot-col h5{font-size:12.5px;color:var(--faint);text-transform:uppercase;letter-spacing:.07em;margin-bottom:13px;font-weight:600}
+.foot-col a{display:block;font-size:13.5px;color:var(--ink-2);padding:5px 0;transition:color .2s}
+.foot-col a:hover{color:var(--primary)}
+.foot-bottom{border-top:1px solid var(--line);padding-top:22px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+.foot-bottom p{font-size:12.5px;color:var(--faint);line-height:1.7}
+.foot-note{font-size:12px;color:var(--faint);background:var(--surface);border:1px solid var(--line);padding:11px 16px;border-radius:11px;line-height:1.7;margin-top:14px}
+
+@media(max-width:980px){.nav-links{display:none}.nav-toggle{display:flex}.nav-search{width:150px}.nav-search:focus-within{width:170px}}
+@media(max-width:680px){
+  .wrap{padding:0 18px}
+  .stats-grid{grid-template-columns:repeat(2,1fr);gap:10px;padding:22px 16px}
+  .stat:nth-child(odd)::after{display:none}
+  .grid{grid-template-columns:1fr;gap:14px}
+  .nav-search{display:none}
+  .banner{padding:24px 22px}.banner-ico{width:50px;height:50px}.banner-ico svg{width:25px;height:25px}
+  .hero{padding-top:calc(var(--nav-h) + 44px);padding-bottom:64px}
+  .stat .num{font-size:30px}
+}
+@media(max-width:420px){.badge{width:44px;height:44px}.badge .abbr{font-size:15px}}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;scroll-behavior:auto !important}
+  .reveal{opacity:1;transform:none}
+  .star-tile{animation:none}
+}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="#top" class="brand" aria-label="返回顶部"><span class="mark" aria-hidden="true"></span><b data-i18n-html="brand">AI <span>百选</span> · 2026</b></a>
+    <nav class="nav-links" id="navLinks" aria-label="分类导航"></nav>
+    <label class="nav-search" aria-label="搜索产品">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg>
+      <input id="search" type="search" placeholder="搜索 AI 产品…" autocomplete="off" />
+    </label>
+    <button class="lang-btn" id="langToggle" aria-label="切换语言 / Switch language">EN</button>
+    <button class="nav-toggle" id="navToggle" aria-label="打开菜单" aria-expanded="false">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"></path></svg>
+    </button>
+  </div>
+</header>
+
+<div class="drawer-mask" id="drawerMask"></div>
+<aside class="drawer" id="drawer" aria-label="移动端菜单">
+  <button class="drawer-close" id="drawerClose" aria-label="关闭菜单">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"></path></svg>
+  </button>
+  <h4 data-i18n="drawerAll">全部分类</h4>
+  <nav id="drawerLinks" aria-label="移动端分类导航"></nav>
+</aside>
+
+<section class="hero" id="top">
+  <div class="hero-core" aria-hidden="true"></div>
+  <div class="hero-stars" id="heroStars" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="hero-inner">
+      <span class="eyebrow stagger"><span class="pulse"></span><span data-i18n="eyebrow">2026 年度精选 · 持续更新</span></span>
+      <h1 class="stagger" data-i18n-html="heroH1">2026 全球热门<br><span class="grad">100 款 AI 产品</span></h1>
+      <p class="sub stagger" data-i18n="heroSub">一份克制而完整的智能工具地图——从对话大模型到图像、视频、音频生成，从编程智能体到垂直行业应用，覆盖当下最值得关注的 AI 产品。</p>
+      <div class="hero-badges stagger" id="heroBadges"></div>
+      <div class="hero-cta stagger">
+        <a href="#grp-chat" class="btn btn-primary" id="ctaBrowse"><span data-i18n="ctaBrowse">开始浏览</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+        </a>
+        <button class="btn btn-ghost" id="ctaRandom" data-i18n="ctaRandom">随机发现一款</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap stats"><div class="stats-grid" id="statsGrid"></div></div>
+
+<div class="wrap track-wrap">
+  <div class="track-head"><h2 data-i18n="trackH2">按任务赛道快速进入</h2><p data-i18n="trackP">把 100 款产品按「你想做什么」归并为 6 条赛道，点击直达</p></div>
+  <div class="track-nav" id="trackNav"></div>
+</div>
+
+<div class="toolbar" id="toolbar">
+  <div class="wrap">
+    <span class="tb-label" data-i18n="tbGroup">分组</span>
+    <div class="chips seg" id="modeChips"></div>
+    <span class="tb-label" style="margin-left:6px" data-i18n="tbCat">分类</span>
+    <div class="chips" id="catChips"></div>
+    <span class="tb-label" style="margin-left:6px" data-i18n="tbPrice">定价</span>
+    <div class="chips" id="priceChips"></div>
+    <span class="tb-spacer"></span>
+    <span class="tb-count" id="tbCount"></span>
+  </div>
+</div>
+
+<main class="wrap" id="main">
+  <div id="sections"></div>
+  <div id="results" style="display:none"></div>
+  <div class="empty" id="empty"><div class="em-ic">🔍</div><p data-i18n-html="emptyHtml">没有找到匹配的产品。<br>试试更换关键词，或点击 <b>全部</b> 重置筛选。</p></div>
+</main>
+
+<div class="modal-mask" id="modalMask" role="dialog" aria-modal="true" aria-labelledby="modalName"><div class="modal" id="modal"></div></div>
+
+<button id="toTop" aria-label="回到顶部">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 15 6-6 6 6"></path></svg>
+</button>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="#top" class="brand"><span class="mark" aria-hidden="true"></span><b data-i18n-html="brand">AI <span>百选</span> · 2026</b></a>
+        <p data-i18n="footDesc">精选 2026 年市场上最热门的 100 款 AI 产品，按 12 大分类组织，帮助你快速建立对当下 AI 应用生态的整体认知。</p>
+        <div class="foot-note" id="footNote"></div>
+      </div>
+      <div class="foot-cols" id="footCols"></div>
+    </div>
+    <div class="foot-bottom">
+      <p data-i18n="footB1">© 2026 AI 百选 · 仅供学习与信息展示之用，不构成任何投资或购买建议。</p>
+      <p data-i18n="footB2">各产品 Logo、名称与商标归各自公司所有，图标经第三方服务按官网域名加载，仅用于介绍展示；加载失败时自动以字母徽标占位。</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ===== 12 分类 + 100 产品 ===== */
+const CATEGORIES = [
+  {id:"chat",     name:"对话式 AI · 通用大模型助手", short:"对话式 AI", gen:true,  accent:"#2E6E6A", desc:"能听会写、能推理会编程的通用智能助手，是大多数人接触 AI 的第一入口。", name_en:"Chat AI · LLM Assistants", short_en:"Chat AI", desc_en:"General-purpose assistants that talk, write, reason and code — most people's first taste of AI."},
+  {id:"coding",   name:"AI 编程 · 开发",            short:"AI 编程",   gen:false, accent:"#3F6B8C", desc:"从代码补全到自主修改整个仓库，AI 正在重塑软件开发的方式与效率。", name_en:"AI Coding · Development", short_en:"Coding", desc_en:"From autocomplete to autonomously editing whole repos, AI is reshaping how software is built."},
+  {id:"image",    name:"AI 图像生成 · 编辑",        short:"图像生成",  gen:true,  accent:"#B5763B", desc:"输入一句话即可生成或精修图像，覆盖插画、摄影、设计与商业出图。", name_en:"AI Image Generation", short_en:"Image", desc_en:"Generate or refine images from a prompt — illustration, photography, design and commercial art."},
+  {id:"video",    name:"AI 视频生成 · 编辑",        short:"视频生成",  gen:true,  accent:"#8C5B7A", desc:"文生视频与数字人正快速逼近影视级质感，重塑短视频与内容生产。", name_en:"AI Video Generation", short_en:"Video", desc_en:"Text-to-video and digital humans are nearing cinematic quality, reshaping content creation."},
+  {id:"audio",    name:"AI 音频 · 语音 · 音乐",     short:"音频语音",  gen:true,  accent:"#4E7C59", desc:"一句歌词成曲、一段文字成声，音乐创作与配音门槛被彻底拉低。", name_en:"AI Audio · Voice · Music", short_en:"Audio", desc_en:"A line of lyrics becomes a song, text becomes speech — music and voiceover for everyone."},
+  {id:"search",   name:"AI 搜索 · 知识问答",        short:"AI 搜索",   gen:false, accent:"#B0563F", desc:"带引用、能追问的答案引擎，正逐步取代传统的关键词搜索体验。", name_en:"AI Search · Q&A", short_en:"Search", desc_en:"Answer engines with citations and follow-ups, gradually replacing keyword search."},
+  {id:"writing",  name:"AI 写作 · 内容创作",        short:"AI 写作",   gen:true,  accent:"#7A6A3F", desc:"营销文案、长文润色、语法校对，让内容生产更快也更稳。", name_en:"AI Writing", short_en:"Writing", desc_en:"Marketing copy, long-form polishing and grammar checks — content, faster and steadier."},
+  {id:"office",   name:"AI 办公 · 生产力 · 协作",   short:"AI 办公",   gen:false, accent:"#486A7E", desc:"嵌入文档、会议、表格的智能副驾，把繁琐流程交给 AI 处理。", name_en:"AI Office · Productivity", short_en:"Office", desc_en:"Copilots embedded in docs, meetings and sheets that take the busywork off your plate."},
+  {id:"design",   name:"AI 设计 · 创意工具",        short:"AI 设计",   gen:true,  accent:"#9A5C6C", desc:"从一句描述到可用界面与品牌物料，设计正在变成人人可及的能力。", name_en:"AI Design Tools", short_en:"Design", desc_en:"From a sentence to usable UI and brand assets — design is becoming accessible to all."},
+  {id:"agent",    name:"AI Agent · 自动化（智能体）",short:"AI 智能体", gen:false, accent:"#5A6E8C", desc:"能自己拆解目标、调用工具、跨步骤执行任务的自主智能体，2026 年的焦点赛道。", name_en:"AI Agents · Automation", short_en:"Agents", desc_en:"Autonomous agents that break down goals, call tools and run multi-step tasks — 2026's hot lane."},
+  {id:"companion",name:"AI 陪伴 · 情感社交",        short:"AI 陪伴",   gen:false, accent:"#B26A6A", desc:"有人设、有记忆、能长期陪聊的 AI 角色，是增长最快的消费级赛道之一。", name_en:"AI Companions", short_en:"Companion", desc_en:"Characters with persona and memory for long-term chat — one of the fastest-growing consumer lanes."},
+  {id:"vertical", name:"垂直行业应用 AI",           short:"垂直行业",  gen:false, accent:"#4F6F66", desc:"深入法律、教育、医疗、客服、金融等场景，把通用智能转化为专业生产力。", name_en:"Vertical-Industry AI", short_en:"Vertical", desc_en:"Into law, education, healthcare, support and finance — turning general AI into pro productivity."}
+];
+
+/* 6 大任务赛道（更直观的归并视角，每条赛道由若干细分分类组成）*/
+const TRACKS = [
+  {id:"t-ask",   name:"对话 · 搜索 · 问答",      short:"对话问答", icon:"chat",     accent:"#2E6E6A", members:["chat","search"],
+   desc:"和 AI 对话、获取带来源的答案——通用大模型助手与新一代搜索引擎。", name_en:"Chat · Search · Q&A", short_en:"Chat & Search", desc_en:"Talk to AI and get cited answers — general assistants and next-gen search engines."},
+  {id:"t-visual",name:"图像 · 视频 · 视觉创作",   short:"视觉创作", icon:"image",    accent:"#8C5B7A", members:["image","video"],
+   desc:"一句话生成或精修图片与视频，覆盖插画、摄影、短片与数字人。", name_en:"Image · Video · Visual", short_en:"Visual", desc_en:"Generate or refine images and video from a prompt — art, photos, clips and digital humans."},
+  {id:"t-create",name:"写作 · 音频 · 内容创作",   short:"内容创作", icon:"writing",  accent:"#7A6A3F", members:["writing","audio"],
+   desc:"文字与声音的生产线——文案润色、长文写作、配音与音乐生成。", name_en:"Writing · Audio · Content", short_en:"Content", desc_en:"A production line for words and sound — copy, long-form, voiceover and music."},
+  {id:"t-build", name:"编程 · 开发 · 智能体",     short:"编程开发", icon:"coding",   accent:"#3F6B8C", members:["coding","agent"],
+   desc:"写代码、改仓库，或让自主智能体替你拆解目标、跨步骤执行任务。", name_en:"Coding · Dev · Agents", short_en:"Build", desc_en:"Write code and edit repos, or let autonomous agents run multi-step tasks for you."},
+  {id:"t-work",  name:"办公 · 设计 · 生产力",     short:"办公设计", icon:"office",   accent:"#486A7E", members:["office","design"],
+   desc:"嵌入文档、会议与设计流程的智能副驾，把繁琐工作交给 AI。", name_en:"Office · Design · Productivity", short_en:"Work", desc_en:"Copilots in docs, meetings and design flows that hand the busywork to AI."},
+  {id:"t-life",  name:"陪伴 · 垂直行业",          short:"陪伴行业", icon:"companion",accent:"#B26A6A", members:["companion","vertical"],
+   desc:"有人设、有记忆的 AI 陪伴，以及深入法律、教育、医疗等场景的行业应用。", name_en:"Companion · Vertical", short_en:"Life & Industry", desc_en:"Companions with persona and memory, plus AI for law, education, healthcare and more."}
+];
+
+const PRODUCTS = [
+/* 1. 对话式 AI */
+{id:"chatgpt",name:"ChatGPT",company:"OpenAI",cat:"chat",abbr:"GPT",accent:"#10A37F",pricing:"免费 + 订阅",url:"https://chat.openai.com",
+ tagline:"全球访问量最高的通用 AI 助手",tags:["写作","编程","多模态"],
+ intro:"OpenAI 推出的现象级对话助手，以 GPT-5 系列模型为核心，支持文本、图像、语音与文件的多模态交互，覆盖写作、编程、分析、绘图等几乎所有通用任务。拥有海量 GPTs 与插件生态，是全球访问量最高的 AI 应用。免费版即可体验，Plus/Pro 订阅解锁更强模型与更高额度。"},
+{id:"claude",name:"Claude",company:"Anthropic",cat:"chat",abbr:"Cl",accent:"#D97757",pricing:"免费 + 订阅",url:"https://claude.ai",
+ tagline:"擅长长文本、推理与编程的对话助手",tags:["长文本","编程","推理"],
+ intro:"Anthropic 打造的对话助手，以擅长长文本理解、严谨推理与高质量编程著称，Opus、Sonnet、Haiku 三档模型兼顾能力与速度。支持超长上下文、文件分析与 Artifacts 可视化创作，写作风格自然克制，深受开发者与专业写作者青睐。提供免费额度与 Pro/Max 订阅。"},
+{id:"gemini",name:"Gemini",company:"Google",cat:"chat",abbr:"Ge",accent:"#4285F4",pricing:"免费 + 订阅",url:"https://gemini.google.com",
+ tagline:"深度集成谷歌生态的多模态助手",tags:["多模态","谷歌生态","长上下文"],
+ intro:"谷歌的旗舰多模态助手，原生理解文本、图像、音频与视频，并深度集成 Search、Gmail、Docs 等全家桶。超长上下文窗口适合处理长文档与代码，配合 Workspace 可直接在办公场景中调用。是 2026 年增长最快的大模型之一，免费可用，AI Pro/Ultra 订阅提供更强能力。"},
+{id:"grok",name:"Grok",company:"xAI",cat:"chat",abbr:"Gr",accent:"#1F1F1F",pricing:"免费 + 订阅",url:"https://grok.com",
+ tagline:"与 X 实时打通、风格直接的助手",tags:["实时信息","X 集成","推理"],
+ intro:"xAI 推出的对话助手，最大特色是与社交平台 X 实时打通，能即时检索并总结最新动态，风格直接甚至带点幽默。具备推理、联网与图像生成能力，强调'最大限度求真'。内置于 X 应用，免费可用，订阅用户可使用更强模型与更高频次。"},
+{id:"deepseek",name:"DeepSeek",company:"深度求索",cat:"chat",abbr:"DS",accent:"#4D6BFE",pricing:"免费 + 开源",url:"https://chat.deepseek.com",
+ tagline:"高性价比、强推理的国产开源大模型",tags:["推理","开源","高性价比"],
+ intro:"中国深度求索研发的大模型，以强大的数理推理、代码能力与极致性价比震动行业，并坚持开源权重。R 系列推理模型在复杂问题上表现亮眼，API 价格远低于同级闭源模型，被大量开发者与企业集成，是国产开源大模型的代表。网页版免费，开源可自部署。"},
+{id:"doubao",name:"豆包",company:"字节跳动",cat:"chat",abbr:"豆",accent:"#1664FF",pricing:"免费",url:"https://www.doubao.com",
+ tagline:"国内月活领先的日常 AI 助手",tags:["日常助手","语音","多模态"],
+ intro:"字节跳动出品、国内月活领先的 AI 助手，主打日常陪伴式体验：聊天问答、写作、翻译、图像与语音通话样样能做，并与抖音、剪映等生态打通。界面友好、响应快，移动端体验尤其出色，深受普通用户欢迎，基础功能完全免费。"},
+{id:"qwen",name:"通义千问",company:"阿里巴巴",cat:"chat",abbr:"通",accent:"#6C5CE7",pricing:"免费 + 开源",url:"https://tongyi.aliyun.com",
+ tagline:"全球影响力巨大的开源多模态模型",tags:["多模态","开源","电商"],
+ intro:"阿里巴巴通义大模型的对外品牌，覆盖文本、图像、音视频多模态能力，并开源了 Qwen 系列模型，在全球开源社区影响力巨大。深度服务电商、办公与开发场景，企业可通过阿里云灵活调用。个人网页与 App 免费使用，开源版本可自由部署。"},
+{id:"kimi",name:"Kimi",company:"月之暗面",cat:"chat",abbr:"Ki",accent:"#16162B",pricing:"免费",url:"https://kimi.moonshot.cn",
+ tagline:"超长上下文、长文档处理之王",tags:["长文档","联网搜索","推理"],
+ intro:"月之暗面（Moonshot）推出的智能助手，以超长上下文和强大的长文档处理能力出圈，可一次性阅读整本书、长报告或大量网页并精准问答。联网搜索与推理能力扎实，深受研究、法律、金融等需要处理大量资料的用户喜爱，网页与 App 免费使用。"},
+{id:"ernie",name:"文心一言",company:"百度",cat:"chat",abbr:"文",accent:"#2932E1",pricing:"免费 + 订阅",url:"https://yiyan.baidu.com",
+ tagline:"国内最早开放的中文大模型助手",tags:["中文写作","多模态","插件"],
+ intro:"百度推出的中文大模型助手，是国内最早面向公众开放的生成式 AI 之一。中文写作、知识问答与多模态创作能力均衡，深度整合百度搜索与文库资源，并支持丰富插件。面向个人与企业提供服务，基础体验免费，旗舰能力通过订阅或专业版开放。"},
+
+/* 2. AI 编程 */
+{id:"copilot",name:"GitHub Copilot",company:"GitHub · 微软",cat:"coding",abbr:"Co",accent:"#6E40C9",pricing:"订阅 + 企业",url:"https://github.com/features/copilot",
+ tagline:"普及度最高的 AI 编程助手",tags:["代码补全","Chat","企业级"],
+ intro:"GitHub 与微软联手打造的 AI 编程助手，是最早大规模普及的代码补全工具。深度集成 VS Code、JetBrains 与 GitHub，提供实时补全、聊天、代码评审与 Agent 模式，企业版还含 IP 侵权赔付与私有代码定制。是企业团队采用最广的编程助手，按月订阅。"},
+{id:"cursor",name:"Cursor",company:"Anysphere",cat:"coding",abbr:"Cu",accent:"#111111",pricing:"免费 + 订阅",url:"https://cursor.com",
+ tagline:"开发者首选的 AI 原生代码编辑器",tags:["AI 编辑器","多文件编辑","多模型"],
+ intro:"Anysphere 出品、被众多开发者奉为首选的 AI 原生代码编辑器。基于 VS Code 深度改造，Composer 模式可跨多文件理解并修改整个项目，支持 Claude、GPT 等多模型切换，自动补全快而准。从写新功能到重构老代码都得心应手，个人有免费档，Pro 按月订阅。"},
+{id:"claudecode",name:"Claude Code",company:"Anthropic",cat:"coding",abbr:"CC",accent:"#C15F3C",pricing:"订阅 + API",url:"https://www.anthropic.com/claude-code",
+ tagline:"命令行里的自主编程智能体",tags:["终端智能体","代码库理解","自主修改"],
+ intro:"Anthropic 推出的终端 AI 编程智能体，直接在命令行中理解整个代码库、制定计划并自主完成多文件改动、运行测试与修复错误。超长上下文与强推理使其在复杂工程任务上表现突出，可接入 IDE 与 CI 流程。按 Claude 订阅或 API 计费，深受资深工程师欢迎。"},
+{id:"windsurf",name:"Windsurf",company:"Cognition",cat:"coding",abbr:"Ws",accent:"#0BB5A3",pricing:"免费 + 订阅",url:"https://windsurf.com",
+ tagline:"Cascade 智能体驱动的 AI 原生 IDE",tags:["AI IDE","Cascade 智能体","易上手"],
+ intro:"由 Codeium 打造、现归 Cognition（Devin 团队）旗下的 AI 原生 IDE。核心 Cascade 智能体能理解代码库、跨文件修改、执行终端命令并自动修复错误，还能记住跨会话偏好。上手门槛低、Tab 补全免费，适合从新手到团队的多种场景，提供免费档与订阅。"},
+{id:"v0",name:"v0",company:"Vercel",cat:"coding",abbr:"v0",accent:"#334155",pricing:"免费 + 订阅",url:"https://v0.dev",
+ tagline:"一句话生成可用前端界面",tags:["文生界面","React","快速原型"],
+ intro:"Vercel 推出的生成式前端工具，用一句话或一张草图即可生成可用的 React/Tailwind 界面与组件，并能一键部署。擅长把设计意图快速变成高质量代码，是产品经理与前端快速搭建原型的利器，配合 Vercel 生态无缝上线。免费起步，按额度订阅。"},
+{id:"replit",name:"Replit Agent",company:"Replit",cat:"coding",abbr:"Re",accent:"#F26207",pricing:"免费 + 订阅",url:"https://replit.com",
+ tagline:"浏览器里从零到部署的编程智能体",tags:["云端开发","一键部署","零环境配置"],
+ intro:"云端编程平台 Replit 的 AI 智能体，能在浏览器里从零搭建、编写并部署完整应用，自动配置环境、数据库与依赖。无需本地安装，描述需求即可得到可运行的项目，特别适合教学、创意验证与非专业开发者快速上线。按订阅与用量计费。"},
+{id:"bolt",name:"Bolt.new",company:"StackBlitz",cat:"coding",abbr:"Bo",accent:"#1389FD",pricing:"免费 + 订阅",url:"https://bolt.new",
+ tagline:"浏览器内的 AI 全栈开发工具",tags:["全栈生成","浏览器内","即时预览"],
+ intro:"StackBlitz 推出的 AI 全栈开发工具，在浏览器内即可生成、运行并预览完整的前后端应用，所见即所得地迭代代码并直接部署。凭借纯网页、零配置的体验在独立开发者中迅速走红，适合快速把想法变成可演示的产品。免费试用，按额度订阅。"},
+{id:"devin",name:"Devin",company:"Cognition",cat:"coding",abbr:"De",accent:"#3C4A5A",pricing:"订阅 + 企业",url:"https://devin.ai",
+ tagline:"自主完成任务并提交 PR 的 AI 工程师",tags:["自主工程师","云端并行","自动提交 PR"],
+ intro:"Cognition 打造的自主软件工程智能体，被称为'首个 AI 软件工程师'。可在独立云端环境中接受任务、自主编码、调试并提交 Pull Request，还能并行运行多个'Devin'处理不同工单。擅长长周期、可监督的实现与修复工作，主要面向企业团队按席位订阅。"},
+{id:"trae",name:"Trae",company:"字节跳动",cat:"coding",abbr:"Tr",accent:"#E5484D",pricing:"免费",url:"https://www.trae.ai",
+ tagline:"对中文开发者友好的 AI 原生 IDE",tags:["AI IDE","对话编程","中文友好"],
+ intro:"字节跳动推出的 AI 原生 IDE，提供智能补全、对话式编程与可自主执行任务的 Builder 智能体，界面简洁、对中文开发者友好，并内置多种强力模型。面向国内外开发者免费提供核心能力，是国产 AI 编程工具中的有力竞争者，基础功能免费使用。"},
+
+/* 3. AI 图像生成 */
+{id:"midjourney",name:"Midjourney",company:"Midjourney",cat:"image",abbr:"Mj",accent:"#2E2E48",pricing:"订阅",url:"https://www.midjourney.com",
+ tagline:"以艺术质感著称的图像生成标杆",tags:["艺术质感","插画","概念设计"],
+ intro:"以艺术质感与画面美学著称的图像生成工具，自 2022 年起长期占据'最具审美'的位置，最新版本在光影、构图与质感上几近'有灵魂'。擅长插画、概念设计与电影感画面，通过网页与 Discord 使用，社区氛围浓厚。按月订阅，是创意工作者最爱的出图工具之一。"},
+{id:"dalle",name:"DALL·E / GPT Image",company:"OpenAI",cat:"image",abbr:"DE",accent:"#FF6F4D",pricing:"免费 + 订阅",url:"https://openai.com/dall-e",
+ tagline:"内置于 ChatGPT 的文生图模型",tags:["文生图","图内文字","ChatGPT 内置"],
+ intro:"OpenAI 的图像生成模型，现已升级为 GPT Image 并深度内置于 ChatGPT，用自然语言即可生成、编辑图像并较好地控制画面内的文字与排版。理解复杂指令的能力出色，适合配图、海报与创意草图，随 ChatGPT 的免费与订阅一同提供，对话中即可出图。"},
+{id:"flux",name:"Flux",company:"Black Forest Labs",cat:"image",abbr:"Fx",accent:"#6B4FBB",pricing:"免费 + 开源",url:"https://blackforestlabs.ai",
+ tagline:"照片级真实感的开源黑马",tags:["照片级真实","开源","可微调"],
+ intro:"由 Black Forest Labs 推出的图像生成模型，以惊人的真实感成为近两年最大黑马，在盲测中常与顶级闭源模型平分秋色。提供开源权重，可自由部署与微调，深受开发者与产品集成方青睐，是开源文生图阵营的代表。开源与商用 API 双轨提供。"},
+{id:"firefly",name:"Adobe Firefly",company:"Adobe",cat:"image",abbr:"Fi",accent:"#E5392F",pricing:"免费 + 订阅",url:"https://www.adobe.com/products/firefly.html",
+ tagline:"商用安全的创意全家桶图像 AI",tags:["商用安全","创意全家桶","生成填充"],
+ intro:"Adobe 推出的生成式图像工具，最大卖点是'商用安全'——基于授权与公共领域素材训练，可放心用于商业项目。深度集成 Photoshop、Illustrator 等创意全家桶，支持生成填充、扩图与矢量上色。面向设计师与企业，随 Creative Cloud 订阅提供生成额度。"},
+{id:"jimeng",name:"即梦",company:"字节跳动",cat:"image",abbr:"即",accent:"#7B5BFF",pricing:"免费 + 订阅",url:"https://jimeng.jianying.com",
+ tagline:"图像视频一体的中文创作平台",tags:["图像视频","中文友好","风格模板"],
+ intro:"字节跳动旗下的 AI 创作平台，集图像与视频生成于一体，中文理解到位、出图质量高，并与剪映、抖音生态打通。提供丰富的风格模板与精细化控制，适合自媒体、电商与设计快速产出素材，移动端体验流畅。基础功能免费，进阶按额度付费。"},
+{id:"wanxiang",name:"通义万相",company:"阿里巴巴",cat:"image",abbr:"万",accent:"#8E5BE0",pricing:"免费 + 开源",url:"https://tongyi.aliyun.com/wanxiang",
+ tagline:"擅长电商海报的视觉生成大模型",tags:["文生图","电商海报","开源"],
+ intro:"阿里巴巴通义系列的视觉生成大模型，覆盖文生图、图像编辑与文生视频，中文语义理解强、出图风格多样，并开源了部分版本。深度服务电商主图、营销海报与设计场景，企业可通过阿里云调用。个人可免费体验，规模化使用按用量计费。"},
+{id:"ideogram",name:"Ideogram",company:"Ideogram",cat:"image",abbr:"Id",accent:"#EC4899",pricing:"免费 + 订阅",url:"https://ideogram.ai",
+ tagline:"唯一把文字写对的出图工具",tags:["图内文字","海报","Logo 草图"],
+ intro:"以'把文字写对'闻名的图像生成工具，是少数能在画面中较准确渲染中英文字的产品，做海报、logo 草图、配图标题尤其好用。出图风格现代、排版感强，操作简单，网页即可使用。提供免费额度，进阶功能与更高额度按订阅开放。"},
+{id:"recraft",name:"Recraft",company:"Recraft",cat:"image",abbr:"Rc",accent:"#F2542D",pricing:"免费 + 订阅",url:"https://www.recraft.ai",
+ tagline:"擅长矢量与品牌一致性的设计 AI",tags:["矢量 SVG","品牌插画","风格统一"],
+ intro:"面向设计师的 AI 图像与矢量生成工具，曾在多项盲测中登顶，擅长生成可缩放的 SVG 矢量图、图标、品牌插画与统一风格的成套素材。提供精细的风格控制与品牌一致性能力，是 UI/品牌设计师的得力助手。提供免费额度与订阅。"},
+{id:"leonardo",name:"Leonardo.Ai",company:"Leonardo / Canva",cat:"image",abbr:"Le",accent:"#9B5DE5",pricing:"免费 + 订阅",url:"https://leonardo.ai",
+ tagline:"游戏与创意行业的美术资产工厂",tags:["游戏美术","角色资产","模型微调"],
+ intro:"面向游戏与创意行业的 AI 图像生成平台，擅长生成角色、场景、道具等成套美术资产，并提供精细的模型微调与一致性控制。内置丰富的社区模型与实时画布，适合美术、独立游戏与设计团队批量产出素材，现已并入 Canva 生态。提供免费额度与订阅。"},
+
+/* 4. AI 视频生成 */
+{id:"sora",name:"Sora",company:"OpenAI",cat:"video",abbr:"So",accent:"#2B2B2B",pricing:"订阅",url:"https://sora.com",
+ tagline:"开启新纪元的文生视频模型",tags:["文生视频","高拟真","镜头语言"],
+ intro:"OpenAI 推出的文生视频模型，凭借对物理世界与镜头语言的理解力开启了 AI 视频的新纪元。支持由文字、图片生成高拟真短视频，并能加入人物'客串'等创意玩法，画面连贯、想象力强。面向 ChatGPT 订阅用户开放，是文生视频领域最受关注的产品之一。"},
+{id:"kling",name:"可灵 Kling",company:"快手",cat:"video",abbr:"可",accent:"#1F6FEB",pricing:"免费 + 订阅",url:"https://klingai.com",
+ tagline:"画质与运动真实感领先的视频模型",tags:["高画质","运动真实","唇形同步"],
+ intro:"快手推出的视频生成大模型，凭借出色的画面质量与运动真实感在 2026 年多项盲测中名列前茅，并支持多语言唇形同步。文生视频、图生视频、首尾帧控制一应俱全，性价比高、适合大量迭代，深受短视频与广告创作者欢迎。提供免费额度与订阅。"},
+{id:"runway",name:"Runway",company:"Runway",cat:"video",abbr:"Ru",accent:"#11A86F",pricing:"免费 + 订阅",url:"https://runwayml.com",
+ tagline:"控制力最强的专业视频创作平台",tags:["专业可控","运动笔刷","影视后期"],
+ intro:"AI 视频创作的先行者，Gen 系列模型在可控性上持续领先，提供运动笔刷、镜头控制、抠像与特效等专业工作流。当'控制力比排行榜更重要'时，它是影视与广告团队的首选工具，配套完整的后期生态。面向专业创作者，按订阅与额度计费。"},
+{id:"hailuo",name:"海螺 Hailuo",company:"MiniMax",cat:"video",abbr:"海",accent:"#FF5A3C",pricing:"免费 + 订阅",url:"https://hailuoai.video",
+ tagline:"运镜流畅、中文友好的视频生成",tags:["运镜流畅","图生视频","中文友好"],
+ intro:"MiniMax 推出的视频生成工具，以高质量的运镜、人物表现与稳定的画面一致性受到好评，文生视频与图生视频表现均衡。中文创作友好、上手简单，适合自媒体与营销快速产出有质感的短片。提供免费额度，进阶能力按订阅开放。"},
+{id:"veo",name:"Veo",company:"Google DeepMind",cat:"video",abbr:"Ve",accent:"#1A73E8",pricing:"订阅",url:"https://deepmind.google/models/veo",
+ tagline:"原生生成同步音频的视频模型",tags:["原生音频","高真实感","Gemini 集成"],
+ intro:"谷歌 DeepMind 推出的视频生成模型，最大亮点是原生生成同步音频，让画面与声音一次成型，整体真实感与运动表现位居第一梯队。深度集成于 Gemini 与谷歌创意工具，适合广告、预告与社媒内容。面向订阅用户开放，企业可通过云服务调用。"},
+{id:"pika",name:"Pika",company:"Pika Labs",cat:"video",abbr:"Pi",accent:"#D946C4",pricing:"免费 + 订阅",url:"https://pika.art",
+ tagline:"好玩易用的趣味视频生成工具",tags:["趣味特效","易上手","社媒"],
+ intro:"以好玩、易用著称的 AI 视频生成工具，丰富的特效与'变形'玩法降低了创作门槛，几句话就能做出有趣的短视频。社区活跃、模板众多，特别适合社媒创作者快速产出吸睛内容。网页与 App 即可使用，提供免费额度与订阅。"},
+{id:"luma",name:"Luma Dream Machine",company:"Luma AI",cat:"video",abbr:"Lu",accent:"#6366F1",pricing:"免费 + 订阅",url:"https://lumalabs.ai",
+ tagline:"运镜梦幻、带 3D 感的视频平台",tags:["梦幻运镜","图生视频","3D 感"],
+ intro:"Luma AI 推出的 Dream Machine 视频生成平台，擅长平滑的运镜、3D 感与梦境般的画面表现，支持文生与图生视频。界面简洁、迭代快，并具备 3D 重建相关能力，适合创意探索与概念演示。提供免费额度，进阶能力按订阅开放。"},
+{id:"heygen",name:"HeyGen",company:"HeyGen",cat:"video",abbr:"He",accent:"#7C5CFC",pricing:"免费 + 订阅",url:"https://www.heygen.com",
+ tagline:"几分钟做出数字人口播视频",tags:["数字人","多语言口播","形象克隆"],
+ intro:"专注数字人与 AI 视频的工具，能用一段文字驱动逼真的虚拟主播口播，支持多语言配音、唇形同步与形象克隆，几分钟做出营销、培训或带货视频。企业级模板与批量生成能力强，是出海与电商内容的利器。提供免费额度与订阅。"},
+{id:"capcut",name:"剪映 / CapCut",company:"字节跳动",cat:"video",abbr:"剪",accent:"#111827",pricing:"免费 + 订阅",url:"https://www.capcut.com",
+ tagline:"AI 深度融入的国民级剪辑工具",tags:["智能剪辑","一键成片","AI 字幕"],
+ intro:"字节跳动旗下的国民级视频剪辑工具（海外版 CapCut），把 AI 能力深度融入剪辑：智能字幕、文本配音、一键成片、AI 特效与抠像等，让普通人也能快速产出成片。与抖音、TikTok 生态无缝衔接，桌面与移动端通用，基础功能免费，会员解锁更多特效。"},
+
+/* 5. AI 音频 · 语音 · 音乐 */
+{id:"suno",name:"Suno",company:"Suno",cat:"audio",abbr:"Su",accent:"#1A1A1A",pricing:"免费 + 订阅",url:"https://suno.com",
+ tagline:"一句话生成完整歌曲的音乐 AI",tags:["文生歌曲","含人声","多曲风"],
+ intro:"现象级 AI 音乐生成工具，输入一句歌词或风格描述，几十秒就能生成带人声、伴奏与编曲的完整歌曲，支持多语言演唱与多种曲风。把作曲、编曲、演唱的门槛降到几乎为零，深受音乐爱好者与内容创作者喜爱。提供免费额度，进阶按订阅，商用需相应授权。"},
+{id:"udio",name:"Udio",company:"Udio",cat:"audio",abbr:"Ud",accent:"#FF6B6B",pricing:"免费 + 订阅",url:"https://www.udio.com",
+ tagline:"音质细腻的 AI 音乐生成平台",tags:["高音质","人声细腻","分段创作"],
+ intro:"与 Suno 齐名的 AI 音乐生成平台，以更精细的音质与人声表现见长，支持分段续写、风格混合与高质量出歌。适合音乐人做小样、创作者配乐与灵感探索，社区氛围活跃。提供免费额度，进阶功能与更高音质按订阅开放。"},
+{id:"elevenlabs",name:"ElevenLabs",company:"ElevenLabs",cat:"audio",abbr:"11",accent:"#4C6EF5",pricing:"免费 + 订阅",url:"https://elevenlabs.io",
+ tagline:"自然度顶尖的 AI 语音合成平台",tags:["语音合成","声音克隆","多语言"],
+ intro:"业界领先的 AI 语音合成平台，声音自然、情感细腻，支持文本转语音、声音克隆、多语言配音与实时语音，被广泛用于有声书、播客、游戏与智能客服。开发者可通过 API 集成，是 AI 配音赛道的标杆。提供免费额度与多档订阅。"},
+{id:"murf",name:"Murf",company:"Murf AI",cat:"audio",abbr:"Mu",accent:"#6741D9",pricing:"免费 + 订阅",url:"https://murf.ai",
+ tagline:"面向商用旁白的 AI 配音工具",tags:["AI 配音","商用旁白","多音色"],
+ intro:"面向企业与创作者的 AI 配音工具，提供上百种自然语音、丰富的语气与语速控制，并支持配音与画面、PPT 同步。适合做培训、广告、解说与视频旁白，团队协作与品牌音色管理完善。以订阅为主，提供免费试用。"},
+{id:"adobepodcast",name:"Adobe Podcast",company:"Adobe",cat:"audio",abbr:"AP",accent:"#E5392F",pricing:"免费 + 订阅",url:"https://podcast.adobe.com",
+ tagline:"一键把录音变成录音棚级人声",tags:["语音增强","降噪","播客剪辑"],
+ intro:"Adobe 推出的 AI 音频工具，最出名的'增强语音'能一键把嘈杂录音处理成录音棚级人声，去噪、去混响效果惊艳。还提供录制、剪辑与转写能力，是播客与视频创作者的音频清理利器。提供免费在线功能，进阶随 Adobe 订阅开放。"},
+{id:"krisp",name:"Krisp",company:"Krisp",cat:"audio",abbr:"Kr",accent:"#12B886",pricing:"免费 + 订阅",url:"https://krisp.ai",
+ tagline:"实时降噪与会议纪要助手",tags:["实时降噪","会议纪要","通话增强"],
+ intro:"基于 AI 的实时降噪与会议助手，能在通话与会议中实时消除背景噪音、回声，并提供转写、纪要与要点总结。兼容主流会议软件，对远程办公与客服场景尤其实用，是提升通话质量的常青工具。提供免费额度与订阅。"},
+{id:"tianyin",name:"网易天音",company:"网易",cat:"audio",abbr:"天",accent:"#D7263D",pricing:"免费",url:"https://tianyin.music.163.com",
+ tagline:"中文友好的 AI 音乐创作平台",tags:["智能作曲","中文歌曲","编曲"],
+ intro:"网易推出的 AI 音乐创作平台，面向词曲创作提供智能作词、作曲、编曲与演唱合成能力，中文歌曲创作体验友好。帮助音乐人和爱好者快速完成从灵感到成品的全流程，并对接网易云音乐生态。基础功能免费体验。"},
+{id:"stableaudio",name:"Stable Audio",company:"Stability AI",cat:"audio",abbr:"SA",accent:"#9333EA",pricing:"免费 + 订阅",url:"https://stableaudio.com",
+ tagline:"可商用的器乐与音效生成模型",tags:["器乐生成","音效","可商用"],
+ intro:"Stability AI 推出的音频与音乐生成模型，擅长生成高质量的器乐、音效与循环片段，可控制时长、风格与结构，适合视频配乐、游戏音效与制作人采样。提供商用授权，并有开源版本可供研究与自部署。提供免费试用与订阅。"},
+{id:"fishaudio",name:"Fish Audio",company:"Fish Audio",cat:"audio",abbr:"Fs",accent:"#1098AD",pricing:"免费 + 开源",url:"https://fish.audio",
+ tagline:"开源友好的语音合成与克隆",tags:["语音克隆","多语言","开源友好"],
+ intro:"开源友好的 AI 语音合成与声音克隆平台，以高自然度和对中文等多语言的良好支持受到开发者欢迎，可低成本克隆音色并通过 API 集成到应用中。适合做配音、虚拟主播与语音交互，社区活跃。提供免费额度、订阅与开源模型。"},
+
+/* 6. AI 搜索 */
+{id:"perplexity",name:"Perplexity",company:"Perplexity AI",cat:"search",abbr:"Px",accent:"#20B8CD",pricing:"免费 + 订阅",url:"https://www.perplexity.ai",
+ tagline:"带来源引用的 AI 答案引擎",tags:["答案引用","追问研究","多模型"],
+ intro:"主打'答案引擎'的 AI 搜索产品，回答带有清晰的来源引用，可连续追问、深入研究，并能调用多种大模型。Pro 搜索与深度研究模式能自动检索、整理多来源信息生成报告，是用 AI 替代传统搜索的代表。提供免费版与 Pro 订阅。"},
+{id:"metaso",name:"秘塔 AI 搜索",company:"秘塔科技",cat:"search",abbr:"秘",accent:"#2E6CF6",pricing:"免费",url:"https://metaso.cn",
+ tagline:"无广告、重结果的国产 AI 搜索",tags:["无广告","学术检索","结构化答案"],
+ intro:"国内广受好评的 AI 搜索工具，无广告、重结果，能对全网与学术资料进行检索、归纳并生成带引用的结构化答案，还可一键生成大纲与脑图。对中文与学术场景尤其友好，是研究、写作前期收集资料的利器。基础功能免费使用。"},
+{id:"genspark",name:"Genspark",company:"Genspark",cat:"search",abbr:"Gs",accent:"#5B6CFF",pricing:"免费 + 订阅",url:"https://www.genspark.ai",
+ tagline:"会自动汇总与执行任务的智能搜索",tags:["智能搜索","自动汇总","智能体"],
+ intro:"新一代 AI 搜索与智能体平台，能针对查询自动生成汇总信息的'Sparkpages'，并进一步调用智能体完成调研、对比与任务执行。强调一站式从提问到产出，适合做攻略、选品与深度调研。提供免费额度，进阶能力按订阅开放。"},
+{id:"phind",name:"Phind",company:"Phind",cat:"search",abbr:"Ph",accent:"#19B5A3",pricing:"免费 + 订阅",url:"https://www.phind.com",
+ tagline:"为开发者打造的技术搜索引擎",tags:["开发者搜索","技术问答","带来源"],
+ intro:"面向开发者的 AI 搜索与问答工具，擅长检索技术文档、代码示例并给出带来源的解答，能直接回答编程与工程问题。对调试报错、查 API 用法尤其高效，是程序员的'技术搜索引擎'。提供免费版与 Pro 订阅。"},
+{id:"felo",name:"Felo",company:"Felo",cat:"search",abbr:"Fe",accent:"#6741D9",pricing:"免费 + 订阅",url:"https://felo.ai",
+ tagline:"主打多语言的 AI 搜索引擎",tags:["多语言搜索","脑图","生成 PPT"],
+ intro:"主打多语言的 AI 搜索引擎，能跨语言检索全球资料并生成带引用的答案，还可一键生成主题脑图与演示文稿。对需要查阅外文资料、做跨境调研的用户很实用，界面简洁。提供免费版与订阅。"},
+{id:"ima",name:"腾讯 ima",company:"腾讯",cat:"search",abbr:"ima",accent:"#2D7FF9",pricing:"免费",url:"https://ima.qq.com",
+ tagline:"打通微信生态的 AI 知识工作台",tags:["知识库","公众号检索","第二大脑"],
+ intro:"腾讯推出的 AI 知识工作台，集搜索、阅读、笔记与问答于一体，可基于微信公众号等优质内容与个人知识库进行检索问答，打造专属'第二大脑'。与微信生态打通，适合资料整理与学习研究。面向用户免费使用。"},
+{id:"nami",name:"纳米 AI 搜索",company:"360",cat:"search",abbr:"纳",accent:"#00A862",pricing:"免费",url:"https://www.n.cn",
+ tagline:"一次提问、多重产出的 AI 搜索",tags:["多模型","深度研究","多模态"],
+ intro:"360 推出的 AI 搜索产品，整合多种大模型，提供慢思考深度研究、全网检索与多模态问答，并能生成图文、播客等内容。强调'一次提问、多重产出'，面向大众用户免费开放，移动端体验完善。"},
+{id:"youcom",name:"You.com",company:"You.com",cat:"search",abbr:"Yo",accent:"#7C3AED",pricing:"免费 + 订阅",url:"https://you.com",
+ tagline:"可定制、重隐私的对话式搜索",tags:["对话搜索","多模型","企业 API"],
+ intro:"较早探索 AI 搜索的产品，提供带引用的对话式搜索与多模型选择，并面向企业推出可联网检索的智能体与 API。强调可定制与隐私，适合个人研究与企业内信息检索集成。提供免费版与订阅。"},
+
+/* 7. AI 写作 */
+{id:"jasper",name:"Jasper",company:"Jasper",cat:"writing",abbr:"Ja",accent:"#E0457B",pricing:"订阅",url:"https://www.jasper.ai",
+ tagline:"面向营销团队的 AI 内容平台",tags:["营销文案","品牌音色","团队协作"],
+ intro:"面向营销团队的 AI 内容平台，擅长批量生产品牌一致的广告文案、博客、社媒与邮件内容，内置品牌音色、模板与工作流，并能协同团队与多渠道发布。在企业营销场景积累深厚，是内容营销自动化的代表。以订阅为主，提供试用。"},
+{id:"copyai",name:"Copy.ai",company:"Copy.ai",cat:"writing",abbr:"Cp",accent:"#2563EB",pricing:"免费 + 订阅",url:"https://www.copy.ai",
+ tagline:"主打营销与销售的 AI 写作工具",tags:["文案模板","营销","GTM 流程"],
+ intro:"主打营销与销售的 AI 写作工具，提供大量文案模板，可快速生成广告语、产品描述、邮件与社媒内容，并延伸出销售线索自动化等 GTM 工作流。上手简单、适合中小团队与个人创作者提速。提供免费额度与订阅。"},
+{id:"writesonic",name:"Writesonic",company:"Writesonic",cat:"writing",abbr:"Wr",accent:"#4F46E5",pricing:"免费 + 订阅",url:"https://writesonic.com",
+ tagline:"一体化 AI 写作与 SEO 平台",tags:["SEO 写作","长文生成","一键发布"],
+ intro:"一体化的 AI 写作与 SEO 内容平台，能生成博客、落地页与广告文案，并集成关键词研究、事实核查与一键发布，帮助内容团队规模化产出利于搜索排名的文章。适合做 SEO 与内容营销。提供免费额度与订阅。"},
+{id:"grammarly",name:"Grammarly",company:"Grammarly",cat:"writing",abbr:"Gm",accent:"#15C39A",pricing:"免费 + 订阅",url:"https://www.grammarly.com",
+ tagline:"全球流行的英文 AI 写作助手",tags:["语法校对","润色改写","全平台"],
+ intro:"全球流行的 AI 写作助手，实时检查语法、拼写、语气与表达，并提供改写、润色与生成功能，可跨浏览器、邮箱与办公软件使用。对英文写作尤其强大，帮助职场与学生写得更清晰得体。提供免费版与高级订阅、企业版。"},
+{id:"notionai",name:"Notion AI",company:"Notion",cat:"writing",abbr:"No",accent:"#111111",pricing:"免费 + 订阅",url:"https://www.notion.so/product/ai",
+ tagline:"嵌入工作区的 AI 写作与问答",tags:["文档写作","知识库问答","团队协作"],
+ intro:"嵌入 Notion 的 AI 助手，能在文档与知识库中总结、改写、续写、翻译，并基于工作区内容进行问答与检索，把笔记、项目与资料连成一体。让团队的知识管理与写作效率大幅提升。随 Notion 订阅提供，按席位计费。"},
+{id:"quillbot",name:"QuillBot",company:"QuillBot",cat:"writing",abbr:"Qb",accent:"#00A67E",pricing:"免费 + 订阅",url:"https://quillbot.com",
+ tagline:"以改写润色见长的写作工具",tags:["改写润色","摘要","语法纠错"],
+ intro:"以改写与润色见长的 AI 写作工具，提供同义改写、语法纠错、摘要、扩写与查重等功能，深受学生与研究者欢迎，可帮助改善表达、避免重复。浏览器插件与文档集成方便。提供免费版与高级订阅。"},
+{id:"huoshan",name:"火山写作",company:"字节跳动",cat:"writing",abbr:"火",accent:"#F5402C",pricing:"免费",url:"https://www.writingo.net",
+ tagline:"中文优化友好的 AI 写作助手",tags:["中文润色","智能纠错","全文点评"],
+ intro:"字节跳动火山引擎推出的中文 AI 写作助手，提供智能纠错、润色、扩写、改写与全文点评，对中文表达优化尤其友好，并支持多种文体与场景模板。帮助职场、学生与自媒体把中文写得更顺更专业。核心功能免费使用。"},
+{id:"xiezuomao",name:"秘塔写作猫",company:"秘塔科技",cat:"writing",abbr:"猫",accent:"#6C5CE7",pricing:"免费 + 订阅",url:"https://xiezuocat.com",
+ tagline:"中文写作的贴身校对与改写",tags:["中文校对","AI 改写","协作"],
+ intro:"秘塔科技推出的中文写作与校对工具，提供错别字与语法纠错、AI 改写、续写、全文翻译与多人协作，并能给出可读性建议。对公文、新媒体与学术写作很实用，是中文写作的'贴身校对'。提供免费额度与会员订阅。"},
+
+/* 8. AI 办公 */
+{id:"m365copilot",name:"Microsoft 365 Copilot",company:"微软",cat:"office",abbr:"MS",accent:"#2B6FE0",pricing:"订阅 + 企业",url:"https://www.microsoft.com/microsoft-365/copilot",
+ tagline:"嵌入 Office 全家桶的智能副驾",tags:["Office 集成","会议总结","企业数据"],
+ intro:"微软把 AI 全面嵌入 Office 全家桶的智能副驾，可在 Word 起草、Excel 分析、PPT 成稿、Outlook 写信、Teams 总结会议，并打通企业数据安全检索。深度融入日常办公流，是企业提效的标杆产品。面向企业与个人按席位订阅。"},
+{id:"notion",name:"Notion",company:"Notion Labs",cat:"office",abbr:"N",accent:"#1A1A1A",pricing:"免费 + 订阅",url:"https://www.notion.so",
+ tagline:"文档知识库一体的协作工作区",tags:["一体化工作区","知识库","项目管理"],
+ intro:"深受欢迎的一体化协作工作区，把文档、知识库、项目管理与数据库整合在一起，并内置 AI 写作、问答与自动化。灵活的模块化设计适合从个人笔记到团队 Wiki 的各种场景，是现代团队的'数字总部'。提供免费版与订阅。"},
+{id:"gamma",name:"Gamma",company:"Gamma",cat:"office",abbr:"Ga",accent:"#7C5CFF",pricing:"免费 + 订阅",url:"https://gamma.app",
+ tagline:"一句话生成演示文稿与网页",tags:["AI 生成 PPT","自动排版","快速成稿"],
+ intro:"用 AI 快速生成演示文稿、文档与网页的工具，输入主题或大纲即可一键成稿并自动排版，风格现代、改动灵活。免去从空白页开始的痛苦，特别适合做提案、分享与产品介绍。提供免费额度，进阶按订阅开放。"},
+{id:"otter",name:"Otter.ai",company:"Otter.ai",cat:"office",abbr:"Ot",accent:"#1E9FE0",pricing:"免费 + 订阅",url:"https://otter.ai",
+ tagline:"实时转写会议的 AI 记录助手",tags:["会议转写","摘要","自动参会"],
+ intro:"专注会议记录的 AI 助手，能实时转写会议、区分发言人并生成摘要与行动项，可接入 Zoom、Teams、Meet 自动参会记录。帮助团队留存会议要点、减少手动记录，是远程协作的好帮手。提供免费额度与订阅。"},
+{id:"fireflies",name:"Fireflies.ai",company:"Fireflies",cat:"office",abbr:"Fl",accent:"#5B4FE8",pricing:"免费 + 订阅",url:"https://fireflies.ai",
+ tagline:"自动参会的 AI 会议笔记",tags:["会议转写","待办提取","CRM 集成"],
+ intro:"AI 会议助手，可自动加入各类视频会议进行录音、转写、总结并提取待办，支持搜索历史会议、对话提问与 CRM 集成。帮助销售与团队沉淀会议知识、自动化跟进。提供免费额度与订阅。"},
+{id:"feishu",name:"飞书智能伙伴",company:"字节跳动",cat:"office",abbr:"飞",accent:"#3370FF",pricing:"免费 + 企业",url:"https://www.feishu.cn",
+ tagline:"深度融入飞书的办公智能体",tags:["办公协作","知识库智能体","流程自动化"],
+ intro:"字节跳动飞书内置的 AI 助手，深度融入文档、多维表格、会议与即时消息，能写作、总结、问答、生成与处理流程，并可基于企业知识库打造专属智能体。让协作办公全流程都有 AI 加持，随飞书面向团队与企业提供。"},
+{id:"wpsai",name:"WPS AI",company:"金山办公",cat:"office",abbr:"W",accent:"#2A6FF0",pricing:"免费 + 订阅",url:"https://ai.wps.cn",
+ tagline:"中文办公场景的 AI 全家桶",tags:["中文办公","生成 PPT","表格分析"],
+ intro:"金山办公在 WPS 中集成的 AI 能力，覆盖文字、表格、演示与 PDF，可一键写作、润色、生成 PPT、分析表格数据并总结长文档，对中文办公场景尤其友好。是国产办公软件智能化的代表。提供免费体验与会员订阅。"},
+
+/* 9. AI 设计 */
+{id:"canva",name:"Canva Magic Studio",company:"Canva",cat:"design",abbr:"Cv",accent:"#8B3DFF",pricing:"免费 + 订阅",url:"https://www.canva.com/magic",
+ tagline:"人人可用的一键 AI 设计套件",tags:["一键设计","魔法工具","海量模板"],
+ intro:"设计平台 Canva 的 AI 套件，集成文生图、魔法文案、一键设计、智能消除与抠图、AI 生成 PPT 等能力，让没有设计基础的人也能快速产出海报、社媒图与演示。海量模板加 AI，是大众化设计的代表。提供免费版与 Pro 订阅。"},
+{id:"figmaai",name:"Figma AI",company:"Figma",cat:"design",abbr:"Fg",accent:"#F24E1E",pricing:"免费 + 订阅",url:"https://www.figma.com/ai",
+ tagline:"专业 UI 设计中的 AI 加速器",tags:["UI 设计","自动整理","设计到代码"],
+ intro:"专业设计工具 Figma 内置的 AI 能力，可一句话生成初稿、自动整理图层、智能重命名、替换内容与生成原型，并辅助从设计到代码的衔接。深度融入设计师的日常工作流，提升团队协作效率。随 Figma 订阅提供。"},
+{id:"framer",name:"Framer",company:"Framer",cat:"design",abbr:"Fr",accent:"#0055FF",pricing:"免费 + 订阅",url:"https://www.framer.com",
+ tagline:"用 AI 快速搭建可发布网站",tags:["AI 建站","响应式","可视化编辑"],
+ intro:"用 AI 快速搭建网站的设计工具，输入描述即可生成可发布的响应式网页，并提供精细的可视化编辑、动效与 CMS。设计师无需写代码就能上线高质感站点，适合作品集、落地页与营销站。提供免费版与订阅。"},
+{id:"galileo",name:"Galileo AI",company:"Galileo",cat:"design",abbr:"Gl",accent:"#4F46E5",pricing:"免费 + 订阅",url:"https://www.usegalileo.ai",
+ tagline:"由文字生成高保真 UI 设计稿",tags:["文生 UI","高保真","导出 Figma"],
+ intro:"面向产品界面的 AI 设计工具，可由文字描述生成高保真 UI 设计稿，并导出到 Figma 继续编辑，帮助设计师快速跨越'从零到初稿'。适合产品早期探索与界面灵感生成，提升设计起步速度。提供订阅与试用。"},
+{id:"uizard",name:"Uizard",company:"Uizard / Miro",cat:"design",abbr:"Ui",accent:"#8B5CF6",pricing:"免费 + 订阅",url:"https://uizard.io",
+ tagline:"草图与文字一键转可编辑原型",tags:["快速原型","草图转设计","低门槛"],
+ intro:"主打快速原型的 AI 设计工具，能把草图、截图甚至文字描述变成可编辑的界面原型，并提供主题与组件库。让产品经理和非设计师也能快速做出可演示的 App 与网页原型。提供免费版与订阅，现归 Miro 旗下。"},
+{id:"mastergo",name:"MasterGo AI",company:"莫高",cat:"design",abbr:"MG",accent:"#1F6FEB",pricing:"免费 + 订阅",url:"https://mastergo.com",
+ tagline:"国产专业 UI 设计的 AI 能力",tags:["国产 UI","设计到代码","协作"],
+ intro:"国产专业 UI 设计工具 MasterGo（莫高）内置的 AI 能力，支持智能生成界面、设计建议、内容填充与设计到代码（D2C），对中文团队与本地化协作友好。是国产设计工具智能化的代表。提供免费版与企业订阅。"},
+{id:"looka",name:"Looka",company:"Looka",cat:"design",abbr:"Lo",accent:"#EC4899",pricing:"免费 + 订阅",url:"https://looka.com",
+ tagline:"零门槛的 AI 品牌与 Logo 设计",tags:["Logo 设计","品牌套件","零门槛"],
+ intro:"面向品牌的 AI logo 与视觉识别设计工具，输入品牌名与偏好即可生成 logo、配色与完整的品牌物料套件（名片、社媒图等）。适合创业者和小企业快速搭建品牌形象，无需设计师。按生成与品牌套件付费，提供免费预览。"},
+{id:"designsai",name:"Designs.ai",company:"Designs.ai",cat:"design",abbr:"Ds",accent:"#FF6B3D",pricing:"订阅",url:"https://designs.ai",
+ tagline:"一站式 AI 创意内容套件",tags:["创意套件","Logo","视频海报"],
+ intro:"一体化的 AI 创意套件，集成 logo 制作、视频生成、配音、海报与社媒设计等多种工具，帮助营销与小企业一站式产出品牌内容。适合需要快速批量出图出片的非专业用户。以订阅为主，提供试用。"},
+
+/* 10. AI Agent */
+{id:"manus",name:"Manus",company:"Manus AI",cat:"agent",abbr:"Ma",accent:"#2D2A45",pricing:"免费 + 订阅",url:"https://manus.im",
+ tagline:"会自己拆解并执行任务的通用智能体",tags:["通用智能体","自主执行","研究调研"],
+ intro:"通用型自主智能体，能把一个目标自动拆解为子任务，并调用浏览、编码、数据分析等内置工具独立执行，最终交付结构化成果。擅长研究、调研与多步骤网页工作流，是 2026 年最受关注的 AI Agent 之一。面向用户按订阅与额度提供。"},
+{id:"lindy",name:"Lindy",company:"Lindy",cat:"agent",abbr:"Li",accent:"#6741D9",pricing:"免费 + 订阅",url:"https://www.lindy.ai",
+ tagline:"用自然语言搭建业务自动化助手",tags:["业务自动化","AI 员工","应用集成"],
+ intro:"面向业务流程的 AI 智能体平台，可用自然语言搭建处理邮件、会议、客户跟进、日程等事务的自动化助手，并与上千款应用集成。让团队把重复的事务性工作交给 AI '员工'打理，提升运营效率。提供免费额度与订阅。"},
+{id:"zapier",name:"Zapier Agents",company:"Zapier",cat:"agent",abbr:"Za",accent:"#FF4F00",pricing:"免费 + 订阅",url:"https://zapier.com/agents",
+ tagline:"在 8000+ 应用间自主执行的智能体",tags:["跨应用自动化","无代码","海量集成"],
+ intro:"自动化平台 Zapier 推出的 AI 智能体，能在其连接的 8000+ 应用之间自主理解任务、调用工具并跨系统执行工作流。把'触发-动作'自动化升级为更智能的代理，适合无代码搭建企业自动化。随 Zapier 订阅与用量计费。"},
+{id:"make",name:"Make",company:"Make",cat:"agent",abbr:"Mk",accent:"#7A12E0",pricing:"免费 + 订阅",url:"https://www.make.com",
+ tagline:"拖拽式的 AI 自动化编排平台",tags:["可视化编排","AI 工作流","无代码"],
+ intro:"可视化的自动化与编排平台，用拖拽的方式把各类应用与 AI 模型连成自动化流程，并支持构建带 AI 决策的复杂工作流。相比传统自动化更灵活直观，适合运营、营销与中小团队搭建自动化。提供免费额度与订阅。"},
+{id:"n8n",name:"n8n",company:"n8n",cat:"agent",abbr:"n8",accent:"#EA4B71",pricing:"免费 + 开源",url:"https://n8n.io",
+ tagline:"可自托管的开源自动化与 Agent",tags:["开源自动化","可自托管","AI 编排"],
+ intro:"开源的工作流自动化平台，可自托管，支持把 API、数据库与 AI 模型编排成强大的自动化与 AI Agent 流程，灵活度高、深受开发者欢迎。既能无代码搭建，也能写代码扩展，适合技术团队定制自动化。开源免费，提供云端订阅。"},
+{id:"coze",name:"扣子 Coze",company:"字节跳动",cat:"agent",abbr:"扣",accent:"#4E5BF2",pricing:"免费 + 订阅",url:"https://www.coze.cn",
+ tagline:"零代码搭建 AI Bot 的开发平台",tags:["零代码 Bot","知识库插件","一键发布"],
+ intro:"字节跳动推出的 AI 智能体（Bot）开发平台，无需编程即可搭建带知识库、插件、工作流与多模型的对话机器人，并一键发布到各类社交与办公平台。适合个人与企业快速做出专属 AI 应用。提供免费额度与进阶订阅。"},
+{id:"dify",name:"Dify",company:"Dify",cat:"agent",abbr:"Di",accent:"#1C64F2",pricing:"免费 + 开源",url:"https://dify.ai",
+ tagline:"开源的 LLM 应用开发平台",tags:["LLM 应用平台","RAG","可自托管"],
+ intro:"开源的 LLM 应用开发平台，提供可视化编排、RAG 知识库、智能体与可观测能力，帮助团队快速把大模型搭成可上线的 AI 应用与工作流。可自托管、对接多种模型，深受开发者与企业欢迎。开源免费，提供云端版本。"},
+{id:"autoglm",name:"智谱 AutoGLM",company:"智谱 AI",cat:"agent",abbr:"智",accent:"#14B8A6",pricing:"免费",url:"https://chatglm.cn",
+ tagline:"会操作手机与网页的国产智能体",tags:["手机操作","网页执行","跨应用任务"],
+ intro:"智谱推出的自主智能体，能像人一样操作手机与网页，自动完成下单、订票、信息收集等跨应用任务，把'动嘴'变成'动手'。基于 GLM 模型的执行能力，是国产 Phone/Web Use 智能体的代表。提供免费体验，进阶按需开放。"},
+
+/* 11. AI 陪伴 */
+{id:"characterai",name:"Character.AI",company:"Character.AI",cat:"companion",abbr:"Ch",accent:"#4458DC",pricing:"免费 + 订阅",url:"https://character.ai",
+ tagline:"全球最大的 AI 角色聊天平台",tags:["角色扮演","海量人设","沉浸聊天"],
+ intro:"全球最大的 AI 角色聊天平台，拥有海量社区创建的人物，可与历史人物、动漫角色、虚拟助手等几乎任何'人设'对话，沉浸感强、互动自然。年轻用户活跃度极高，是 AI 陪伴赛道的标杆。提供免费版与去广告、更快响应的订阅。"},
+{id:"replika",name:"Replika",company:"Luka",cat:"companion",abbr:"Rp",accent:"#E754A6",pricing:"免费 + 订阅",url:"https://replika.com",
+ tagline:"会成长、有记忆的虚拟伙伴",tags:["情感陪伴","长期记忆","虚拟伙伴"],
+ intro:"最早走红的 AI 陪伴应用之一，主打与一个会成长、有记忆的虚拟伙伴建立长期关系，能聊心事、陪伴情绪并进行个性化互动，还支持 3D 形象与 AR。专注情感连接，深受寻求陪伴的用户喜爱。提供免费版与 Pro 订阅。"},
+{id:"xingye",name:"星野",company:"MiniMax",cat:"companion",abbr:"星",accent:"#6C5CE7",pricing:"免费",url:"https://www.xingyeai.com",
+ tagline:"画风精美的国产 AI 角色社交",tags:["角色社交","剧情互动","精美画风"],
+ intro:"MiniMax 推出的 AI 角色社交应用，主打高质量人设与沉浸式剧情互动，画风精美、剧情丰富，可与各种虚拟角色聊天、演绎故事。在国内年轻用户中人气很高，是国产 AI 陪伴的代表之一。免费使用，含增值服务。"},
+{id:"talkie",name:"Talkie",company:"MiniMax",cat:"companion",abbr:"Ta",accent:"#FF7849",pricing:"免费 + 订阅",url:"https://www.talkie-ai.com",
+ tagline:"轻游戏化的海外 AI 角色陪伴",tags:["海外陪伴","语音互动","轻游戏化"],
+ intro:"MiniMax 面向海外的 AI 角色陪伴应用，提供丰富的虚拟角色、语音互动与卡牌收集等玩法，把聊天做成有趣的轻游戏体验。在海外年轻用户中增长迅速，是出海 AI 陪伴产品的佼佼者。免费使用，含增值与订阅。"},
+{id:"pi",name:"Pi",company:"Inflection AI",cat:"companion",abbr:"π",accent:"#5A4FCF",pricing:"免费",url:"https://pi.ai",
+ tagline:"温暖善听的个人陪伴助手",tags:["温暖倾听","情感支持","语音对话"],
+ intro:"Inflection AI 推出的'个人智能'助手，以温暖、善于倾听的对话风格著称，强调情感支持与陪伴式交流，语气自然亲和。适合倾诉、解压与日常陪聊，界面简洁、语音体验出色。面向个人免费提供。"},
+{id:"maoxiang",name:"猫箱",company:"字节跳动",cat:"companion",abbr:"猫",accent:"#FF8C42",pricing:"免费",url:"https://www.maoxiangai.com",
+ tagline:"沉浸剧情共创的 AI 角色应用",tags:["剧情共创","虚拟角色","沉浸互动"],
+ intro:"字节跳动推出的 AI 角色互动应用，主打沉浸式剧情与个性化虚拟角色，用户可与角色聊天、推进故事甚至共创剧情，内容生态丰富。在国内年轻人中颇受欢迎，是国产 AI 陪伴的新锐力量。免费使用，含增值服务。"},
+{id:"kindroid",name:"Kindroid",company:"Kindroid",cat:"companion",abbr:"Kd",accent:"#3DA5D9",pricing:"免费 + 订阅",url:"https://kindroid.ai",
+ tagline:"高度拟真、强记忆的 AI 伴侣",tags:["高度拟真","强记忆","可定制"],
+ intro:"以高度拟真和强记忆著称的 AI 伴侣应用，支持自定义性格、外貌、声音与长期记忆，并能进行群聊与视频通话式互动，被不少评测列为体验最佳的陪伴产品之一。强调真实感与隐私。以订阅为主，提供免费试用。"},
+{id:"nomi",name:"Nomi",company:"Nomi AI",cat:"companion",abbr:"Nm",accent:"#A24FB0",pricing:"免费 + 订阅",url:"https://nomi.ai",
+ tagline:"有记忆、有灵魂的 AI 伴侣",tags:["深度陪伴","长期记忆","角色扮演"],
+ intro:"主打'有记忆、有灵魂'的 AI 伴侣应用，强调长期记忆与情感深度，可一对一或群聊，进行角色扮演与深度对话，记得住你们的点滴。在追求深度陪伴的用户中口碑良好。提供免费额度与订阅。"},
+
+/* 12. 垂直行业 */
+{id:"harvey",name:"Harvey",company:"Harvey AI",cat:"vertical",abbr:"Ha",accent:"#1E2A44",pricing:"企业",url:"https://www.harvey.ai",
+ tagline:"头部律所采用的法律 AI 平台",tags:["法律研究","合同审阅","企业部署"],
+ intro:"面向法律行业的专业 AI 平台，基于前沿大模型为律师事务所和法务团队提供合同审阅、法律研究、起草与案件分析，并能安全对接内部资料。在头部律所广泛部署，是法律垂直 AI 的代表。面向企业按席位与项目计费。"},
+{id:"khanmigo",name:"Khanmigo",company:"可汗学院",cat:"vertical",abbr:"Kh",accent:"#14A38B",pricing:"免费 + 订阅",url:"https://www.khanmigo.ai",
+ tagline:"苏格拉底式的 AI 学习导师",tags:["AI 家教","苏格拉底式","K12 教育"],
+ intro:"可汗学院推出的 AI 学习助手，扮演苏格拉底式导师，引导学生一步步思考而非直接给答案，覆盖数学、写作、编程等学科，并为教师提供备课与批改辅助。强调安全与教育价值，面向学生、家长与学校。提供订阅，部分面向教师免费。"},
+{id:"duolingo",name:"Duolingo Max",company:"Duolingo",cat:"vertical",abbr:"Du",accent:"#58CC02",pricing:"订阅",url:"https://www.duolingo.com",
+ tagline:"AI 加持的语言学习进阶档",tags:["语言学习","AI 对话练习","趣味化"],
+ intro:"语言学习应用 Duolingo 的 AI 进阶订阅，提供'角色扮演'对话练习与'解释我的答案'等功能，用 AI 充当随时可练的语言伙伴，让学习更接近真实交流。覆盖多种语言，趣味性强。按订阅提供（Max 档）。"},
+{id:"speak",name:"Speak",company:"Speak",cat:"vertical",abbr:"Sp",accent:"#F5A623",pricing:"订阅",url:"https://www.speak.com",
+ tagline:"以开口为核心的 AI 口语教练",tags:["AI 口语教练","实时反馈","开口练习"],
+ intro:"专注口语的 AI 英语学习应用，以可随时对话的 AI 口语教练为核心，鼓励大量开口练习并给出实时反馈与纠正，强调流利度提升。在多国增长迅速，深受口语学习者欢迎。以订阅为主，提供试用。"},
+{id:"intercomfin",name:"Intercom Fin",company:"Intercom",cat:"vertical",abbr:"Fin",accent:"#1A66FF",pricing:"企业",url:"https://www.intercom.com/fin",
+ tagline:"按解决量计费的 AI 客服",tags:["AI 客服","自助解决","知识库"],
+ intro:"客服平台 Intercom 推出的 AI 客服智能体，能基于企业知识库自动、准确地解答客户问题，大幅提升自助解决率，并可无缝转接人工。按成功解决的对话计费，是 AI 客服落地的代表产品。面向企业订阅。"},
+{id:"hippocratic",name:"Hippocratic AI",company:"Hippocratic AI",cat:"vertical",abbr:"Hi",accent:"#0EA5A4",pricing:"企业",url:"https://www.hippocraticai.com",
+ tagline:"面向非诊断场景的医疗 AI",tags:["医疗健康","AI 随访","语音交互"],
+ intro:"专注医疗健康的 AI 公司，打造面向非诊断场景的 AI 医护'智能体'，可通过语音进行随访、用药提醒、慢病管理与健康宣教，强调安全性与合规。与医疗机构合作落地，是医疗垂直 AI 的代表。面向企业与机构提供。"},
+{id:"miaoya",name:"妙鸭相机",company:"阿里巴巴",cat:"vertical",abbr:"妙",accent:"#FF6FA5",pricing:"免费 + 订阅",url:"https://www.miaoya.com",
+ tagline:"上传照片即得专属 AI 写真",tags:["AI 写真","数字分身","人像生成"],
+ intro:"阿里推出的 AI 写真应用，上传若干照片即可训练专属模型，生成证件照、艺术写真等多种风格的高质量人像，一度引爆社交平台。让人人都能低成本拍出精修写真。按出图与套餐付费，提供免费体验额度。"},
+{id:"bloomberggpt",name:"BloombergGPT",company:"Bloomberg",cat:"vertical",abbr:"Bb",accent:"#C75300",pricing:"企业",url:"https://www.bloomberg.com",
+ tagline:"金融领域的专用大模型",tags:["金融大模型","数据分析","彭博终端"],
+ intro:"彭博为金融领域打造的专用大模型，基于海量金融数据训练，擅长金融新闻情感分析、命名实体识别、问答与报告辅助，深度融入彭博终端的金融工作流。是金融垂直大模型的早期代表。面向彭博终端企业用户提供。"}
+];
+
+/* 各产品主要版本里程碑：id → [[时间, 事件], ...]。仅列关键节点，精确日期以官网为准。 */
+const TIMELINES = {
+chatgpt:[["2022.11","上线（GPT-3.5）"],["2023.03","GPT-4"],["2024.05","GPT-4o 全模态"],["2025","GPT-5"],["2026","GPT-5.5"]],
+claude:[["2023.03","Claude 1"],["2023.07","Claude 2"],["2024.03","Claude 3"],["2024.06","Claude 3.5 Sonnet"],["2025","Claude 4 系列"]],
+gemini:[["2023.03","Bard 上线"],["2023.12","Gemini 1.0"],["2024.02","更名 Gemini · 1.5"],["2025","Gemini 2"],["2026","Gemini 3"]],
+grok:[["2023.11","Grok-1"],["2024.08","Grok-2"],["2025.02","Grok-3"],["2026","Grok-4"]],
+deepseek:[["2023.07","公司成立"],["2024.05","V2"],["2025.01","R1 / V3"],["2026","持续迭代"]],
+doubao:[["2023.08","上线（云雀模型）"],["2024","全面升级"],["2025","视频通话 · 多模态"],["2026","月活领先"]],
+qwen:[["2023.04","通义千问发布"],["2023.08","开源 Qwen"],["2024","Qwen2 / 2.5"],["2025","Qwen3"]],
+kimi:[["2023.10","Kimi 上线"],["2024.03","超长上下文升级"],["2025","K 系列推理"]],
+ernie:[["2023.03","文心一言发布"],["2023.10","文心 4.0"],["2025","4.5 / X1"]],
+copilot:[["2021.06","技术预览"],["2022.06","正式版"],["2023","Chat / X"],["2024","Agent 模式"]],
+cursor:[["2023.03","发布"],["2024","Composer 多文件"],["2025","Agent 升级"]],
+claudecode:[["2025.02","研究预览"],["2025","正式推出"],["2026","Agent 团队 · 1M 上下文"]],
+windsurf:[["2024.11","发布（Codeium）"],["2025","并入 Cognition"],["2025","Cascade 升级"]],
+v0:[["2023.10","发布"],["2024","生成可用组件"],["2025","全栈生成"]],
+replit:[["2023","Ghostwriter"],["2024.09","Replit Agent"],["2025","Agent 升级"]],
+bolt:[["2024.10","Bolt.new 发布"],["2025","全栈 · 部署增强"]],
+devin:[["2024.03","公布"],["2024.12","正式开放"],["2025","并行 Devin"]],
+trae:[["2025.01","海外发布"],["2025","国内版上线"],["2025","Builder 智能体"]],
+midjourney:[["2022.07","公测"],["2023.03","V5"],["2023.12","V6"],["2025","V7"]],
+dalle:[["2021.01","DALL·E"],["2022.04","DALL·E 2"],["2023.10","DALL·E 3"],["2025","GPT Image"]],
+flux:[["2024.08","FLUX.1 发布"],["2024","Pro / Dev / Schnell"],["2025","持续迭代"]],
+firefly:[["2023.03","Firefly 发布"],["2023.10","集成 Photoshop"],["2024","视频 / 模型升级"]],
+jimeng:[["2024","即梦上线"],["2024","图像 · 视频"],["2025","能力升级"]],
+wanxiang:[["2023","通义万相发布"],["2024","多模态升级"],["2025","开源版本"]],
+ideogram:[["2023.08","发布"],["2024","v1.0"],["2025","文字渲染升级"]],
+recraft:[["2023","发布"],["2024.10","V3 登顶榜单"],["2025","品牌 / 矢量升级"]],
+leonardo:[["2022","发布"],["2024","Phoenix 模型"],["2024","并入 Canva"]],
+sora:[["2024.02","公布"],["2024.12","正式上线"],["2025","Sora 2"]],
+kling:[["2024.06","可灵发布"],["2025","多次升级"],["2026","3.0"]],
+runway:[["2023.02","Gen-1"],["2023.06","Gen-2"],["2024.06","Gen-3"],["2025","Gen-4"]],
+hailuo:[["2024.09","海螺视频上线"],["2025","画质 / 运镜升级"]],
+veo:[["2024.05","Veo 公布"],["2024.12","Veo 2"],["2025","Veo 3 原生音频"]],
+pika:[["2023.11","Pika 1.0"],["2024","1.5 / 2.0"],["2025","升级"]],
+luma:[["2024.06","Dream Machine"],["2025","Ray2"],["2025","持续升级"]],
+heygen:[["2022","发布"],["2023","数字人"],["2024","形象克隆升级"]],
+capcut:[["2019","剪映上线"],["2020","CapCut 出海"],["2023","AI 功能集成"]],
+suno:[["2023.12","v2"],["2024.03","v3"],["2024","v4"],["2025","持续升级"]],
+udio:[["2024.04","发布"],["2024","音质升级"],["2025","持续迭代"]],
+elevenlabs:[["2022","成立"],["2023","语音合成"],["2024","多语言 / 配音"],["2025","实时语音"]],
+murf:[["2020","发布"],["2023","AI 配音升级"],["2024","团队协作"]],
+adobepodcast:[["2022","公布"],["2023","增强语音"],["2024","录制 / 转写"]],
+krisp:[["2020","实时降噪"],["2023","会议助手"],["2024","转写 / 纪要"]],
+tianyin:[["2022","网易天音上线"],["2023","AI 作曲升级"],["2024","持续迭代"]],
+stableaudio:[["2023.09","发布"],["2024","2.0"],["2024","开源版本"]],
+fishaudio:[["2024","发布"],["2024","开源 TTS"],["2025","多语言升级"]],
+perplexity:[["2022.12","发布"],["2023","Copilot / Pro"],["2024","深度研究"],["2025","持续升级"]],
+metaso:[["2024.01","上线"],["2024","脑图 / 大纲"],["2025","持续迭代"]],
+genspark:[["2024.06","发布"],["2024","Sparkpages"],["2025","智能体"]],
+phind:[["2022","发布"],["2023","面向开发者"],["2024","升级"]],
+felo:[["2024","发布"],["2024","多语言"],["2025","升级"]],
+ima:[["2024.11","腾讯 ima 上线"],["2025","知识库升级"]],
+nami:[["2024","360 AI 搜索"],["2025","更名纳米 · 升级"]],
+youcom:[["2021","发布"],["2023","AI 搜索 / 聊天"],["2024","企业智能体"]],
+jasper:[["2021","Jarvis 发布"],["2022","更名 Jasper"],["2023","品牌套件"],["2024","营销平台"]],
+copyai:[["2020","发布"],["2022","模板升级"],["2023","GTM 工作流"]],
+writesonic:[["2021","发布"],["2023","GPT-4 集成"],["2024","SEO / 发布"]],
+grammarly:[["2009","成立"],["2015","浏览器插件"],["2023","GrammarlyGO 生成式"]],
+notionai:[["2023.02","Notion AI 发布"],["2024","知识库问答"],["2025","升级"]],
+quillbot:[["2017","发布"],["2022","功能升级"],["2023","语法 / 摘要"]],
+huoshan:[["2023","火山写作上线"],["2024","功能升级"],["2025","并入豆包「帮我写作」"]],
+xiezuomao:[["2020","秘塔写作猫"],["2023","AI 改写"],["2024","协作升级"]],
+m365copilot:[["2023.03","公布"],["2023.11","企业版上线"],["2024","个人版"],["2025","升级"]],
+notion:[["2016","发布"],["2021","开放 API"],["2023","Notion AI"]],
+gamma:[["2022","发布"],["2023","AI 生成"],["2024","升级"]],
+otter:[["2016","成立"],["2021","实时转写"],["2023","OtterPilot"]],
+fireflies:[["2019","发布"],["2021","转写升级"],["2023","AI 总结 / 集成"]],
+feishu:[["2020","飞书上线"],["2023","智能伙伴公布"],["2024","深度集成"]],
+wpsai:[["2023.04","WPS AI 公布"],["2023","内测上线"],["2024","全面升级"]],
+canva:[["2013","Canva 发布"],["2023","Magic Studio"],["2024","AI 升级"]],
+figmaai:[["2016","Figma 发布"],["2024.06","Figma AI"],["2025","升级"]],
+framer:[["2014","发布"],["2023","AI 建站"],["2024","升级"]],
+galileo:[["2023","发布"],["2024","导出 Figma"],["2025","升级"]],
+uizard:[["2018","成立"],["2022","Autodesigner"],["2024","并入 Miro"]],
+mastergo:[["2021","发布"],["2023","AI 能力"],["2024","D2C 升级"]],
+looka:[["2016","Logojoy"],["2019","更名 Looka"],["2023","AI 品牌套件"]],
+designsai:[["2020","发布"],["2023","AI 套件升级"]],
+manus:[["2025.03","发布（邀请制）"],["2025","公测开放"],["2026","能力升级"]],
+lindy:[["2023","发布"],["2024","Lindy 2.0"],["2025","智能体升级"]],
+zapier:[["2011","Zapier 上线"],["2023","接入 AI"],["2024","Zapier Agents"]],
+make:[["2016","Integromat"],["2022","更名 Make"],["2024","AI 编排"]],
+n8n:[["2019","开源发布"],["2023","AI 节点"],["2024","AI Agent"]],
+coze:[["2024.02","扣子发布"],["2024","插件 / 工作流"],["2025","持续迭代"]],
+dify:[["2023.05","发布"],["2024","Agent / 工作流"],["2025","升级"]],
+autoglm:[["2024.10","AutoGLM 公布"],["2025","手机 / 网页操作"]],
+characterai:[["2022.09","发布"],["2023","推出 App"],["2024","与谷歌合作"],["2025","升级"]],
+replika:[["2017","发布"],["2020","功能升级"],["2023","3D / AR"]],
+xingye:[["2023.09","星野上线"],["2024","剧情升级"],["2025","持续迭代"]],
+talkie:[["2023","Talkie 发布"],["2024","海外增长"],["2025","升级"]],
+pi:[["2023.05","Pi 发布"],["2024","语音升级"]],
+maoxiang:[["2024.03","上线（原话炉）"],["2024.04","更名猫箱"],["2025","升级"]],
+kindroid:[["2023","发布"],["2024","记忆升级"],["2025","视频通话"]],
+nomi:[["2023","发布"],["2024","记忆 / 群聊"],["2025","升级"]],
+harvey:[["2022","成立"],["2023","律所部署"],["2024","功能扩展"]],
+khanmigo:[["2023.03","公布"],["2023","学校试点"],["2024","面向教师免费"]],
+duolingo:[["2012","Duolingo 上线"],["2023.03","Duolingo Max"],["2024","扩展语种"]],
+speak:[["2016","成立"],["2023","GPT-4 集成"],["2024","多国扩张"]],
+intercomfin:[["2023.05","Fin 发布"],["2024","Fin 2"],["2025","升级"]],
+hippocratic:[["2023","成立"],["2024","安全测试"],["2025","落地合作"]],
+miaoya:[["2023.07","妙鸭相机上线"],["2023","现象级爆火"],["2024","功能升级"]],
+bloomberggpt:[["2023.03","论文发布"],["2024","终端集成"]]
+};
+
+/* ===== 工具 ===== */
+const $=(s,el=document)=>el.querySelector(s);
+const $$=(s,el=document)=>[...el.querySelectorAll(s)];
+const reduceMotion=window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+const catMap=Object.fromEntries(CATEGORIES.map(c=>[c.id,c]));
+/* ===== 中英文双语：界面 / 分类 / 赛道（产品定位与介绍保持中文）===== */
+let lang='zh';
+const I18N={
+ zh:{brand:'AI <span>百选</span> · 2026', searchPh:'搜索 AI 产品…', eyebrow:'2026 年度精选 · 持续更新',
+   heroH1:'2026 全球热门<br><span class="grad">100 款 AI 产品</span>',
+   heroSub:'一份克制而完整的智能工具地图——从对话大模型到图像、视频、音频生成，从编程智能体到垂直行业应用，覆盖当下最值得关注的 AI 产品。',
+   ctaBrowse:'开始浏览', ctaRandom:'随机发现一款', drawerAll:'全部分类',
+   trackH2:'按任务赛道快速进入', trackP:'把 100 款产品按「你想做什么」归并为 6 条赛道，点击直达',
+   tbGroup:'分组', tbCat:'分类', tbPrice:'定价', mode12:'12 细分', mode6:'6 大赛道', priceAll:'全部',
+   emptyHtml:'没有找到匹配的产品。<br>试试更换关键词，或点击 <b>全部</b> 重置筛选。',
+   mPricing:'定价模式', mCat:'所属分类', mCompany:'开发公司', mVisit:'访问官网', mClose:'关闭',
+   tlHead:'版本与里程碑', tlSub:'关键节点 · 精确日期以官网为准',
+   newsHead:'本周资讯', newsSub:'实时聚合 · 点击查看原文', newsG:'Google 资讯 · 近一周', newsB:'Bing 资讯', newsO:'官方动态',
+   newsLoading:'正在加载实时头条…', newsEmpty:'本周暂无聚合头条，点上方入口查看更多资讯。',
+   newsFail:'实时头条需联网加载（部分预览窗口会拦截外部请求）。点上方入口即可查看本周最新资讯。',
+   footHot:'热门分类', footMore:'更多分类',
+   footDesc:'精选 2026 年市场上最热门的 100 款 AI 产品，按 12 大分类组织，帮助你快速建立对当下 AI 应用生态的整体认知。',
+   footB1:'© 2026 AI 百选 · 仅供学习与信息展示之用，不构成任何投资或购买建议。',
+   footB2:'各产品 Logo、名称与商标归各自公司所有，图标经第三方服务按官网域名加载，仅用于介绍展示；加载失败时自动以字母徽标占位。',
+   statProducts:'精选 AI 产品', statCats:'热门赛道分类', statGen:'生成式 AI 占比', statFree:'可免费体验',
+   uItem:'款', uCat:'类', secProducts:'款产品', secN:'款', total(n){return `共 <b>${n}</b> 款 · 12 大分类`;}, match(n){return `匹配 <b>${n}</b> 款产品`;},
+   badges:[['12','大分类'],['100','款产品'],['52%','生成式'],['持续','更新']]},
+ en:{brand:'AI <span>100</span> · 2026', searchPh:'Search AI products…', eyebrow:'2026 Selection · Updated regularly',
+   heroH1:'2026&rsquo;s Most Popular<br><span class="grad">100 AI Products</span>',
+   heroSub:'A restrained yet complete map of today&rsquo;s smartest tools — from chat LLMs to image, video and audio generation, from coding agents to vertical-industry apps.',
+   ctaBrowse:'Browse', ctaRandom:'Surprise me', drawerAll:'All categories',
+   trackH2:'Jump in by task track', trackP:'100 products grouped into 6 tracks by what you want to do — click to jump in',
+   tbGroup:'Group', tbCat:'Category', tbPrice:'Pricing', mode12:'12 Categories', mode6:'6 Tracks', priceAll:'All',
+   emptyHtml:'No matching products.<br>Try a different keyword, or click <b>All</b> to reset.',
+   mPricing:'Pricing', mCat:'Category', mCompany:'Company', mVisit:'Visit site', mClose:'Close',
+   tlHead:'Versions & milestones', tlSub:'Key milestones — verify exact dates on the official site',
+   newsHead:'Weekly news', newsSub:'Live — click to read the source', newsG:'Google News · Past week', newsB:'Bing News', newsO:'Official updates',
+   newsLoading:'Loading live headlines…', newsEmpty:'No aggregated headlines this week — use the links above for more.',
+   newsFail:'Live headlines need a connection (some preview windows block external requests). Use the links above for the latest.',
+   footHot:'Popular categories', footMore:'More categories',
+   footDesc:'A curated set of 2026&rsquo;s 100 hottest AI products, organized into 12 categories to help you grasp today&rsquo;s AI landscape at a glance.',
+   footB1:'© 2026 AI 100 · For learning and information display only; not investment or purchase advice.',
+   footB2:'All logos, names and trademarks belong to their owners; icons load via a third-party service by domain, for display only, with a letter-badge fallback.',
+   statProducts:'AI products', statCats:'hot categories', statGen:'generative share', statFree:'free to try',
+   uItem:'', uCat:'', secProducts:'products', secN:'', total(n){return `<b>${n}</b> products · 12 categories`;}, match(n){return `<b>${n}</b> matches`;},
+   badges:[['12','Categories'],['100','Products'],['52%','Generative'],['Live','Updates']]}
+};
+function t(k){const v=I18N[lang]&&I18N[lang][k];return v!==undefined?v:I18N.zh[k];}
+function L(zh,en){return lang==='en'?(en||zh):zh;}
+function gName(g){return L(g.name,g.name_en);}
+function gShort(g){return L(g.short,g.short_en);}
+function gDesc(g){return L(g.desc,g.desc_en);}
+function priceLabel(s){return lang==='en'?s.replace('免费','Free').replace('开源','Open source').replace('企业','Enterprise').replace('订阅','Subscription'):s;}
+const trCache=new Map();
+async function translateText(text,target){if(!text)return text;const key=target+':'+text;if(trCache.has(key))return trCache.get(key);
+  try{const u='https://api.mymemory.translated.net/get?q='+encodeURIComponent(text)+'&langpair=en|'+(target==='zh'?'zh-CN':'en');
+    const r=await fetch(u);const d=await r.json();const out=(d&&d.responseData&&d.responseData.translatedText)||text;trCache.set(key,out);return out;}catch(e){return text;}}
+function esc(s){return(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function hexRgb(h){h=(h||'').replace('#','');if(h.length===3)h=h.split('').map(c=>c+c).join('');const n=parseInt(h||'888888',16);return [(n>>16)&255,(n>>8)&255,n&255];}
+function rgba(hex,a){const [r,g,b]=hexRgb(hex);return `rgba(${r},${g},${b},${a})`;}
+/* logo：字母兜底 + 真实图标覆盖。优先取「产品自有站点」图标，多源逐级回退，全失败才显示字母 */
+function hostOf(u){try{return new URL(u).hostname.replace(/^www\./,'');}catch(e){return'';}}
+function rootOf(h){const p=(h||'').split('.');return p.length>2?p.slice(-2).join('.'):h;}
+function logoChain(h){const r=rootOf(h);const c=[
+  'https://icons.duckduckgo.com/ip3/'+h+'.ico',          // 1) 产品站点图标（缺失即 404 回退）
+  'https://www.google.com/s2/favicons?sz=128&domain='+h, // 2) 产品站点图标（覆盖最广）
+  'https://logo.clearbit.com/'+r+'?size=128'];           // 3) 公司品牌 logo
+  return [...new Set(c)];}
+function logoOk(img){const b=img.closest('.badge,.modal-badge,.star-tile');if(b)b.classList.add('has-logo');}
+function logoErr(img){const s=+(img.dataset.step||0)+1;const chain=(img.dataset.chain||'').split('|').filter(Boolean);
+  if(s<chain.length){img.dataset.step=s;img.src=chain[s];return;}img.remove();}
+function logoTag(p){const chain=logoChain(p.logo||hostOf(p.url));
+  return `<span class="abbr" aria-hidden="true">${esc(p.abbr)}</span><img class="logo" src="${chain[0]}" alt="" decoding="async" data-step="0" data-chain="${chain.join('|')}" onload="logoOk(this)" onerror="logoErr(this)">`;}
+const SVG_ICONS={
+  chat:'<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>',
+  coding:'<path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/>',
+  image:'<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.6-3.6a2 2 0 0 0-2.8 0L4 22"/>',
+  video:'<path d="m23 7-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/>',
+  audio:'<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>',
+  search:'<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
+  writing:'<path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/>',
+  office:'<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>',
+  design:'<circle cx="13.5" cy="6.5" r="2.5"/><circle cx="6.5" cy="12" r="2.5"/><circle cx="15" cy="16" r="2.5"/><path d="M12 2a10 10 0 1 0 0 20 2 2 0 0 0 2-2 2 2 0 0 1 2-2h1a4 4 0 0 0 4-4 10 10 0 0 0-9-10z"/>',
+  agent:'<rect x="4" y="8" width="16" height="12" rx="2"/><path d="M12 8V4M9 2h6"/><circle cx="9" cy="14" r="1.2"/><circle cx="15" cy="14" r="1.2"/><path d="M2 13v3M22 13v3"/>',
+  companion:'<path d="M20.8 5.6a5.5 5.5 0 0 0-7.8 0L12 6.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 22l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/>',
+  vertical:'<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>'
+};
+function icon(id,stroke){return `<svg viewBox="0 0 24 24" fill="none" stroke="${stroke||'currentColor'}" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">${SVG_ICONS[id]||''}</svg>`;}
+function priceClass(p){if(/开源/.test(p))return'open';if(/企业/.test(p))return'ent';if(/免费/.test(p))return'free';return'';}
+function timelineHTML(id){const tl=TIMELINES[id];if(!tl||!tl.length)return'';
+  return `<div class="modal-tl"><div class="tl-head">${t('tlHead')}<span>${t('tlSub')}</span></div>
+    <ul class="tl">${tl.map(([a,v])=>`<li><span class="tl-t">${esc(a)}</span><span class="tl-v">${esc(v)}</span></li>`).join('')}</ul></div>`;}
+/* 本周资讯：上方为「近一周」实时资讯入口（始终可用）；下方按需联网拉取实时头条 */
+function newsHTML(p){
+  const q=encodeURIComponent(p.name+' AI');
+  const links=[[t('newsG'),'https://www.google.com/search?q='+q+'&tbm=nws&tbs=qdr:w'],[t('newsB'),'https://www.bing.com/news/search?q='+q],[t('newsO'),p.url]];
+  return `<div class="modal-news"><div class="tl-head">${t('newsHead')}<span>${t('newsSub')}</span></div>
+    <div class="news-links">${links.map(([lab,u])=>`<a class="news-link" href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(lab)}<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg></a>`).join('')}</div>
+    <div class="news-list" id="newsList"><div class="news-empty">${t('newsLoading')}</div></div></div>`;
+}
+async function loadNews(p){
+  const box=$('#newsList');if(!box)return;const curLang=lang;
+  try{
+    const since=Math.floor(Date.now()/1000)-14*86400;
+    const url='https://hn.algolia.com/api/v1/search_by_date?query='+encodeURIComponent(p.name)+'&tags=story&numericFilters=created_at_i>'+since+'&hitsPerPage=8';
+    const ctrl=new AbortController();const to=setTimeout(()=>ctrl.abort(),6500);
+    const r=await fetch(url,{signal:ctrl.signal});clearTimeout(to);
+    const d=await r.json();
+    let hits=(d.hits||[]).filter(h=>h.title).slice(0,5).map(h=>({title:h.title,url:h.url||('https://news.ycombinator.com/item?id='+h.objectID),created:h.created_at}));
+    if(!hits.length){box.innerHTML='<div class="news-empty">'+t('newsEmpty')+'</div>';return;}
+    if(curLang==='zh'){await Promise.all(hits.map(async h=>{h.title=await translateText(h.title,'zh');}));}
+    if(lang!==curLang)return;
+    box.innerHTML=hits.map(h=>{const dt=new Date(h.created);const ds=dt.getFullYear()+'.'+String(dt.getMonth()+1).padStart(2,'0')+'.'+String(dt.getDate()).padStart(2,'0');
+      return '<a class="news-item" href="'+h.url+'" target="_blank" rel="noopener noreferrer"><span class="ni-d">'+ds+'</span><span class="ni-t">'+esc(h.title)+'</span></a>';}).join('');
+  }catch(e){box.innerHTML='<div class="news-empty">'+t('newsFail')+'</div>';}
+}
+
+/* ===== 分组引擎：支持「12 细分分类」与「6 大任务赛道」两种视角 ===== */
+function normGroups(){
+  return state.mode==='6'
+    ? TRACKS.map(x=>({id:x.id,name:x.name,name_en:x.name_en,short:x.short,short_en:x.short_en,accent:x.accent,desc:x.desc,desc_en:x.desc_en,icon:x.icon,members:x.members.slice()}))
+    : CATEGORIES.map(c=>({id:c.id,name:c.name,name_en:c.name_en,short:c.short,short_en:c.short_en,accent:c.accent,desc:c.desc,desc_en:c.desc_en,icon:c.id,members:[c.id]}));
+}
+function buildNav(){
+  const nav=$('#navLinks'),drawer=$('#drawerLinks');nav.innerHTML='';drawer.innerHTML='';
+  GROUPS.forEach(g=>{
+    const a=document.createElement('a');a.href='#grp-'+g.id;a.textContent=gShort(g);nav.appendChild(a);
+    const d=document.createElement('a');d.href='#grp-'+g.id;d.innerHTML=`<span class="dot" style="background:${g.accent}"></span>${esc(gName(g))}`;
+    d.addEventListener('click',closeDrawer);drawer.appendChild(d);
+  });
+}
+function buildCatChips(){
+  const cc=$('#catChips');cc.innerHTML='';
+  const all=document.createElement('button');all.className='chip'+(state.cat==='全部'?' active':'');all.dataset.cat='全部';all.textContent=t('priceAll');cc.appendChild(all);
+  GROUPS.forEach(g=>{const b=document.createElement('button');b.className='chip'+(state.cat===g.id?' active':'');b.dataset.cat=g.id;b.textContent=gShort(g);cc.appendChild(b);});
+}
+function renderSections(){
+  const root=$('#sections');root.innerHTML='';
+  GROUPS.forEach(g=>{
+    const list=PRODUCTS.filter(p=>groupMembers[g.id].has(p.cat));
+    let body;
+    if(state.mode==='6'&&g.members.length>1){
+      body=g.members.map(cid=>{const sub=catMap[cid];const items=PRODUCTS.filter(p=>p.cat===cid);
+        return `<div class="subhead"><span class="sh-dot" style="background:${sub.accent}"></span><h3>${esc(gName(sub))}</h3><span class="sh-n">${items.length} ${t('secN')}</span></div>
+          <div class="grid">${items.map(cardHTML).join('')}</div>`;}).join('');
+    }else{
+      body=`<div class="grid">${list.map(cardHTML).join('')}</div>`;
+    }
+    const sec=document.createElement('section');sec.className='section';sec.id='grp-'+g.id;
+    sec.innerHTML=`<div class="banner reveal">${bannerArt(g)}
+        <div class="banner-ico" style="color:${g.accent}">${icon(g.icon,g.accent)}</div>
+        <div class="banner-txt"><h2>${esc(gName(g))}</h2><p class="desc">${esc(gDesc(g))}</p>
+          <span class="meta" style="background:${g.accent}">${list.length} ${t('secProducts')}</span></div></div>${body}`;
+    root.appendChild(sec);
+  });
+}
+function renderGrouping(){
+  GROUPS=normGroups();groupMembers={};GROUPS.forEach(g=>groupMembers[g.id]=new Set(g.members));
+  buildNav();buildCatChips();renderSections();observeReveals();
+  const cta=$('#ctaBrowse');if(cta)cta.setAttribute('href','#grp-'+GROUPS[0].id);
+}
+function setMode(m){
+  if(state.mode===m)return;state.mode=m;state.cat='全部';
+  $$('#modeChips .chip').forEach(x=>x.classList.toggle('active',x.dataset.mode===m));
+  renderGrouping();applyFilter();
+  const tb=$('#toolbar');if(tb)window.scrollTo({top:tb.offsetTop-70,behavior:reduceMotion?'auto':'smooth'});
+}
+function navigateToCat(catId){
+  if(state.mode!=='12')setMode('12');
+  state.cat='全部';state.q='';const si=$('#search');if(si)si.value='';
+  $$('#catChips .chip').forEach(x=>x.classList.toggle('active',x.dataset.cat==='全部'));
+  applyFilter();
+  requestAnimationFrame(()=>{const el=document.getElementById('grp-'+catId);if(el)el.scrollIntoView({behavior:reduceMotion?'auto':'smooth'});});
+}
+function buildTrackNav(){
+  const root=$('#trackNav');if(!root)return;
+  root.innerHTML=TRACKS.map(tr=>{
+    const n=PRODUCTS.filter(p=>tr.members.includes(p.cat)).length;
+    const subs=tr.members.map(id=>gShort(catMap[id])).join(' · ');
+    return `<button class="track-card" data-track="${tr.id}" style="--cc:${tr.accent}" aria-label="${esc(gName(tr))}">
+      <span class="tc-ico">${icon(tr.icon,'#fff')}</span>
+      <span class="tc-body"><b>${esc(gName(tr))}</b><span class="tc-sub">${esc(subs)}</span></span>
+      <span class="tc-n">${n}</span></button>`;
+  }).join('');
+}
+function gotoTrack(tid){
+  if(state.mode!=='6')setMode('6');
+  state.cat='全部';state.q='';const si=$('#search');if(si)si.value='';
+  $$('#catChips .chip').forEach(x=>x.classList.toggle('active',x.dataset.cat==='全部'));
+  applyFilter();
+  requestAnimationFrame(()=>{const el=document.getElementById('grp-'+tid);if(el)el.scrollIntoView({behavior:reduceMotion?'auto':'smooth'});});
+}
+function buildBadges(){const badges=$('#heroBadges');if(!badges)return;badges.innerHTML='';
+  t('badges').forEach(([n,lab])=>{const s=document.createElement('span');s.className='hero-badge';s.innerHTML='<b>'+n+'</b> '+lab;badges.appendChild(s);});}
+function buildHero(){
+  const stars=$('#heroStars');const W=window.innerWidth;const pick=W<680?14:(W<1100?22:34);
+  const sample=[...PRODUCTS].sort(()=>Math.random()-.5).slice(0,pick);
+  sample.forEach(p=>{
+    const el=document.createElement('div');el.className='star-tile';el.style.setProperty('--cc',p.accent);
+    const sz=W<680?34:(38+Math.round(Math.random()*16));
+    el.style.width=el.style.height=sz+'px';el.style.left=(Math.random()*96)+'%';el.style.top=(Math.random()*100)+'%';
+    el.style.animationDuration=(9+Math.random()*9).toFixed(1)+'s';el.style.animationDelay=(-Math.random()*9).toFixed(1)+'s';
+    el.innerHTML=logoTag(p);const ab=el.querySelector('.abbr');if(ab)ab.style.fontSize=Math.max(10,Math.round(sz*.32))+'px';
+    stars.appendChild(el);
+    requestAnimationFrame(()=>{el.style.transition='opacity 1.2s ease';el.style.opacity=reduceMotion?.55:(.45+Math.random()*.4);});
+  });
+}
+function buildStats(immediate){
+  const total=PRODUCTS.length;const free=PRODUCTS.filter(p=>/免费|开源/.test(p.pricing)).length;
+  const genIds=new Set(CATEGORIES.filter(c=>c.gen).map(c=>c.id));
+  const genPct=Math.round(PRODUCTS.filter(p=>genIds.has(p.cat)).length/total*100);
+  const data=[{n:total,u:t('uItem'),l:t('statProducts')},{n:CATEGORIES.length,u:t('uCat'),l:t('statCats')},{n:genPct,u:'%',l:t('statGen')},{n:free,u:t('uItem'),l:t('statFree')}];
+  const g=$('#statsGrid');g.innerHTML='';
+  data.forEach(d=>{const el=document.createElement('div');el.className='stat';
+    el.innerHTML=`<div class="num" data-to="${d.n}">${immediate?d.n:0}<span class="u">${d.u}</span></div><div class="lbl">${d.l}</div>`;g.appendChild(el);});
+}
+const PRICE_FILTERS=['全部','免费','订阅','开源','企业'];
+let state={cat:'全部',price:'全部',q:'',mode:'12'};
+let GROUPS=[],groupMembers={};
+function priceChipLabel(p){return p==='全部'?t('priceAll'):priceLabel(p);}
+function buildModeChips(){const mc=$('#modeChips');mc.innerHTML='';
+  [['12',t('mode12')],['6',t('mode6')]].forEach(([m,label])=>{const b=document.createElement('button');b.className='chip'+(state.mode===m?' active':'');b.dataset.mode=m;b.textContent=label;mc.appendChild(b);});}
+function buildPriceChips(){const pc=$('#priceChips');pc.innerHTML='';
+  PRICE_FILTERS.forEach(p=>{const on=state.price===p;const b=document.createElement('button');b.className='chip'+(on?' active':'')+(on&&p!=='全部'?' acc':'');b.dataset.price=p;b.textContent=priceChipLabel(p);pc.appendChild(b);});}
+function buildToolbar(){
+  buildModeChips();buildPriceChips();
+  $('#modeChips').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;setMode(b.dataset.mode);});
+  $('#catChips').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;state.cat=b.dataset.cat;
+    $$('#catChips .chip').forEach(x=>x.classList.toggle('active',x===b));applyFilter();});
+  $('#priceChips').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;state.price=b.dataset.price;
+    $$('#priceChips .chip').forEach(x=>{x.classList.toggle('active',x===b);x.classList.toggle('acc',x===b&&x.dataset.price!=='全部');});applyFilter();});
+}
+function cardHTML(p){const c=catMap[p.cat];
+  return `<article class="card" tabindex="0" role="button" aria-label="${L('查看','View')} ${esc(p.name)} ${L('详情','details')}" data-id="${p.id}" style="--cc:${c.accent}">
+    <div class="card-head"><div class="badge" style="--cc:${p.accent}">${logoTag(p)}</div>
+      <div class="card-title"><h3>${esc(p.name)}</h3><div class="co">${esc(p.company)}</div></div></div>
+    <p class="card-tagline">${esc(p.tagline)}</p>
+    <div class="card-tags">${p.tags.slice(0,3).map(tag=>`<span class="tg">${esc(tag)}</span>`).join('')}</div>
+    <div class="card-foot"><span class="pricing ${priceClass(p.pricing)}">${esc(priceLabel(p.pricing))}</span>
+      <span class="card-cat"><span class="d" style="background:${c.accent}"></span>${esc(gShort(c))}</span></div>
+  </article>`;
+}
+function bannerArt(c){const a=c.accent;
+  return `<div class="banner-art" style="background:linear-gradient(120deg,${rgba(a,.14)} 0%,${rgba(a,.04)} 55%,#fff 100%)">
+      <div class="glow" style="width:200px;height:200px;right:-30px;top:-70px;background:radial-gradient(circle,${rgba(a,.34)},transparent 70%)"></div>
+      <div class="glow" style="width:150px;height:150px;right:120px;bottom:-90px;background:radial-gradient(circle,${rgba(a,.22)},transparent 70%)"></div>
+      <svg width="100%" height="100%" style="position:absolute;inset:0;opacity:.5" aria-hidden="true">
+        <defs><pattern id="dot-${c.id}" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.1" fill="${rgba(a,.4)}"/></pattern></defs>
+        <rect width="100%" height="100%" fill="url(#dot-${c.id})"/></svg></div>`;
+}
+const sectionsEl=$('#sections'),resultsEl=$('#results'),emptyEl=$('#empty');
+function matches(p){
+  if(state.cat!=='全部'){const mem=groupMembers[state.cat];if(mem){if(!mem.has(p.cat))return false;}else if(p.cat!==state.cat)return false;}
+  if(state.price!=='全部'&&!new RegExp(state.price).test(p.pricing))return false;
+  if(state.q){const q=state.q.toLowerCase();
+    const hay=(p.name+' '+p.company+' '+p.tagline+' '+p.intro+' '+p.tags.join(' ')+' '+catMap[p.cat].short).toLowerCase();
+    if(!hay.includes(q))return false;}
+  return true;
+}
+function filterActive(){return state.cat!=='全部'||state.price!=='全部'||state.q.trim()!=='';}
+function applyFilter(){
+  const tbCount=$('#tbCount');
+  if(!filterActive()){sectionsEl.style.display='';resultsEl.style.display='none';emptyEl.classList.remove('show');
+    tbCount.innerHTML=t('total')(PRODUCTS.length);return;}
+  const list=PRODUCTS.filter(matches);tbCount.innerHTML=t('match')(list.length);
+  sectionsEl.style.display='none';resultsEl.style.display='';
+  const old=new Map();$$('.card',resultsEl).forEach(el=>old.set(el.dataset.id,el.getBoundingClientRect()));
+  if(list.length===0){resultsEl.innerHTML='';emptyEl.classList.add('show');return;}
+  emptyEl.classList.remove('show');
+  resultsEl.innerHTML=`<div class="grid">${list.map(cardHTML).join('')}</div>`;
+  if(reduceMotion)return;
+  $$('.card',resultsEl).forEach(el=>{const o=old.get(el.dataset.id),n=el.getBoundingClientRect();
+    if(o){const dx=o.left-n.left,dy=o.top-n.top;if(dx||dy){el.style.transform=`translate(${dx}px,${dy}px)`;el.style.transition='none';
+      requestAnimationFrame(()=>{el.style.transition='transform .45s var(--ease)';el.style.transform='';});}}
+    else{el.style.opacity='0';el.style.transform='translateY(14px)';
+      requestAnimationFrame(()=>{el.style.transition='opacity .4s var(--ease),transform .4s var(--ease)';el.style.opacity='';el.style.transform='';});}});
+}
+let searchT;
+$('#search').addEventListener('input',e=>{clearTimeout(searchT);searchT=setTimeout(()=>{state.q=e.target.value.trim();applyFilter();
+  if(filterActive())window.scrollTo({top:$('#toolbar').offsetTop-70,behavior:reduceMotion?'auto':'smooth'});},180);});
+
+const modalMask=$('#modalMask'),modalEl=$('#modal');let lastFocus=null;let curModalId=null;
+function openModal(id){const p=PRODUCTS.find(x=>x.id===id);if(!p)return;const c=catMap[p.cat];lastFocus=document.activeElement;curModalId=id;
+  modalEl.innerHTML=`<div class="modal-hero" style="background:linear-gradient(130deg,${rgba(p.accent,.13)},#fff)">
+      <div class="modal-hero-bg" style="background:radial-gradient(circle at 80% 0%,${p.accent},transparent 60%)"></div>
+      <button class="modal-x" id="modalX" aria-label="${t('mClose')}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      <div class="modal-head"><div class="modal-badge" style="--cc:${p.accent}">${logoTag(p)}</div>
+        <div><h3 id="modalName">${esc(p.name)}</h3><div class="mco">${esc(p.company)}</div>
+          <span class="modal-cat"><span class="d" style="background:${c.accent}"></span>${esc(gName(c))}</span></div></div></div>
+    <div class="modal-body"><p class="modal-tagline">${esc(p.tagline)}</p><p class="modal-intro">${esc(p.intro)}</p>
+      <div class="modal-tags">${p.tags.map(tag=>`<span class="tg">${esc(tag)}</span>`).join('')}</div>
+      ${timelineHTML(p.id)}
+      ${newsHTML(p)}
+      <div class="modal-info"><div class="ii"><div class="k">${t('mPricing')}</div><div class="v">${esc(priceLabel(p.pricing))}</div></div>
+        <div class="ii"><div class="k">${t('mCat')}</div><div class="v">${esc(gShort(c))}</div></div>
+        <div class="ii"><div class="k">${t('mCompany')}</div><div class="v">${esc(p.company)}</div></div></div>
+      <div class="modal-actions"><a class="btn btn-primary" href="${esc(p.url)}" target="_blank" rel="noopener noreferrer">${t('mVisit')}
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+        <button class="btn btn-ghost" id="modalClose2">${t('mClose')}</button></div></div>`;
+  modalMask.classList.add('open');document.body.style.overflow='hidden';
+  $('#modalX').addEventListener('click',closeModal);$('#modalClose2').addEventListener('click',closeModal);$('#modalX').focus();
+  loadNews(p);
+}
+function closeModal(){modalMask.classList.remove('open');document.body.style.overflow='';curModalId=null;if(lastFocus)lastFocus.focus();}
+modalMask.addEventListener('click',e=>{if(e.target===modalMask)closeModal();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(modalMask.classList.contains('open'))closeModal();else closeDrawer();}});
+document.addEventListener('click',e=>{const card=e.target.closest('.card');if(card)openModal(card.dataset.id);});
+document.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.classList?.contains('card')){e.preventDefault();openModal(e.target.dataset.id);}});
+$('#ctaRandom').addEventListener('click',()=>openModal(PRODUCTS[Math.floor(Math.random()*PRODUCTS.length)].id));
+
+const drawer=$('#drawer'),drawerMask=$('#drawerMask');
+function openDrawer(){drawer.classList.add('open');drawerMask.classList.add('open');$('#navToggle').setAttribute('aria-expanded','true');}
+function closeDrawer(){drawer.classList.remove('open');drawerMask.classList.remove('open');$('#navToggle').setAttribute('aria-expanded','false');}
+$('#navToggle').addEventListener('click',openDrawer);$('#drawerClose').addEventListener('click',closeDrawer);drawerMask.addEventListener('click',closeDrawer);
+
+const nav=$('#nav'),toTop=$('#toTop'),progress=$('#progress');let ticking=false;
+function onScroll(){if(ticking)return;ticking=true;requestAnimationFrame(()=>{
+  const y=window.scrollY,h=document.documentElement.scrollHeight-window.innerHeight;
+  progress.style.width=(h>0?(y/h*100):0)+'%';nav.classList.toggle('solid',y>40);toTop.classList.toggle('show',y>600);
+  let cur='';for(const g of GROUPS){const el=document.getElementById('grp-'+g.id);if(el&&el.getBoundingClientRect().top<160)cur=g.id;}
+  $$('#navLinks a').forEach(a=>a.style.color=(a.getAttribute('href')==='#grp-'+cur)?'var(--primary-d)':'');ticking=false;});}
+window.addEventListener('scroll',onScroll,{passive:true});
+$('#toTop').addEventListener('click',()=>window.scrollTo({top:0,behavior:reduceMotion?'auto':'smooth'}));
+
+function countUp(el){const to=+el.dataset.to,u=$('.u',el)?.outerHTML||'';const dur=1400;const t0=performance.now();
+  if(reduceMotion){el.innerHTML=to+u;return;}
+  function step(t){const k=Math.min(1,(t-t0)/dur);const e=1-Math.pow(1-k,3);el.innerHTML=Math.round(to*e)+u;if(k<1)requestAnimationFrame(step);}
+  requestAnimationFrame(step);}
+let revealIO=null;
+function observeReveals(){
+  if(revealIO)revealIO.disconnect();
+  revealIO=new IntersectionObserver(es=>{es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');revealIO.unobserve(en.target);}});},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+  $$('.reveal').forEach(el=>revealIO.observe(el));
+}
+function observeStats(){
+  const sio=new IntersectionObserver(es=>{es.forEach(en=>{if(en.isIntersecting){$$('.num',en.target).forEach(countUp);sio.unobserve(en.target);}});},{threshold:.4});
+  sio.observe($('#statsGrid'));
+}
+function buildFooter(){
+  const cols=$('#footCols');cols.innerHTML='';const groups=[CATEGORIES.slice(0,6),CATEGORIES.slice(6)];
+  groups.forEach((g,i)=>{const col=document.createElement('div');col.className='foot-col';
+    col.innerHTML=`<h5>${i===0?t('footHot'):t('footMore')}</h5>`+g.map(c=>`<a href="#grp-${c.id}" data-cat="${c.id}">${esc(gShort(c))}</a>`).join('');cols.appendChild(col);});
+  const today=new Date();
+  $('#footNote').innerHTML= lang==='en'
+    ? `Data updated ${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}, compiled from official sites and public rankings. The AI field moves fast — confirm capabilities and pricing on the official site.`
+    : `数据更新于 ${today.getFullYear()} 年 ${today.getMonth()+1} 月，综合各产品官网与公开榜单整理。AI 行业变化迅速，具体能力与定价请以官网为准。`;
+}
+function applyLang(){
+  document.documentElement.lang=lang==='en'?'en':'zh-CN';
+  $$('[data-i18n]').forEach(el=>{el.textContent=t(el.dataset.i18n);});
+  $$('[data-i18n-html]').forEach(el=>{el.innerHTML=t(el.dataset.i18nHtml);});
+  const sp=$('#search');if(sp)sp.placeholder=t('searchPh');
+  const lt=$('#langToggle');if(lt)lt.textContent=lang==='zh'?'EN':'中';
+  buildBadges();buildStats(true);buildModeChips();buildPriceChips();buildTrackNav();buildFooter();
+  renderGrouping();applyFilter();
+  if(curModalId&&modalMask.classList.contains('open'))openModal(curModalId);
+}
+function toggleLang(){lang=lang==='zh'?'en':'zh';applyLang();}
+buildHero();buildBadges();buildStats(false);buildTrackNav();buildToolbar();buildFooter();renderGrouping();applyFilter();observeStats();onScroll();
+$('#trackNav').addEventListener('click',e=>{const b=e.target.closest('.track-card');if(b)gotoTrack(b.dataset.track);});
+$('#footCols').addEventListener('click',e=>{const a=e.target.closest('a[data-cat]');if(a){e.preventDefault();navigateToCat(a.dataset.cat);}});
+const _lt=$('#langToggle');if(_lt)_lt.addEventListener('click',toggleLang);
+</script>
+</body>
+</html>
