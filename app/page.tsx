@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowDownRight, ArrowUpRight, Download, Menu, X } from 'lucide-react';
+import { ArrowDownRight, ArrowUpRight, Menu, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 const navItems = [
@@ -70,10 +70,10 @@ export default function Home(){
       <video className="hero-video" src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260813_115057_94c3699b-0fd1-4124-bcf3-3626bb8c1f77.mp4" autoPlay muted loop playsInline />
       <GridField/>
       <div className="hero-orbit" aria-hidden="true" />
-      <div className="hero-title"><p>[ CECILIA SHU · AI PRODUCT MANAGER ]</p><h1>CECILIA SHU&apos;S<br/>PERSONAL WEBSITE</h1></div>
+      <div className="hero-title"><p>[ 把AI机会做成可体验产品 ]</p><h1>CECILIA SHU&apos;S<br/>PERSONAL WEBSITE</h1></div>
       <div className="hero-bottom">
         <a className="primary-cta" href="#projects"><span>✦</span> Projects 查看项目</a>
-        <div className="hero-note"><strong>TURNING AI OPPORTUNITIES INTO EXPERIENCES</strong><div><h2>把AI机会做成可体验产品</h2><p>从产品拆解、模型选型到原型验证，让AI想法真正跑起来。</p><a href="#about">About me 关于我 →</a></div></div>
+        <div className="hero-note"><strong>[ 4 YEARS IN AI PRODUCT ]</strong><div><h2>AI PRODUCT MANAGER<br/><span>四年AI产品实践</span></h2><p>从产品拆解、模型选型到原型验证，让AI想法真正跑起来。</p><a href="#about">About me 关于我 →</a></div></div>
       </div>
     </section>
 
@@ -100,10 +100,10 @@ export default function Home(){
     <section id="thinking" className="content-section thinking-section">
       <GridField quiet/><div className="content-wrap"><SectionTitle index="04" kicker="THINKING / PRODUCT TEARDOWN" title="把感性的产品魅力，拆成可验证的设计条件" copy="LOVOT产品拆解，从情绪表达、陪伴机制、关系建立与商业模式四个角度，分析AI陪伴产品如何形成长期价值。"/>
         <article className="thinking-feature reveal">
-          <a className="deck-cover" href="/thinking/lovot-product-teardown.pptx" download><img src="/thinking/lovot-cover.png" alt="LOVOT产品拆解封面"/><span>22 SLIDES <Download/></span></a>
+          <a className="deck-cover" href="/thinking/lovot-product-teardown.pdf" target="_blank" rel="noreferrer"><img src="/thinking/lovot-cover.png" alt="LOVOT产品拆解封面"/><span>在线阅读 <ArrowUpRight/></span></a>
           <div className="thinking-copy"><p className="eyebrow">[ FEATURED RESEARCH ]</p><h3>当AI不再有用</h3><p>从LOVOT看陪伴类产品的设计逻辑：一款主动放弃功能价值的产品，如何通过反应性、生命感和被需要感建立关系。</p>
             <ol><li><span>01</span>能力克制也是产品能力</li><li><span>02</span>把感性目标工程化</li><li><span>03</span>重新定义参照系，重新定义价格</li><li><span>04</span>责任感产生的留存强于满足感</li></ol>
-            <a className="text-link" href="/thinking/lovot-product-teardown.pptx" download>DOWNLOAD FULL DECK <ArrowDownRight/></a>
+            <a className="text-link" href="/thinking/lovot-product-teardown.pdf" target="_blank" rel="noreferrer">在线查看完整拆解 <ArrowDownRight/></a>
           </div>
         </article>
       </div>
