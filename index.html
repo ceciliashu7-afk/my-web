@@ -166,14 +166,15 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .hero__media video{
   width:100%;height:100%;object-fit:cover;object-position:center top;
   opacity:0;                       /* 由 JS 控制淡入淡出 */
-  filter:saturate(.7) contrast(.95);  /* 降饱和：让视频退后，衬线大字当主角 */
+  filter:saturate(.82) contrast(.96) brightness(1.03);  /* 这支视频本身已偏暗偏冷，降饱和幅度比上一支轻，避免过灰 */
 }
-/* 上薄下厚的白色渐变：天空本就是白的，草地需要更长的过渡化进白里 */
+/* 这支素材没有白色天空，上下都需要更长的过渡，让深色画面柔和地融进白页面，
+   而不是露出一块生硬的深色矩形 */
 .hero__media::after{
   content:"";position:absolute;inset:0;pointer-events:none;
   background:
-    linear-gradient(to bottom,#fff 0%,rgba(255,255,255,.6) 10%,rgba(255,255,255,0) 26%),
-    linear-gradient(to top,#fff 0%,rgba(255,255,255,.75) 18%,rgba(255,255,255,0) 40%);
+    linear-gradient(to bottom,#fff 0%,rgba(255,255,255,.7) 14%,rgba(255,255,255,0) 42%),
+    linear-gradient(to top,#fff 0%,rgba(255,255,255,.8) 20%,rgba(255,255,255,0) 46%);
 }
 /* 视频缺失时的占位（视频一旦开始播放就隐藏） */
 /* 视频加载不出时的兜底：一片安静的浅色，不显示任何说明文字 */
