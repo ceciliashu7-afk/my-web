@@ -229,3 +229,26 @@ button { color:inherit; font:inherit; }
   .connect-bottom { grid-template-columns:1fr; }
 }
 @media (prefers-reduced-motion:reduce) { .flow-lines-drift { animation:none!important; } .hero-title { transform:none!important; transition:none; } }
+
+/* Published writing and direct contact */
+.writing-index { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.writing-card { position:relative; display:block; min-height:270px; padding:28px; border-right:1px solid rgba(255,255,255,.18); border-bottom:1px solid rgba(255,255,255,.18); transition:background .25s ease; }
+.writing-card:nth-child(2n) { border-right:0; }
+.writing-card:nth-last-child(-n+2) { border-bottom:0; }
+.writing-card:hover { background:rgba(126,194,242,.06); }
+.writing-card span { position:absolute; top:26px; right:26px; color:var(--ice); font-size:11px; }
+.writing-card p { color:var(--ice); font-size:9px; letter-spacing:.14em; }
+.writing-card h3 { margin:78px 28px 22px 0; font-size:clamp(21px,2vw,31px); font-weight:300; line-height:1.38; letter-spacing:.01em; }
+.writing-card small { display:inline-flex; align-items:center; gap:8px; color:rgba(255,255,255,.62); font-size:12px; }
+.writing-card small svg { width:14px; transition:transform .2s ease; }
+.writing-card:hover small svg { transform:translate(3px,-3px); }
+.connect-card a { display:inline-flex; align-items:center; gap:8px; color:var(--ice); font-size:12px; }
+.connect-card a svg { width:14px; }
+@media (max-width:760px) {
+  .writing-index { grid-template-columns:1fr; }
+  .writing-card,.writing-card:nth-child(2n) { min-height:220px; border-right:0; border-bottom:1px solid rgba(255,255,255,.18); }
+  .writing-card:last-child { border-bottom:0; }
+  .writing-card:nth-last-child(-n+2) { border-bottom:1px solid rgba(255,255,255,.18); }
+  .writing-card:last-child { border-bottom:0; }
+  .writing-card h3 { margin-top:64px; }
+}

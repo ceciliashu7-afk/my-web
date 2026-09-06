@@ -15,6 +15,13 @@ const projects = [
   { number:'04', name:'AirDoodle 指尖画梦', type:'GESTURE INTERACTION', copy:'把手举到镜头前，让空气成为画布。用视觉识别完成绘画、擦除和颜色选择。', href:'https://airdoodle-delta.vercel.app/', preview:null, image:'/projects/airdoodle-poster-v2.png', action:'开始指尖画梦', tone:'violet' },
 ] as const;
 
+const articles = [
+  { number:'01', category:'AI IN BUSINESS', title:'企业AI赋能转型：从“焦虑跟随”到“业务增长引擎”', href:'https://mp.weixin.qq.com/s/qsn2jS8ZCO7s8z0zohv30w' },
+  { number:'02', category:'PRODUCT INTERACTION', title:'从“点按钮”到“描述任务”：CLI如何重构AI产品交互', href:'https://mp.weixin.qq.com/s/8rxpMN3LtJAbeAUzAnKO9A' },
+  { number:'03', category:'AI PRODUCT ENTRY', title:'DeepSeek不再只卷模型了？Harness背后，是下一代AI产品入口之争', href:'https://mp.weixin.qq.com/s/NX4YTqnfTC2aFYNGiC8bSg' },
+  { number:'04', category:'MODEL WATCH', title:'AGI时代真的来了？GPT-6 Astra全景拆解', href:'https://mp.weixin.qq.com/s/_jzaBNL9ZV1boAb410G5zA' },
+] as const;
+
 function GridField({ quiet=false }:{quiet?:boolean}) {
   const vertical=['12.6%','37.5%','61.9%','86.2%']; const horizontal=['32.7%','71.4%'];
   return <div className={`grid-field ${quiet?'is-quiet':''}`} aria-hidden="true">
@@ -136,13 +143,13 @@ export default function Home(){
     </section>
 
     <section id="writing" className="content-section writing-section"><AmbientField/><div className="content-wrap">
-      <SectionTitle index="05" kicker="WRITING / 哈密瓜的随想录" title="持续写下AI产品的判断依据" copy="文章链接补充之前，先保留清晰的内容坐标。每篇文章都会回答一个具体问题，而不是复述行业新闻。"/>
-      <div className="writing-index reveal"><article><span>01</span><p>AI TREND</p><h3>趋势观察</h3><small>判断新能力会改变什么，以及不会改变什么</small></article><article><span>02</span><p>PRODUCT ANALYSIS</p><h3>产品拆解</h3><small>从用户行为和产品机制中寻找可复用的方法</small></article><article><span>03</span><p>BUILD NOTES</p><h3>实践复盘</h3><small>记录一个想法如何被做成、测试并继续迭代</small></article></div>
-      <p className="writing-status reveal">[ ARTICLES WILL BE CONNECTED TO WECHAT IN THE NEXT ITERATION ]</p>
+      <SectionTitle index="05" kicker="WRITING / 哈密瓜的随想录" title="持续写下AI产品的判断依据" copy="关于企业应用、交互方式、产品入口与模型演进的长期观察。"/>
+      <div className="writing-index reveal">{articles.map(article=><a className="writing-card" key={article.href} href={article.href} target="_blank" rel="noreferrer"><span>{article.number}</span><p>{article.category}</p><h3>{article.title}</h3><small>阅读公众号文章 <ArrowUpRight/></small></a>)}</div>
+      <p className="writing-status reveal">[ WECHAT OFFICIAL ACCOUNT · 哈密瓜的随想录 ]</p>
     </div></section>
 
     <section id="connect" className="connect-section"><AmbientField/><GridField quiet/><div className="connect-inner reveal">
-      <p>[ OPEN TO CONVERSATIONS ]</p><h2>LET&apos;S TURN AI IDEAS<br/>INTO REAL PRODUCTS.</h2><div className="connect-bottom"><p>如果你正在寻找AI产品经理，或者希望一起验证一个AI产品机会，欢迎通过公众号找到我。</p><div className="connect-card"><span>WECHAT OFFICIAL ACCOUNT</span><strong>哈密瓜的随想录</strong><small>工作邮箱与微信将在下一版补充</small></div></div>
+      <p>[ OPEN TO CONVERSATIONS ]</p><h2>LET&apos;S TURN AI IDEAS<br/>INTO REAL PRODUCTS.</h2><div className="connect-bottom"><p>如果你正在寻找AI产品经理，或者希望一起验证一个AI产品机会，欢迎通过公众号或工作邮箱联系我。</p><div className="connect-card"><span>WECHAT OFFICIAL ACCOUNT</span><strong>哈密瓜的随想录</strong><a href="mailto:Ceciliashu7@outlook.com">Ceciliashu7@outlook.com <ArrowUpRight/></a></div></div>
     </div><footer><span>CECILIA // SHU</span><span>AI PRODUCT MANAGER · 2026</span><a href="#home">BACK TO TOP ↑</a></footer></section>
   </main>
 }
