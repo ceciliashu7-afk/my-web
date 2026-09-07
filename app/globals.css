@@ -252,3 +252,29 @@ button { color:inherit; font:inherit; }
   .writing-card h3 { margin-top:64px; }
 }
 @media (prefers-reduced-motion:reduce) { .writing-card:hover h3 { animation:none; transform:none; } }
+
+/* Comfortable page gutters and calmer content measure */
+:root { --page-gutter:clamp(32px,6.5vw,104px); --content-max:1280px; }
+.top-nav { padding-right:var(--page-gutter); padding-left:var(--page-gutter); }
+.hero-title { left:var(--page-gutter); right:var(--page-gutter); }
+.hero-bottom { right:var(--page-gutter); left:var(--page-gutter); }
+.content-section { padding-right:var(--page-gutter); padding-left:var(--page-gutter); }
+.content-wrap,.connect-inner { width:min(var(--content-max),100%); }
+.connect-section { padding-right:var(--page-gutter); padding-left:var(--page-gutter); }
+.section-heading h2 { max-width:900px; }
+.project-card { padding:clamp(26px,2.2vw,34px); }
+.project-copy { max-width:30rem; }
+.writing-card { padding:34px 40px; }
+.writing-card span { top:34px; right:40px; }
+
+@media (max-width:760px) {
+  :root { --page-gutter:24px; }
+  .top-nav { padding:20px var(--page-gutter); }
+  .hero-title { left:var(--page-gutter); right:var(--page-gutter); }
+  .hero-bottom { right:var(--page-gutter); left:var(--page-gutter); }
+  .content-section { padding-right:var(--page-gutter); padding-left:var(--page-gutter); }
+  .project-card { min-width:min(84vw,372px); padding:24px; }
+  .writing-card { padding:28px 26px; }
+  .writing-card span { top:28px; right:26px; }
+  .connect-section { padding-right:var(--page-gutter); padding-left:var(--page-gutter); }
+}
