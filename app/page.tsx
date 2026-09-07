@@ -27,7 +27,6 @@ function GridField({ quiet=false }:{quiet?:boolean}) {
   return <div className={`grid-field ${quiet?'is-quiet':''}`} aria-hidden="true">
     {vertical.map((left,i)=><span key={left} className="grid-line-v" style={{left,animationDelay:`${600+i*100}ms`}} />)}
     {horizontal.map((top,i)=><span key={top} className="grid-line-h" style={{top,animationDelay:`${800+i*150}ms`}} />)}
-    {horizontal.flatMap((top,hi)=>vertical.map((left,vi)=><span key={`${top}-${left}`} className="grid-plus" style={{top,left,animationDelay:`${1000+(hi*4+vi)*80}ms`}} />))}
   </div>;
 }
 
