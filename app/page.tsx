@@ -110,22 +110,24 @@ export default function Home(){
       <AmbientField/>
       <GridField quiet/>
       <div className="content-wrap">
-        <SectionTitle index="02" kicker="ABOUT / EXPERIENCE" title="把模型能力，变成真实业务中的产品能力" copy="4年产品经验，做过 AI 对话陪伴、AI 质检审核、AI 巡检自动化三类产品，覆盖 To C 和 To B 企业内部场景。擅长把业务痛点变成可落地、可评测、可复用的 AI 产品。"/>
-        <div className="about-highlights reveal">
-          <ul className="about-results" aria-label="成果数字">
-            <li><strong>10倍+</strong><span>巡检效率提升</span></li>
-            <li><strong>+19pp</strong><span>用户续费率提升</span></li>
-            <li><strong>4倍</strong><span>质检产能提升</span></li>
-          </ul>
-          <ul className="about-skills" aria-label="技术能力标签">
-            {['RAG', 'LLM Agent', 'Function Calling', '多模态（ASR / CV）', '语音交互链路', 'Prompt Engineering', 'AI 效果评测', 'Human-in-the-loop'].map(skill => <li key={skill}>{skill}</li>)}
-          </ul>
-        </div>
+        <header className="section-heading reveal">
+          <div><span>02.</span><p>ABOUT / EXPERIENCE</p></div>
+          <h2>把模型能力，变成真实业务中的产品能力</h2>
+        </header>
         <div className="about-layout">
           <figure className="portrait-frame reveal"><img src="/media/cecilia-portrait.png" alt="Cecilia Shu 个人肖像"/><figcaption>[ CECILIA_SHU / AI PRODUCT MANAGER ]</figcaption></figure>
-          <div className="experience-list">
-            <article className="experience reveal"><div className="experience-top"><span>01</span><h3>伴鱼少儿英语 · AI产品经理</h3><time>2024.09 — 2026.07</time></div><p>负责AI原生交互与智能运营产品建设，围绕AI体验不稳定、复杂业务依赖人工、执行标准难统一等核心问题，推动RAG、实时语音、多模态分析与Agent能力产品化，将底层模型能力转化为可控、可评估的产品工作流。主导面向用户的AI交互产品及面向企业的智能质检产品，从产品定义、技术方案、效果评估到数据迭代建立完整闭环，推动AI能力在真实业务场景中规模化落地。</p></article>
-            <article className="experience reveal"><div className="experience-top"><span>02</span><h3>中泰智本网络科技 · AI产品经理</h3><time>2022.10 — 2024.08</time></div><p>负责AI内容生产与数据智能产品建设，围绕内容生产效率、个性化服务和跨场景数据割裂等问题，主导大模型生成、RAG知识检索、知识图谱约束和智能推荐能力的产品化应用。通过用户研究、Prompt策略、质量控制体系和数据反馈闭环，将碎片化业务需求抽象为可复用的产品能力，推动AI从单点功能升级为能够持续产生业务价值的平台型解决方案。</p></article>
+          <div className="about-profile reveal">
+            <p className="about-intro">4年产品经验，做过 AI 对话陪伴、AI 质检审核、AI 巡检自动化三类产品，覆盖 To C 和 To B 企业内部场景。擅长把业务痛点变成可落地、可评测、可复用的 AI 产品。</p>
+            <div className="about-highlights">
+              <ul className="about-results" aria-label="成果数字">
+                <li><strong>10倍+</strong><span>巡检效率提升</span></li>
+                <li><strong>+19pp</strong><span>用户续费率提升</span></li>
+                <li><strong>4倍</strong><span>质检产能提升</span></li>
+              </ul>
+              <ul className="about-skills" aria-label="技术能力标签">
+                {['RAG', 'LLM Agent', 'Function Calling', '多模态（ASR / CV）', '语音交互链路', 'Prompt Engineering', 'AI 效果评测', 'Human-in-the-loop'].map(skill => <li key={skill}>{skill}</li>)}
+              </ul>
+            </div>
           </div>
         </div>
       </div>
