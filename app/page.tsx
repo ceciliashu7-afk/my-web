@@ -110,7 +110,17 @@ export default function Home(){
       <AmbientField/>
       <GridField quiet/>
       <div className="content-wrap">
-        <SectionTitle index="02" kicker="ABOUT / EXPERIENCE" title="把模型能力，变成真实业务中的产品能力" copy="四年AI产品实践，持续处理同一个问题：怎样让新能力进入用户流程，并产生可以验证的结果。"/>
+        <SectionTitle index="02" kicker="ABOUT / EXPERIENCE" title="把模型能力，变成真实业务中的产品能力" copy="4年产品经验，做过 AI 对话陪伴、AI 质检审核、AI 巡检自动化三类产品，覆盖 To C 和 To B 企业内部场景。擅长把业务痛点变成可落地、可评测、可复用的 AI 产品。"/>
+        <div className="about-highlights reveal">
+          <ul className="about-results" aria-label="成果数字">
+            <li><strong>10倍+</strong><span>巡检效率提升</span></li>
+            <li><strong>+19pp</strong><span>用户续费率提升</span></li>
+            <li><strong>4倍</strong><span>质检产能提升</span></li>
+          </ul>
+          <ul className="about-skills" aria-label="技术能力标签">
+            {['RAG', 'LLM Agent', 'Function Calling', '多模态（ASR / CV）', '语音交互链路', 'Prompt Engineering', 'AI 效果评测', 'Human-in-the-loop'].map(skill => <li key={skill}>{skill}</li>)}
+          </ul>
+        </div>
         <div className="about-layout">
           <figure className="portrait-frame reveal"><img src="/media/cecilia-portrait.png" alt="Cecilia Shu 个人肖像"/><figcaption>[ CECILIA_SHU / AI PRODUCT MANAGER ]</figcaption></figure>
           <div className="experience-list">
